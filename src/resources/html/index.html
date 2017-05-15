@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="script.js"></script>
+
+    <style>
+        #draggable { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; }
+        #droppable { width: 150px; height: 150px; padding: 0.5em; float: left; margin: 10px; }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script>
+  $( function() {
+    $( "#draggable" ).draggable();
+    $( "#droppable" ).droppable({
+      drop: function( event, ui ) {
+        $( this )
+          .addClass( "ui-state-highlight" )
+          .find( "p" )
+            .html( "Dropped!" );
+      }
+    });
+  } );
+  </script>
+</head>
+<body>
+<h1>This is an Actions examples</h1>
+
+<!-- Double click -->
+<hr/>
+<h2>Double Click</h2>
+<p id="double_click" ondblclick="myFunction()">Double-click this paragraph to trigger a function.</p>
+<p id="demo"></p>
+
+<!-- Move to element -->
+<br/><br/>
+<hr/>
+<h2>Move to element (mouse hover)</h2>
+<div class="dropdown">
+    <button class="dropbtn">Menu</button>
+    <div class="dropdown-content">
+        <a href="#">Submenu 1</a>
+        <a href="#">Submenu 2</a>
+        <a href="#">Submenu 3</a>
+    </div>
+</div>
+
+<!-- Select all text -->
+<br/><br/>
+<hr/>
+<h2>Key down and key up</h2>
+<textarea>This is an example. This is an example. This is an example. This is an example. This is an example. </textarea>
+
+<!-- Drag and drop -->
+<br/><br/>
+<hr/>
+<h2>Drag and drop</h2>
+
+<div id="draggable" class="ui-widget-content">
+    <p>Drag me to my target</p>
+</div>
+
+<div id="droppable" class="ui-widget-header">
+    <p>Drop here</p>
+</div>
+
+</body>
+</html>

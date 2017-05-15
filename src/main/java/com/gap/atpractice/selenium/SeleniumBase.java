@@ -1,0 +1,87 @@
+package com.gap.atpractice.selenium;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.util.Arrays;
+
+/**
+ * Created by auto on 06/04/17.
+ */
+public class SeleniumBase {
+    private WebDriver driver;
+
+    /**
+     * Deciding WebDriver configuration according with parameter
+     * @param browserName which browser, Chrome, FF, IE
+     * @return configured and initialized WebDriver
+     */
+    public WebDriver setup(String browserName){
+
+        switch (browserName){
+            case "Chrome":
+                initChrome();
+                break;
+            case "IE":
+                initIE();
+                break;
+            case  "FF":
+                initFireFox();
+                break;
+            default:
+                System.out.println("Browser not supported");
+        }
+        //driver.manage().deleteAllCookies();
+
+        return driver;
+    }
+
+    /**
+     * Configuring ChromeDriver
+     */
+    private void initChrome(){
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("start-maximized");
+        options.addArguments("-incognito");
+        options.addArguments("windowTypes", "webview");
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        //capabilities.setCapability("chrome.switches", Arrays.asList("--homepage=".concat("http://qa-test-inspire.civitaslearning.com")));
+        capabilities.setCapability("acceptSslCerts", true);
+        this.driver = new ChromeDriver(capabilities);
+    }
+
+    /**
+     * Configuring InternetExplorerDriver
+     */
+    private void initIE(){
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        //capabilities.setCapability("chrome.switches", Arrays.asList("--homepage=".concat("http://qa-test-inspire.civitaslearning.com")));
+        capabilities.setCapability("acceptSslCerts", true);
+        capabilities.setCapability("applicationCacheEnabled", true);
+
+        this.driver = new InternetExplorerDriver(capabilities);
+
+        this.driver = new InternetExplorerDriver();
+
+    }
+
+    /**
+     * Configuring FireforDriver
+     */
+    private void initFireFox(){
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        //capabilities.setCapability("chrome.switches", Arrays.asList("--homepage=".concat("http://qa-test-inspire.civitaslearning.com")));
+        capabilities.setCapability("acceptSslCerts", true);
+        capabilities.setCapability("applicationCacheEnabled", true);
+
+        this.driver = new FirefoxDriver(capabilities);
+    }
+}
