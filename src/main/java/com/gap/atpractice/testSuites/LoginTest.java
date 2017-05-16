@@ -1,5 +1,7 @@
 package com.gap.atpractice.testSuites;
 
+import com.gap.atpractice.pageObject.HomePage;
+import com.gap.atpractice.pageObject.LoginPage;
 import com.gap.atpractice.selenium.SeleniumBase;
 import com.gap.atpractice.utils.TakeScreenshot;
 import org.openqa.selenium.By;
@@ -16,9 +18,8 @@ public class LoginTest {
 
     private static void initSetup(){
         SeleniumBase seleniumBase = new SeleniumBase();
-        driver = seleniumBase.setup("IE");
+        driver = seleniumBase.setup("Chrome");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://vacations.evercoding.com/users");
     }
 
     public static void main(String [] args){
@@ -26,21 +27,17 @@ public class LoginTest {
             //Initialize driver
             initSetup();
 
-            //Validating if page is displayed
-            boolean isPageDisplayed = driver.findElement(By.tagName("title")).isDisplayed();
+            LoginPage loginPage = new LoginPage(driver);
 
-            if (isPageDisplayed)
+            loginPage.navigateToLoginPage("http://vacations.evercoding.com/users");
+
+            if (loginPage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"))
                 System.out.println("Login page is displayed");
 
-            //Finding elements
-            driver.findElement(By.id("user_email")).sendKeys("at_java_training@wearegap.com");
-            driver.findElement(By.id("user_password")).sendKeys("123queso");
+            HomePage homePage = loginPage.loginValidCredentials("at_java_training@wearegap.com", "123queso");
 
-            String url = "./src/main/resources/screenshots/screenshot1.png";
-            //Taking the screenshot before hitting login button
-            TakeScreenshot.takeScreenshot(driver, url,"png");
-
-            driver.findElement(By.xpath("//input[@class='submit']")).click();
+            if (homePage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"))
+                System.out.println("Home page is displayed");
 
             //Taking the screenshot after Welcome page loads
             TakeScreenshot.takeScreenshot(driver, "./src/main/resources/screenshots/screenshot2.png", "png");
