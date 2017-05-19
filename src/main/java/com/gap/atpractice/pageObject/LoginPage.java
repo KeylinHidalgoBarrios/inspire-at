@@ -1,18 +1,22 @@
 package com.gap.atpractice.pageObject;
 
-import org.openqa.selenium.By;
+import com.gap.atpractice.botStyleTest.BotStyle;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.LoadableComponent;
+import org.testng.Assert;
 
 /**
  * Created by keyhi on 5/15/2017.
  */
-public class LoginPage {
+public class LoginPage extends LoadableComponent<LoginPage>{
 
     //Using same driver across application
     WebDriver driver;
+
+    BotStyle botStyle;
 
     //Elements locators using Page Factory
     @FindBy(id = "user_email") private WebElement userName;
@@ -25,15 +29,8 @@ public class LoginPage {
      */
     public LoginPage(WebDriver driver){
         this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-
-    /**
-     * Method to navigate to site
-     * @param url URL to navigate to
-     */
-    public void navigateToLoginPage(String url){
-        driver.get(url);
+        botStyle = new BotStyle(this.driver);
+        PageFactory.initElements(this.driver, this);
     }
 
     /**
@@ -50,6 +47,7 @@ public class LoginPage {
      * @return return true if the Login page is loaded
      */
     public Boolean isPageLoaded (String title){
+        botStyle.waitForPageTitle(60, title);
         return getPageTitle().equals(title);
     }
 
@@ -61,10 +59,27 @@ public class LoginPage {
      */
     public HomePage loginValidCredentials (String userName, String password){
 
-        this.userName.sendKeys(userName);
-        this.password.sendKeys(password);
-        loginButton.click();
+        botStyle.type(this.userName, userName);
+        botStyle.type(this.password, password);
+        this.loginButton.click();
 
         return new HomePage(driver);
+    }
+
+    /**
+     * Overriding load method from LoadableComponent
+     */
+    @Override
+    protected void load(){
+        this.driver.get("http://vacations.evercoding.com/users");
+    }
+
+    /**
+     * Overriding isLoaded method from LoadableComponent
+     */
+    @Override
+    protected void isLoaded(){
+        String url = driver.getCurrentUrl();
+        Assert.assertTrue(url.contains("users"), "Not on the issue entry page: "+url);
     }
 }

@@ -27,9 +27,7 @@ public class LoginTest {
             //Initialize driver
             initSetup();
 
-            LoginPage loginPage = new LoginPage(driver);
-
-            loginPage.navigateToLoginPage("http://vacations.evercoding.com/users");
+            LoginPage loginPage = new LoginPage(driver).get();
 
             if (loginPage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"))
                 System.out.println("Login page is displayed");
