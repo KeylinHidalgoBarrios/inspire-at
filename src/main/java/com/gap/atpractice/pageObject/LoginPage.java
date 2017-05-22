@@ -71,7 +71,7 @@ public class LoginPage extends LoadableComponent<LoginPage>{
      */
     @Override
     protected void load(){
-        this.driver.get("http://vacations.evercoding.com/users");
+        this.driver.get("https://vacations-management.herokuapp.com/users/sign_in");
     }
 
     /**
