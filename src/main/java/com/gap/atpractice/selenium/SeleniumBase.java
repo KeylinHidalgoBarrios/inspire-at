@@ -8,8 +8,11 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by auto on 06/04/17.
@@ -22,6 +25,7 @@ public class SeleniumBase {
      * @param browserName which browser, Chrome, FF, IE
      * @return configured and initialized WebDriver
      */
+
     public WebDriver setup(String browserName){
 
         switch (browserName){
