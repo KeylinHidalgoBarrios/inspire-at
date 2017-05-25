@@ -3,37 +3,23 @@ package com.gap.atpractice.testSuites;
 import com.gap.atpractice.pageObject.ForgotPasswordPage;
 import com.gap.atpractice.pageObject.HomePage;
 import com.gap.atpractice.pageObject.LoginPage;
-import com.gap.atpractice.selenium.SeleniumBase;
 import com.gap.atpractice.utils.TakeScreenshot;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by auto on 06/04/17.
  */
-public class LoginTest {
-    private static WebDriver driver;
-    private LoginPage loginPage;
-
-    @BeforeMethod(groups = {"smoke", "resetPassword", "test001"})
-    @Parameters({"browser"})
-    private void initSetup(String browser){
-        SeleniumBase seleniumBase = new SeleniumBase();
-        driver = seleniumBase.setup(browser);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    }
+public class LoginTest extends TestBase{
+    protected LoginPage loginPage;
 
     /**
      * General method to go to Login Page
      */
-    private  void goToLoginPage(){
-        loginPage = new LoginPage(driver).get();
+    private void goToLoginPage(){
+        loginPage = (LoginPage) new LoginPage(driver).get();
 
         Assert.assertTrue(loginPage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"), "Login page cannot be displayed");
     }
@@ -56,7 +42,7 @@ public class LoginTest {
             JavascriptExecutor js = (JavascriptExecutor)driver;
             Assert.assertTrue(js.executeScript("return document.readyState").equals("complete"), "JavascriptExecutor document not loaded");
 
-            driver.quit();
+            quitBrowser();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -74,7 +60,7 @@ public class LoginTest {
             //Taking the screenshot after Forgot Password page loads
             TakeScreenshot.takeScreenshot(driver, "./src/main/resources/screenshots/ForgotPassword.png", "png");
 
-            driver.quit();
+            quitBrowser();
         }catch (Exception e){
             e.printStackTrace();
         }

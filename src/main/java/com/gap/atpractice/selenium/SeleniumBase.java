@@ -42,6 +42,7 @@ public class SeleniumBase {
                 System.out.println("Browser not supported");
         }
         driver.manage().deleteAllCookies();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         return driver;
     }

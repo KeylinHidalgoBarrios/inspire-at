@@ -1,22 +1,18 @@
 package com.gap.atpractice.pageObject;
 
-import com.gap.atpractice.botStyleTest.BotStyle;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.LoadableComponent;
 import org.testng.Assert;
 
 /**
  * Created by keyhi on 5/15/2017.
  */
-public class LoginPage extends LoadableComponent<LoginPage>{
+public class LoginPage extends PageBase {
 
-    //Using same driver across application
-    WebDriver driver;
-
-    BotStyle botStyle;
+    //Url to Login page
+    private String url = "users/sign_in";
 
     //Elements locators using Page Factory
     @FindBy(id = "user_email") private WebElement userName;
@@ -29,27 +25,8 @@ public class LoginPage extends LoadableComponent<LoginPage>{
      * @param driver Web driver across application
      */
     public LoginPage(WebDriver driver){
-        this.driver = driver;
-        botStyle = new BotStyle(this.driver);
-        PageFactory.initElements(this.driver, this);
-    }
-
-    /**
-     * Returning the page title
-     * @return Title
-     */
-    public String getPageTitle(){
-        return driver.getTitle();
-    }
-
-    /**
-     * Method to login with valid credentials
-     * @param title page title
-     * @return return true if the Login page is loaded
-     */
-    public Boolean isPageLoaded (String title){
-        botStyle.waitForPageTitle(60, title);
-        return getPageTitle().equals(title);
+        super(driver);
+        PageFactory.initElements(driver, this);
     }
 
     /**
@@ -83,7 +60,7 @@ public class LoginPage extends LoadableComponent<LoginPage>{
      */
     @Override
     protected void load(){
-        this.driver.get("https://vacations-management.herokuapp.com/users/sign_in");
+        this.driver.get(String.format("%s%s", super.URL_BASE, this.url));
     }
 
     /**
