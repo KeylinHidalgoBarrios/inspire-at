@@ -41,7 +41,7 @@ public class SeleniumBase {
             default:
                 System.out.println("Browser not supported");
         }
-        //driver.manage().deleteAllCookies();
+        driver.manage().deleteAllCookies();
 
         return driver;
     }

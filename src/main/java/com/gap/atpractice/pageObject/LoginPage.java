@@ -22,6 +22,7 @@ public class LoginPage extends LoadableComponent<LoginPage>{
     @FindBy(id = "user_email") private WebElement userName;
     @FindBy(id = "user_password") private WebElement password;
     @FindBy(xpath = "//input[@class='submit']") private WebElement loginButton;
+    @FindBy(xpath = "//a[contains(text(), 'password?')]") private WebElement forgotPasswordLink;
 
     /**
      * Constructor
@@ -64,6 +65,17 @@ public class LoginPage extends LoadableComponent<LoginPage>{
         this.loginButton.click();
 
         return new HomePage(driver);
+    }
+
+    /**
+     * Redirect to page to reset password
+     * @return instance of the NewPasswordPage
+     */
+    public ForgotPasswordPage goToNewPasswordPage(){
+
+        this.forgotPasswordLink.click();
+
+        return new ForgotPasswordPage(driver);
     }
 
     /**

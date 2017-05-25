@@ -5,20 +5,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 /**
- * Created by keyhi on 5/15/2017.
+ * Created by keyhi on 5/24/2017.
  */
-public class HomePage {
+public class ForgotPasswordPage {
 
     //Using same driver across application
     WebDriver driver;
-
     BotStyle botStyle;
 
     /**
      * Constructor
      * @param driver Web driver across application
      */
-    public HomePage(WebDriver driver){
+    public ForgotPasswordPage(WebDriver driver){
         this.driver = driver;
         botStyle = new BotStyle(this.driver);
         PageFactory.initElements(this.driver, this);
