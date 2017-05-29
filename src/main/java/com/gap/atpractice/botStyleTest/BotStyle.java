@@ -44,8 +44,8 @@ public class BotStyle {
      * @param timeoutInSeconds timeout in seconds
      * @return return a webelement as a result of the By element
      */
-    private WebElement waitForElementPresent(final By byElement, int timeoutInSeconds){
-        return waitForElementPresent(driver.findElement(byElement), timeoutInSeconds);
+    public WebElement waitForElementPresent(int timeoutInSeconds, final By byElement){
+        return waitForElementPresent(timeoutInSeconds, driver.findElement(byElement));
     }
 
 
@@ -55,7 +55,7 @@ public class BotStyle {
      * @param timeoutInSeconds timeout in seconds
      * @return WebElement
      */
-    private WebElement waitForElementPresent(final WebElement element, int timeoutInSeconds){
+    public WebElement waitForElementPresent(int timeoutInSeconds, final WebElement element){
         Wait<WebDriver> wait = new WebDriverWait(driver, timeoutInSeconds);
 
         WebElement we= wait.until(new Function<WebDriver, WebElement>() {
@@ -72,7 +72,7 @@ public class BotStyle {
      * @param text Desired text
      */
     public void type(WebElement element, String text){
-        waitForElementPresent(element, 60);
+        waitForElementPresent(60, element);
         element.clear();
         element.sendKeys(text);
     }
@@ -83,7 +83,7 @@ public class BotStyle {
      * @param text Desired text
      */
     public void type(By locator, String text){
-        WebElement element = waitForElementPresent(locator, 60);
+        WebElement element = waitForElementPresent(60, locator);
         element.clear();
         element.sendKeys(text);
     }

@@ -11,7 +11,7 @@ import org.testng.annotations.Parameters;
 public class TestBase extends SeleniumBase {
     protected static WebDriver driver;
 
-    @BeforeMethod(groups = {"smoke", "resetPassword", "test001"})
+    @BeforeMethod(alwaysRun = true)
     @Parameters({"browser"})
     protected void initSetup(String browser){
         driver = setup(browser);

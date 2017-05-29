@@ -30,7 +30,7 @@ public class HomePage extends PageBase {
     public AdministrativeUsersPage clickAdminUsersTab(){
         this.usersTab.click();
 
-        return (AdministrativeUsersPage)driver;
+        return new AdministrativeUsersPage(driver);
     }
 
     /**
@@ -38,6 +38,7 @@ public class HomePage extends PageBase {
      * @return true if loaded, false if it's not
      */
     public boolean isPageLoaded(){
+        botStyle.waitForElementPresent(60, welcomeMessage);
         return welcomeMessage.isDisplayed();
     }
 

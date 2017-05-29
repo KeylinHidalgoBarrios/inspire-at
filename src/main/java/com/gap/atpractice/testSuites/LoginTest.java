@@ -18,13 +18,18 @@ public class LoginTest extends TestBase{
     /**
      * General method to go to Login Page
      */
-    private void goToLoginPage(){
+    public void goToLoginPage(){
         loginPage = (LoginPage) new LoginPage(driver).get();
 
         Assert.assertTrue(loginPage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"), "Login page cannot be displayed");
     }
 
-    @Test(groups = {"smoke", "test001"})
+    /**
+     * Test login process
+     * @param userName User credentials
+     * @param password Password credentials
+     */
+    @Test(groups = {"smoke", "regression"})
     @Parameters({"userName", "password"})
     public void loginTest(String userName, String password){
         try {
@@ -33,7 +38,7 @@ public class LoginTest extends TestBase{
 
             HomePage homePage = loginPage.loginValidCredentials(userName, password);
 
-            Assert.assertTrue(homePage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"), "Home page cannot be displayed");
+            Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
             //Taking the screenshot after Welcome page loads
             TakeScreenshot.takeScreenshot(driver, "./src/main/resources/screenshots/screenshot2.png", "png");
@@ -48,17 +53,17 @@ public class LoginTest extends TestBase{
         }
     }
 
-    @Test(groups = {"resetPassword", "test001"})
+    /**
+     * Go to Forgot your password page
+     */
+    @Test(groups = {"resetPassword", "regression"})
     public void goToForgotPasswordPage(){
         try {
             goToLoginPage();
 
-            ForgotPasswordPage newPasswordPage = loginPage.goToNewPasswordPage();
+            ForgotPasswordPage forgotPasswordPage = loginPage.goToNewPasswordPage();
 
-            Assert.assertTrue(newPasswordPage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"), "Reset Password Page can not be displayed");
-
-            //Taking the screenshot after Forgot Password page loads
-            TakeScreenshot.takeScreenshot(driver, "./src/main/resources/screenshots/ForgotPassword.png", "png");
+            Assert.assertTrue(forgotPasswordPage.isPageLoaded(), "Reset Password Page can not be displayed");
 
             quitBrowser();
         }catch (Exception e){

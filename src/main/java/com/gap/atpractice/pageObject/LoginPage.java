@@ -56,6 +56,16 @@ public class LoginPage extends PageBase {
     }
 
     /**
+     * Method to login with valid credentials
+     * @param title page title
+     * @return return true if the Login page is loaded
+     */
+    public boolean isPageLoaded (String title){
+        botStyle.waitForPageTitle(60, title);
+        return driver.getTitle().equals(title);
+    }
+
+    /**
      * Overriding load method from LoadableComponent
      */
     @Override
