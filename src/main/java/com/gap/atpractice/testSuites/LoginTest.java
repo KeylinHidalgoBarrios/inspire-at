@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
  * Created by auto on 06/04/17.
  */
 public class LoginTest extends TestBase{
-    protected LoginPage loginPage;
+    private LoginPage loginPage;
 
     /**
      * General method to go to Login Page

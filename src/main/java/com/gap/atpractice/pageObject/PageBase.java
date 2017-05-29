@@ -28,17 +28,17 @@ public abstract class PageBase extends LoadableComponent {
      * Returning the page title
      * @return Title
      */
-    public String getPageTitle(){
+    /*public String getPageTitle(){
         return driver.getTitle();
-    }
+    }*/
 
     /**
      * Method to login with valid credentials
      * @param title page title
      * @return return true if the Login page is loaded
      */
-    public Boolean isPageLoaded (String title){
+    /*public boolean isPageLoaded (String title){
         botStyle.waitForPageTitle(60, title);
         return getPageTitle().equals(title);
-    }
+    }*/
 }
