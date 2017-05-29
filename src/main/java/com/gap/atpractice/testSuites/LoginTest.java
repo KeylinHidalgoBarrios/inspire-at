@@ -1,11 +1,13 @@
 package com.gap.atpractice.testSuites;
 
+import com.gap.atpractice.dataProvider.DataProviderTest;
 import com.gap.atpractice.pageObject.ForgotPasswordPage;
 import com.gap.atpractice.pageObject.HomePage;
 import com.gap.atpractice.pageObject.LoginPage;
 import com.gap.atpractice.utils.TakeScreenshot;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -31,7 +33,7 @@ public class LoginTest extends TestBase{
      */
     @Test(groups = {"smoke", "regression"})
     @Parameters({"userName", "password"})
-    public void loginTest(String userName, String password){
+    public void loginSuccessfulTest(String userName, String password){
         try {
 
             goToLoginPage();
@@ -46,6 +48,27 @@ public class LoginTest extends TestBase{
             //Using javascript executor to validate the page is ready
             JavascriptExecutor js = (JavascriptExecutor)driver;
             Assert.assertTrue(js.executeScript("return document.readyState").equals("complete"), "JavascriptExecutor document not loaded");
+
+            quitBrowser();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Test login process to test sucessful and failed logins
+     * @param userName User credentials
+     * @param password Password credentials
+     */
+    @Test(groups = {"login"}, dataProvider = "dpTest001", dataProviderClass = DataProviderTest.class)
+    public void loginTest(String userName, String password){
+        try {
+
+            goToLoginPage();
+
+            loginPage.loginValidCredentials(userName, password);
+
+            System.out.println(String.format("Username: %s    Password: %s", userName, password));
 
             quitBrowser();
         }catch (Exception e){

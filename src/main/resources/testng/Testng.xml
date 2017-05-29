@@ -9,10 +9,11 @@
 
         <groups>
             <run>
-                <!--include name="smoke"/-->
+                <!--include name="smoke"/>
                 <include name="regression"/>
-                <!--include name="resetPassword"/-->
-                <!--include name="tabsTest"/-->
+                <include name="resetPassword"/>
+                <include name="tabsTest"/-->
+                <include name="login"/>
             </run>
         </groups>
         <classes>
