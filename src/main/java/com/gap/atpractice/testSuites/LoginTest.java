@@ -1,77 +1,71 @@
 package com.gap.atpractice.testSuites;
 
-import com.gap.atpractice.selenium.SeleniumBase;
+import com.gap.atpractice.pageObject.ForgotPasswordPage;
+import com.gap.atpractice.pageObject.HomePage;
+import com.gap.atpractice.pageObject.LoginPage;
 import com.gap.atpractice.utils.TakeScreenshot;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-
-import java.util.concurrent.TimeUnit;
+import org.testng.Assert;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
 /**
  * Created by auto on 06/04/17.
  */
-public class LoginTest {
-    private static WebDriver driver;
+public class LoginTest extends TestBase{
+    private LoginPage loginPage;
 
-    private static void initSetup(){
-        SeleniumBase seleniumBase = new SeleniumBase();
-        driver = seleniumBase.setup("IE");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://vacations.evercoding.com/users");
+    /**
+     * General method to go to Login Page
+     */
+    public void goToLoginPage(){
+        loginPage = (LoginPage) new LoginPage(driver).get();
+
+        Assert.assertTrue(loginPage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"), "Login page cannot be displayed");
     }
 
-    public static void main(String [] args){
+    /**
+     * Test login process
+     * @param userName User credentials
+     * @param password Password credentials
+     */
+    @Test(groups = {"smoke", "regression"})
+    @Parameters({"userName", "password"})
+    public void loginTest(String userName, String password){
         try {
-            //Initialize driver
-            initSetup();
 
-            //Validating if page is displayed
-            boolean isPageDisplayed = driver.findElement(By.tagName("title")).isDisplayed();
+            goToLoginPage();
 
-            if (isPageDisplayed)
-                System.out.println("Login page is displayed");
+            HomePage homePage = loginPage.loginValidCredentials(userName, password);
 
-            //Finding elements
-            driver.findElement(By.id("user_email")).sendKeys("at_java_training@wearegap.com");
-            driver.findElement(By.id("user_password")).sendKeys("123queso");
-
-            String url = "./src/main/resources/screenshots/screenshot1.png";
-            //Taking the screenshot before hitting login button
-            TakeScreenshot.takeScreenshot(driver, url,"png");
-
-            driver.findElement(By.xpath("//input[@class='submit']")).click();
+            Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
             //Taking the screenshot after Welcome page loads
             TakeScreenshot.takeScreenshot(driver, "./src/main/resources/screenshots/screenshot2.png", "png");
 
             //Using javascript executor to validate the page is ready
             JavascriptExecutor js = (JavascriptExecutor)driver;
-            if(js.executeScript("return document.readyState").equals("complete")){
-                System.out.println("JavascriptExecutor document loaded");
-            }
+            Assert.assertTrue(js.executeScript("return document.readyState").equals("complete"), "JavascriptExecutor document not loaded");
 
-            //Finding 4 elements using xpath
-            /*driver.findElement(By.xpath("//*[@class='appdashboard-panel appadmin']"));
-            System.out.println("First xpath element present");
+            quitBrowser();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
-            driver.findElement(By.xpath("//*[@class='appdashboard-panel appinternalsettings']"));
-            System.out.println("Second xpath element present");
+    /**
+     * Go to Forgot your password page
+     */
+    @Test(groups = {"resetPassword", "regression"})
+    public void goToForgotPasswordPage(){
+        try {
+            goToLoginPage();
 
-            driver.findElement(By.xpath("//*[@class='appdashboard-panel appadoption']"));
-            System.out.println("Third xpath element present");
+            ForgotPasswordPage forgotPasswordPage = loginPage.goToNewPasswordPage();
 
-            driver.findElement(By.xpath("//*[@class='appdashboard-panel appconfigurationpanel']"));
-            System.out.println("Fourth xpath element present");
+            Assert.assertTrue(forgotPasswordPage.isPageLoaded(), "Reset Password Page can not be displayed");
 
-            //Finding 2 elements using cssSelector
-            driver.findElement(By.cssSelector("[class='appdashboard-panel appconfigurationpanel']"));
-            System.out.println("First CSS element present");
-
-            driver.findElement(By.cssSelector("[class='appdashboard-panel appadoption']"));
-            System.out.println("Second CSS element present");*/
-
-            driver.quit();
+            quitBrowser();
         }catch (Exception e){
             e.printStackTrace();
         }

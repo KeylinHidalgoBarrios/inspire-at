@@ -52,7 +52,7 @@
         <version>2.19.1</version>
         <configuration>
           <suiteXmlFiles>
-            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+            <suiteXmlFile>src/main/resources/testng/Testng.xml</suiteXmlFile>
           </suiteXmlFiles>
           <systemPropertyVariables>
             <application.properties>/application.properties</application.properties>
