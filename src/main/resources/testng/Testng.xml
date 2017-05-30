@@ -13,7 +13,7 @@
                 <include name="regression"/>
                 <include name="resetPassword"/>
                 <include name="tabsTest"/-->
-                <include name="login"/>
+                <include name="dataProvider"/>
             </run>
         </groups>
         <classes>

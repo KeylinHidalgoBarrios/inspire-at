@@ -56,18 +56,37 @@ public class LoginTest extends TestBase{
     }
 
     /**
-     * Test login process to test sucessful and failed logins
-     * @param userName User credentials
-     * @param password Password credentials
+     * Test login process to test successful and failed logins
      */
-    @Test(groups = {"login"}, dataProvider = "dpTest001", dataProviderClass = DataProviderTest.class)
-    public void loginTest(String userName, String password){
+    @Test(groups = {"dataProvider"}, dataProvider = "dpTestLocal", dataProviderClass = DataProviderTest.class)
+    public void loginTestLocal(String userName, String password){
         try {
 
             goToLoginPage();
 
             loginPage.loginValidCredentials(userName, password);
 
+            System.out.println("Local Data Provider");
+            System.out.println(String.format("Username: %s    Password: %s", userName, password));
+
+            quitBrowser();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Test login process to test successful and failed logins
+     */
+    @Test(groups = {"dataProvider"}, dataProvider = "dpTestJson", dataProviderClass = DataProviderTest.class)
+    public void loginTestJson(String userName, String password){
+        try {
+
+            goToLoginPage();
+
+            loginPage.loginValidCredentials(userName, password);
+
+            System.out.println("JSON Data Provider");
             System.out.println(String.format("Username: %s    Password: %s", userName, password));
 
             quitBrowser();
