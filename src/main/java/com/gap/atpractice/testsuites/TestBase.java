@@ -1,4 +1,4 @@
-package com.gap.atpractice.testSuites;
+package com.gap.atpractice.testsuites;
 
 import com.gap.atpractice.selenium.SeleniumBase;
 import org.openqa.selenium.WebDriver;

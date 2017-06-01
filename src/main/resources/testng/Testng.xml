@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Suite1" verbose="1" >
+<suite name="Suite1" verbose="1" parallel="classes">
     <test name="LoginTest">
         <parameter name="browser" value="Chrome"/>
         <parameter name="userName" value="at_java_training@wearegap.com"/>
@@ -9,18 +9,20 @@
 
         <groups>
             <run>
-                <!--include name="smoke"/>
+                <include name="smoke"/>
                 <include name="regression"/>
                 <include name="resetPassword"/>
-                <include name="dataProvider"/-->
+                <include name="testngdataprovider"/>
                 <include name="individualTabsTest"/>
                 <include name="allTabsTest"/>
 
             </run>
         </groups>
         <classes>
-            <class name="com.gap.atpractice.testSuites.LoginTest"/>
-            <class name="com.gap.atpractice.testSuites.HomeTest"/>
+            <!--<class name="com.gap.atpractice.testsuites.LoginTest"/>
+            <class name="com.gap.atpractice.testsuites.HomeTest"/>-->
+            <class name="com.gap.atpractice.testngfactory.LoginFactory"/>
+            <!--<class name="com.gap.atpractice.testngfactory.HomeFactory"/>-->
         </classes>
     </test>
 </suite>

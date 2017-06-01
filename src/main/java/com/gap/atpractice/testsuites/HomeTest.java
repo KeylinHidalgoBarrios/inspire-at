@@ -1,6 +1,6 @@
-package com.gap.atpractice.testSuites;
+package com.gap.atpractice.testsuites;
 
-import com.gap.atpractice.pageObject.*;
+import com.gap.atpractice.pageobject.*;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;

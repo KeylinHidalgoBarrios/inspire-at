@@ -1,4 +1,4 @@
-package com.gap.atpractice.botStyleTest;
+package com.gap.atpractice.botstyletest;
 
 import com.google.common.base.Function;
 import org.openqa.selenium.By;

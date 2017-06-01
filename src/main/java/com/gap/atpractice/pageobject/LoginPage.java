@@ -1,4 +1,4 @@
-package com.gap.atpractice.pageObject;
+package com.gap.atpractice.pageobject;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

@@ -25,7 +25,7 @@ public class JsonUtils {
             JSONParser parser = new JSONParser();
 
             //path to the JSON file.
-            JSONArray data = (JSONArray) parser.parse(new FileReader("./src/main/resources/dataProviders/login_creds.json"));
+            JSONArray data = (JSONArray) parser.parse(new FileReader("./src/main/resources/dataproviders/login_creds.json"));
 
             //Know what size should the 2D array have
             int jsonSize = data.toArray().length;

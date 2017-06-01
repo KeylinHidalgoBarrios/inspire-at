@@ -1,13 +1,12 @@
-package com.gap.atpractice.testSuites;
+package com.gap.atpractice.testsuites;
 
-import com.gap.atpractice.dataProvider.DataProviderTest;
-import com.gap.atpractice.pageObject.ForgotPasswordPage;
-import com.gap.atpractice.pageObject.HomePage;
-import com.gap.atpractice.pageObject.LoginPage;
+import com.gap.atpractice.testngdataprovider.DataProviderTest;
+import com.gap.atpractice.pageobject.ForgotPasswordPage;
+import com.gap.atpractice.pageobject.HomePage;
+import com.gap.atpractice.pageobject.LoginPage;
 import com.gap.atpractice.utils.TakeScreenshot;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -58,7 +57,7 @@ public class LoginTest extends TestBase{
     /**
      * Test login process to test successful and failed logins
      */
-    @Test(groups = {"dataProvider"}, dataProvider = "dpTestLocal", dataProviderClass = DataProviderTest.class)
+    @Test(groups = {"testngdataprovider"}, dataProvider = "dpTestLocal", dataProviderClass = DataProviderTest.class)
     public void loginTestLocal(String userName, String password){
         try {
 
@@ -78,7 +77,7 @@ public class LoginTest extends TestBase{
     /**
      * Test login process to test successful and failed logins
      */
-    @Test(groups = {"dataProvider"}, dataProvider = "dpTestJson", dataProviderClass = DataProviderTest.class)
+    @Test(groups = {"testngdataprovider"}, dataProvider = "dpTestJson", dataProviderClass = DataProviderTest.class)
     public void loginTestJson(String userName, String password){
         try {
 

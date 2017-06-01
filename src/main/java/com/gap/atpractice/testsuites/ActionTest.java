@@ -1,4 +1,4 @@
-package com.gap.atpractice.testSuites;
+package com.gap.atpractice.testsuites;
 
 import com.gap.atpractice.selenium.SeleniumBase;
 import org.openqa.selenium.By;
@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 /**

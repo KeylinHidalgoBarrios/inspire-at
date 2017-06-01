@@ -1,4 +1,4 @@
-package com.gap.atpractice.dataProvider;
+package com.gap.atpractice.testngdataprovider;
 
 import com.gap.atpractice.utils.JsonUtils;
 import org.testng.annotations.DataProvider;
