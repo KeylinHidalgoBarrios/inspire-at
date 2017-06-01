@@ -1,8 +1,6 @@
 package com.gap.atpractice.testSuites;
 
-import com.gap.atpractice.pageObject.AdministrativeUsersPage;
-import com.gap.atpractice.pageObject.HomePage;
-import com.gap.atpractice.pageObject.LoginPage;
+import com.gap.atpractice.pageObject.*;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -27,19 +25,115 @@ public class HomeTest extends TestBase {
      * @param userName User name for login
      * @param password Password for login
      */
-    @Test(groups = {"tabsTest", "regression"})
+    @Test(groups = {"individualTabsTest", "regression"})
     @Parameters({"userName", "password"})
     public void clickAdministrativeUsersTab(String userName, String password){
         try{
             goToLoginPage();
 
+            //Home page loaded
             HomePage homePage = loginPage.loginValidCredentials(userName, password);
 
             Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
+            //Click Administrative Users tab
             AdministrativeUsersPage administrativeUsersPage = homePage.clickAdminUsersTab();
 
-            Assert.assertTrue(administrativeUsersPage.isPageLoaded(), "Page can not load");
+            Assert.assertTrue(administrativeUsersPage.isPageLoaded(), "Administrative Users tab can not load");
+
+            quitBrowser();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Go to Employee Information tab in home page
+     * @param userName User name for login
+     * @param password Password for login
+     */
+    @Test(groups = {"individualTabsTest", "regression"})
+    @Parameters({"userName", "password"})
+    public void clickEmployeeInfoTab(String userName, String password){
+        try{
+            goToLoginPage();
+
+            //Home page loaded
+            HomePage homePage = loginPage.loginValidCredentials(userName, password);
+
+            Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
+
+            //Click Employees Information tab
+            EmployeesInfoPage employeesInfoPage = homePage.clickEmployeeInfoTab();
+
+            Assert.assertTrue(employeesInfoPage.isPageLoaded(), "Employees Information tab can not load");
+
+            quitBrowser();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Go to My Account tab in home page
+     * @param userName User name for login
+     * @param password Password for login
+     */
+    @Test(groups = {"individualTabsTest", "regression"})
+    @Parameters({"userName", "password"})
+    public void clickMyAccountTab(String userName, String password){
+        try{
+            goToLoginPage();
+
+            //Home page loaded
+            HomePage homePage = loginPage.loginValidCredentials(userName, password);
+
+            Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
+
+            //Click My Account tab
+            MyAccountPage myAccountPage = homePage.clickMyAccountTab();
+
+            Assert.assertTrue(myAccountPage.isPageLoaded(), "My Account tab can not load");
+
+            quitBrowser();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Click through all tabs in home page
+     * @param userName User name for login
+     * @param password Password for login
+     */
+    @Test(groups = {"allTabsTest", "regression"})
+    @Parameters({"userName", "password"})
+    public void goThroughAllTabs(String userName, String password){
+        try{
+            goToLoginPage();
+
+            //Home page loaded
+            HomePage homePage = loginPage.loginValidCredentials(userName, password);
+
+            Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
+
+            //Go to My Account tab
+            MyAccountPage myAccountPage = homePage.clickMyAccountTab();
+
+            Assert.assertTrue(myAccountPage.isPageLoaded(), "My Account tab can not load");
+
+            //Go to Administrative Users tab
+            AdministrativeUsersPage administrativeUsersPage = homePage.clickAdminUsersTab();
+
+            Assert.assertTrue(administrativeUsersPage.isPageLoaded(), "My Account tab can not load");
+
+            //Go to Employees Info
+            EmployeesInfoPage employeesInfoPage = homePage.clickEmployeeInfoTab();
+
+            Assert.assertTrue(employeesInfoPage.isPageLoaded(), "My Account tab can not load");
 
             quitBrowser();
         }

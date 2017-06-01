@@ -79,6 +79,6 @@ public class LoginPage extends PageBase {
     @Override
     protected void isLoaded(){
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("users"), "Not on the issue entry page: "+url);
+        Assert.assertTrue(url.contains("users"), "Not on Login page: "+url);
     }
 }

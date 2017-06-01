@@ -12,6 +12,8 @@ import org.testng.Assert;
 public class HomePage extends PageBase {
 
     @FindBy(xpath = "//a[@href='/users']") private WebElement usersTab;
+    @FindBy(xpath = "//a[@href='/employees']") private WebElement employeeInfoTab;
+    @FindBy(xpath = "//a[@href='/my_account']") private WebElement myAccountTab;
     @FindBy(xpath = "//span[contains(text(),'Welcome')]") private WebElement welcomeMessage;
 
     /**
@@ -31,6 +33,26 @@ public class HomePage extends PageBase {
         this.usersTab.click();
 
         return new AdministrativeUsersPage(driver);
+    }
+
+    /**
+     * Switch to "Employee Information" tab
+     * @return EmployeesInfoPage instance
+     */
+    public EmployeesInfoPage clickEmployeeInfoTab(){
+        this.employeeInfoTab.click();
+
+        return new EmployeesInfoPage(driver);
+    }
+
+    /**
+     * Switch to "My Account" tab
+     * @return MyAccountPage instance
+     */
+    public MyAccountPage clickMyAccountTab(){
+        this.myAccountTab.click();
+
+        return new MyAccountPage(driver);
     }
 
     /**
@@ -56,6 +78,6 @@ public class HomePage extends PageBase {
     @Override
     protected void isLoaded(){
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("users"), "Not on the issue entry page: "+url);
+        Assert.assertTrue(url.contains("users"), "Not on Home page: "+url);
     }
 }

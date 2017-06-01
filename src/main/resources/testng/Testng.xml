@@ -12,8 +12,10 @@
                 <!--include name="smoke"/>
                 <include name="regression"/>
                 <include name="resetPassword"/>
-                <include name="tabsTest"/-->
-                <include name="dataProvider"/>
+                <include name="dataProvider"/-->
+                <include name="individualTabsTest"/>
+                <include name="allTabsTest"/>
+
             </run>
         </groups>
         <classes>
