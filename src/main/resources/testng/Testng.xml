@@ -6,23 +6,34 @@
         <parameter name="browser" value="Chrome"/>
         <parameter name="userName" value="at_java_training@wearegap.com"/>
         <parameter name="password" value="123queso"/>
+        <parameter name="firstNameNewEmployee" value="Keylin"/>
+        <parameter name="lastNameNewEmployee" value="Hidalgo Barrios"/>
+        <parameter name="emailNewEmployee" value="khidalgo@wearegap.com"/>
+        <parameter name="identificationNewEmployee" value="112250877"/>
+        <parameter name="leaderNameNewEmployee" value="Pancha Carrazco"/>
+        <parameter name="yearNewEmployee" value="2015"/>
+        <parameter name="monthNewEmployee" value="May"/>
+        <parameter name="dayNewEmployee" value="25"/>
 
         <groups>
             <run>
                 <include name="smoke"/>
                 <include name="regression"/>
                 <include name="resetPassword"/>
-                <include name="testngdataprovider"/>
+                <include name="testngDataProvider"/>
                 <include name="individualTabsTest"/>
                 <include name="allTabsTest"/>
+                <include name="newEmployee"/>
 
             </run>
         </groups>
         <classes>
             <!--<class name="com.gap.atpractice.testsuites.LoginTest"/>
             <class name="com.gap.atpractice.testsuites.HomeTest"/>-->
-            <class name="com.gap.atpractice.testngfactory.LoginFactory"/>
+            <!--<class name="com.gap.atpractice.testngfactory.LoginFactory"/>-->
             <!--<class name="com.gap.atpractice.testngfactory.HomeFactory"/>-->
+            <class name="com.gap.atpractice.testsuites.EmployeeInfoTest"/>
+            <class name="com.gap.atpractice.testsuites.NewEmployeeTest"/>
         </classes>
     </test>
 </suite>

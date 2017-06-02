@@ -12,7 +12,7 @@ import org.testng.Assert;
 public class AdministrativeUsersPage extends PageBase {
 
     private String url = "users";
-    @FindBy (xpath = "//h1[contains(text(),'Administrative Users')]") private WebElement userTabTitle;
+    @FindBy (xpath = "//h1[text()='Administrative Users']") private WebElement userTabTitle;
 
     public AdministrativeUsersPage(WebDriver driver){
         super(driver);

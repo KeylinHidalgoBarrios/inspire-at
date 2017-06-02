@@ -7,13 +7,13 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 /**
- * Created by Key on 6/1/2017.
+ * Created by Key on 6/2/2017.
  */
-public class MyAccountPage extends PageBase {
-    private String url = "my_account";
-    @FindBy(xpath = "//h2[text()='My Account']") private WebElement userTabTitle;
+public class EmployeeDetailsPage extends PageBase {
 
-    public MyAccountPage(WebDriver driver){
+    @FindBy(xpath = "//p[text()='Employee was successfully created.']") private WebElement userCreatedMessage;
+
+    public EmployeeDetailsPage(WebDriver driver){
         super(driver);
         PageFactory.initElements(driver, this);
     }
@@ -22,26 +22,24 @@ public class MyAccountPage extends PageBase {
      * Confirm that the page loaded
      * @return true if loaded, false if it's not
      */
-    public boolean isPageLoaded(){
-        botStyle.waitForElementPresent(60, userTabTitle);
-        return userTabTitle.isDisplayed();
+    public boolean isPageLoaded (){
+        botStyle.waitForElementPresent(60, userCreatedMessage);
+        return userCreatedMessage.isDisplayed();
     }
 
     /**
      * Overriding load method from LoadableComponent
      */
     @Override
-    protected void load() {
-        this.driver.get(String.format("%s%s", super.URL_BASE, this.url));
+    protected void load(){
     }
 
     /**
      * Overriding isLoaded method from LoadableComponent
      */
     @Override
-    protected void isLoaded() throws Error {
+    protected void isLoaded(){
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("new"), "Not on My Account tab: "+url);
+        Assert.assertTrue(url.contains("users"), "Not on Login page: "+url);
     }
 }
-

@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -86,5 +87,15 @@ public class BotStyle {
         WebElement element = waitForElementPresent(60, locator);
         element.clear();
         element.sendKeys(text);
+    }
+
+    /**
+     * Select an item from a list
+     * @param element List element
+     * @param text text to be selected
+     */
+    public void selectListValue(WebElement element, String text){
+        waitForElementPresent(60, element);
+        new Select(element).selectByVisibleText(text);
     }
 }

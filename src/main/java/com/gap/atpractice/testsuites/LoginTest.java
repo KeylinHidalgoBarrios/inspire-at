@@ -57,7 +57,7 @@ public class LoginTest extends TestBase{
     /**
      * Test login process to test successful and failed logins
      */
-    @Test(groups = {"testngdataprovider"}, dataProvider = "dpTestLocal", dataProviderClass = DataProviderTest.class)
+    @Test(groups = {"testngDataProvider"}, dataProvider = "dpTestLocal", dataProviderClass = DataProviderTest.class)
     public void loginTestLocal(String userName, String password){
         try {
 
@@ -77,7 +77,7 @@ public class LoginTest extends TestBase{
     /**
      * Test login process to test successful and failed logins
      */
-    @Test(groups = {"testngdataprovider"}, dataProvider = "dpTestJson", dataProviderClass = DataProviderTest.class)
+    @Test(groups = {"testngDataProvider"}, dataProvider = "dpTestJson", dataProviderClass = DataProviderTest.class)
     public void loginTestJson(String userName, String password){
         try {
 

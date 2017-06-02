@@ -18,7 +18,7 @@ public class LoginPage extends PageBase {
     @FindBy(id = "user_email") private WebElement userName;
     @FindBy(id = "user_password") private WebElement password;
     @FindBy(xpath = "//input[@class='submit']") private WebElement loginButton;
-    @FindBy(xpath = "//a[contains(text(), 'password?')]") private WebElement forgotPasswordLink;
+    @FindBy(xpath = "//a[text()='Forgot your password?']") private WebElement forgotPasswordLink;
 
     /**
      * Constructor

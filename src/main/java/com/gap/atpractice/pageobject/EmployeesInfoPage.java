@@ -11,7 +11,8 @@ import org.testng.Assert;
  */
 public class EmployeesInfoPage extends PageBase {
     private String url = "employees";
-    @FindBy(xpath = "//h1[contains(text(),'Listing employees')]") private WebElement userTabTitle;
+    @FindBy(xpath = "//h1[text()='Listing employees']") private WebElement userTabTitle;
+    @FindBy(xpath = "//a[@href='/employees/new']") private WebElement newEmployeeLink;
 
     public EmployeesInfoPage(WebDriver driver){
         super(driver);
@@ -25,6 +26,16 @@ public class EmployeesInfoPage extends PageBase {
     public boolean isPageLoaded(){
         botStyle.waitForElementPresent(60, userTabTitle);
         return userTabTitle.isDisplayed();
+    }
+
+    /**
+     * Go to page where new Employees are created
+     * @return NewEmployeePage instance with Webdriver
+     */
+    public NewEmployeePage clickNewEmployeeLink(){
+        this.newEmployeeLink.click();
+
+        return new NewEmployeePage(driver);
     }
 
     /**

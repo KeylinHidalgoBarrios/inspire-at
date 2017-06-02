@@ -12,7 +12,7 @@ import org.testng.Assert;
 public class ForgotPasswordPage extends PageBase{
 
     private String url = "users/password/new";
-    @FindBy(xpath = "//h2[contains(text(),'password?')]") private WebElement pageTitle;
+    @FindBy(xpath = "//h2[text(),'Forgot your password?']") private WebElement pageTitle;
 
     /**
      * Constructor
