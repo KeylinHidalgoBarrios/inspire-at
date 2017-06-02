@@ -17,14 +17,14 @@
 
         <groups>
             <run>
-                <include name="smoke"/>
+                <!--<include name="smoke"/>
                 <include name="regression"/>
                 <include name="resetPassword"/>
                 <include name="testngDataProvider"/>
                 <include name="individualTabsTest"/>
                 <include name="allTabsTest"/>
-                <include name="newEmployee"/>
-
+                <include name="newEmployee"/>-->
+                <include name="employeeDetails"/>
             </run>
         </groups>
         <classes>
@@ -32,7 +32,7 @@
             <class name="com.gap.atpractice.testsuites.HomeTest"/>-->
             <!--<class name="com.gap.atpractice.testngfactory.LoginFactory"/>-->
             <!--<class name="com.gap.atpractice.testngfactory.HomeFactory"/>-->
-            <class name="com.gap.atpractice.testsuites.EmployeeInfoTest"/>
+            <class name="com.gap.atpractice.testsuites.EmployeeInfoTabTest"/>
             <class name="com.gap.atpractice.testsuites.NewEmployeeTest"/>
         </classes>
     </test>

@@ -37,9 +37,9 @@ public class HomeTest extends TestBase {
             Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
             //Click Administrative Users tab
-            AdministrativeUsersPage administrativeUsersPage = homePage.clickAdminUsersTab();
+            AdministrativeUsersTabPage administrativeUsersTabPage = homePage.clickAdminUsersTab();
 
-            Assert.assertTrue(administrativeUsersPage.isPageLoaded(), "Administrative Users tab can not load");
+            Assert.assertTrue(administrativeUsersTabPage.isPageLoaded(), "Administrative Users tab can not load");
 
             quitBrowser();
         }
@@ -65,9 +65,9 @@ public class HomeTest extends TestBase {
             Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
             //Click Employees Information tab
-            EmployeesInfoPage employeesInfoPage = homePage.clickEmployeeInfoTab();
+            EmployeesInfoTabPage employeesInfoTabPage = homePage.clickEmployeeInfoTab();
 
-            Assert.assertTrue(employeesInfoPage.isPageLoaded(), "Employees Information tab can not load");
+            Assert.assertTrue(employeesInfoTabPage.isPageLoaded(), "Employees Information tab can not load");
 
             quitBrowser();
         }
@@ -93,9 +93,9 @@ public class HomeTest extends TestBase {
             Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
             //Click My Account tab
-            MyAccountPage myAccountPage = homePage.clickMyAccountTab();
+            MyAccountTabPage myAccountTabPage = homePage.clickMyAccountTab();
 
-            Assert.assertTrue(myAccountPage.isPageLoaded(), "My Account tab can not load");
+            Assert.assertTrue(myAccountTabPage.isPageLoaded(), "My Account tab can not load");
 
             quitBrowser();
         }
@@ -121,19 +121,19 @@ public class HomeTest extends TestBase {
             Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
             //Go to My Account tab
-            MyAccountPage myAccountPage = homePage.clickMyAccountTab();
+            MyAccountTabPage myAccountTabPage = homePage.clickMyAccountTab();
 
-            Assert.assertTrue(myAccountPage.isPageLoaded(), "My Account tab can not load");
+            Assert.assertTrue(myAccountTabPage.isPageLoaded(), "My Account tab can not load");
 
             //Go to Administrative Users tab
-            AdministrativeUsersPage administrativeUsersPage = homePage.clickAdminUsersTab();
+            AdministrativeUsersTabPage administrativeUsersTabPage = homePage.clickAdminUsersTab();
 
-            Assert.assertTrue(administrativeUsersPage.isPageLoaded(), "My Account tab can not load");
+            Assert.assertTrue(administrativeUsersTabPage.isPageLoaded(), "My Account tab can not load");
 
             //Go to Employees Info
-            EmployeesInfoPage employeesInfoPage = homePage.clickEmployeeInfoTab();
+            EmployeesInfoTabPage employeesInfoTabPage = homePage.clickEmployeeInfoTab();
 
-            Assert.assertTrue(employeesInfoPage.isPageLoaded(), "My Account tab can not load");
+            Assert.assertTrue(employeesInfoTabPage.isPageLoaded(), "My Account tab can not load");
 
             quitBrowser();
         }

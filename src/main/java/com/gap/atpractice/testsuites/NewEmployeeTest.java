@@ -31,7 +31,7 @@ public class NewEmployeeTest extends TestBase{
             HomePage homePage = loginPage.loginValidCredentials(userName, password);
             Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
-            NewEmployeePage newEmployeePage = new EmployeesInfoPage(driver).clickNewEmployeeLink();
+            NewEmployeePage newEmployeePage = new EmployeesInfoTabPage(driver).clickNewEmployeeLink();
             Assert.assertTrue(newEmployeePage.isPageLoaded(), "New Employee page cannot be displayed");
 
             EmployeeDetailsPage employeeDetailsPage = newEmployeePage.createNewEmployee(firstName, lastName, email, identification, leaderName, year, month, day);

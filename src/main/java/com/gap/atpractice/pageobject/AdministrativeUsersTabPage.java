@@ -7,13 +7,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 /**
- * Created by Key on 6/1/2017.
+ * Created by keyhi on 5/26/2017.
  */
-public class MyAccountPage extends PageBase {
-    private String url = "my_account";
-    @FindBy(xpath = "//h2[text()='My Account']") private WebElement userTabTitle;
+public class AdministrativeUsersTabPage extends PageBase {
 
-    public MyAccountPage(WebDriver driver){
+    private String url = "users";
+    @FindBy (xpath = "//h1[text()='Administrative Users']") private WebElement userTabTitle;
+
+    public AdministrativeUsersTabPage(WebDriver driver){
         super(driver);
         PageFactory.initElements(driver, this);
     }
@@ -41,7 +42,6 @@ public class MyAccountPage extends PageBase {
     @Override
     protected void isLoaded() throws Error {
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("new"), "Not on My Account tab: "+url);
+        Assert.assertTrue(url.contains("new"), "Not on Administrative Users tab: "+url);
     }
 }
-

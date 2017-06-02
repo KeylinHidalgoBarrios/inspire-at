@@ -11,7 +11,7 @@ import org.testng.Assert;
  */
 public class EmployeeDetailsPage extends PageBase {
 
-    @FindBy(xpath = "//p[text()='Employee was successfully created.']") private WebElement userCreatedMessage;
+    @FindBy(xpath = "//h1[text() = 'Employee vacations report']") private WebElement vacationsTitle;
 
     public EmployeeDetailsPage(WebDriver driver){
         super(driver);
@@ -23,8 +23,8 @@ public class EmployeeDetailsPage extends PageBase {
      * @return true if loaded, false if it's not
      */
     public boolean isPageLoaded (){
-        botStyle.waitForElementPresent(60, userCreatedMessage);
-        return userCreatedMessage.isDisplayed();
+        botStyle.waitForElementPresent(60, vacationsTitle);
+        return vacationsTitle.isDisplayed();
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.gap.atpractice.pageobject;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,12 +10,12 @@ import org.testng.Assert;
 /**
  * Created by Key on 6/1/2017.
  */
-public class EmployeesInfoPage extends PageBase {
+public class EmployeesInfoTabPage extends PageBase {
     private String url = "employees";
     @FindBy(xpath = "//h1[text()='Listing employees']") private WebElement userTabTitle;
     @FindBy(xpath = "//a[@href='/employees/new']") private WebElement newEmployeeLink;
 
-    public EmployeesInfoPage(WebDriver driver){
+    public EmployeesInfoTabPage(WebDriver driver){
         super(driver);
         PageFactory.initElements(driver, this);
     }
@@ -36,6 +37,16 @@ public class EmployeesInfoPage extends PageBase {
         this.newEmployeeLink.click();
 
         return new NewEmployeePage(driver);
+    }
+
+    /**
+     * Go to Employee details page
+     * @return NewEmployeePage instance with Webdriver
+     */
+    public EmployeeDetailsPage clickShowDetailsLink(String identification){
+        driver.findElement(By.xpath(String.format("%s%s%s", "//td[text()='", identification, "']/following-sibling::td/a[text()='Show details']"))).click();
+
+        return new EmployeeDetailsPage(driver);
     }
 
     /**

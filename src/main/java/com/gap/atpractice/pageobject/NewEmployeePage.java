@@ -28,7 +28,6 @@ public class NewEmployeePage extends PageBase {
         PageFactory.initElements(driver, this);
     }
 
-
     /**
      * Create a new employee
      * @param firstName Employee´s first name

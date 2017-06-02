@@ -27,32 +27,32 @@ public class HomePage extends PageBase {
 
     /**
      * Switch to "Administrative Users" tab
-     * @return AdministrativeUsersPage instance
+     * @return AdministrativeUsersTabPage instance
      */
-    public AdministrativeUsersPage clickAdminUsersTab(){
+    public AdministrativeUsersTabPage clickAdminUsersTab(){
         this.usersTab.click();
 
-        return new AdministrativeUsersPage(driver);
+        return new AdministrativeUsersTabPage(driver);
     }
 
     /**
      * Switch to "Employee Information" tab
-     * @return EmployeesInfoPage instance
+     * @return EmployeesInfoTabPage instance
      */
-    public EmployeesInfoPage clickEmployeeInfoTab(){
+    public EmployeesInfoTabPage clickEmployeeInfoTab(){
         this.employeeInfoTab.click();
 
-        return new EmployeesInfoPage(driver);
+        return new EmployeesInfoTabPage(driver);
     }
 
     /**
      * Switch to "My Account" tab
-     * @return MyAccountPage instance
+     * @return MyAccountTabPage instance
      */
-    public MyAccountPage clickMyAccountTab(){
+    public MyAccountTabPage clickMyAccountTab(){
         this.myAccountTab.click();
 
-        return new MyAccountPage(driver);
+        return new MyAccountTabPage(driver);
     }
 
     /**
