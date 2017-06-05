@@ -9,6 +9,10 @@ import org.testng.annotations.Factory;
  */
 public class LoginFactory {
 
+    /**
+     * Using Factory to run HomeTest tests multiple times with a single execution
+     * @return Factory will automatically execute the content of Object[]
+     */
     @Factory
     public Object[] TestngFactory(){
         Object[] result = new Object[2];

@@ -10,9 +10,16 @@ import org.testng.Assert;
  * Created by Key on 6/1/2017.
  */
 public class MyAccountTabPage extends PageBase {
-    private String url = "my_account";
+    //Page url
+    private final String url = "my_account";
+
+    //Web elements
     @FindBy(xpath = "//h2[text()='My Account']") private WebElement userTabTitle;
 
+    /**
+     * Constructor of the page
+     * @param driver receives driver accross application
+     */
     public MyAccountTabPage(WebDriver driver){
         super(driver);
         PageFactory.initElements(driver, this);
@@ -32,7 +39,7 @@ public class MyAccountTabPage extends PageBase {
      */
     @Override
     protected void load() {
-        this.driver.get(String.format("%s%s", super.URL_BASE, this.url));
+        this.driver.get(super.URL_BASE.concat(this.url));
     }
 
     /**
@@ -41,7 +48,7 @@ public class MyAccountTabPage extends PageBase {
     @Override
     protected void isLoaded() throws Error {
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("new"), "Not on My Account tab: "+url);
+        Assert.assertTrue(url.contains("new"), "Not on My Account tab: ".concat(url));
     }
 }
 

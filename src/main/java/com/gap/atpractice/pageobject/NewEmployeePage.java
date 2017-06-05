@@ -10,7 +10,10 @@ import org.testng.Assert;
  * Created by Key on 6/2/2017.
  */
 public class NewEmployeePage extends PageBase {
+    //Page url
     private String url = "employees/new";
+
+    //Web element
     @FindBy(xpath = "//h1[text()='New employee']") private WebElement newUserTitle;
     @FindBy(xpath = "//input[@id='employee_first_name']") private WebElement firstNameField;
     @FindBy(xpath = "//input[@id='employee_last_name']") private WebElement lastNameField;
@@ -22,7 +25,10 @@ public class NewEmployeePage extends PageBase {
     @FindBy(xpath = "//select[@id='employee_start_working_on_3i']") private WebElement dayField;
     @FindBy(xpath = "//input[@name='commit']") private WebElement createButton;
 
-
+    /**
+     * Constructor of the page
+     * @param driver receives driver accross application
+     */
     public NewEmployeePage(WebDriver driver){
         super(driver);
         PageFactory.initElements(driver, this);
@@ -71,7 +77,7 @@ public class NewEmployeePage extends PageBase {
      */
     @Override
     protected void load() {
-        this.driver.get(String.format("%s%s", super.URL_BASE, this.url));
+        this.driver.get(super.URL_BASE.concat(this.url));
     }
 
     /**
@@ -80,6 +86,6 @@ public class NewEmployeePage extends PageBase {
     @Override
     protected void isLoaded() throws Error {
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("employees/new"), "Not on New Employee page: "+url);
+        Assert.assertTrue(url.contains("employees/new"), "Not on New Employee page: ".concat(url));
     }
 }

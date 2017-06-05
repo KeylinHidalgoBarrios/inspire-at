@@ -11,7 +11,10 @@ import org.testng.Assert;
  */
 public class ForgotPasswordPage extends PageBase{
 
-    private String url = "users/password/new";
+    //Page url
+    private final String url = "users/password/new";
+
+    //Web elements
     @FindBy(xpath = "//h2[text(),'Forgot your password?']") private WebElement pageTitle;
 
     /**
@@ -37,7 +40,7 @@ public class ForgotPasswordPage extends PageBase{
      */
     @Override
     protected void load(){
-        this.driver.get(String.format("%s%s", super.URL_BASE, this.url));
+        this.driver.get(super.URL_BASE.concat(this.url));
     }
 
     /**
@@ -46,6 +49,6 @@ public class ForgotPasswordPage extends PageBase{
     @Override
     protected void isLoaded(){
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("new"), "Not on the Forgot Password page: "+url);
+        Assert.assertTrue(url.contains("new"), "Not on the Forgot Password page: ".concat(url));
     }
 }

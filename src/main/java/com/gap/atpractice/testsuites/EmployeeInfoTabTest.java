@@ -36,8 +36,6 @@ public class EmployeeInfoTabTest extends TestBase {
 
             NewEmployeePage newEmployeePage = new EmployeesInfoTabPage(driver).clickNewEmployeeLink();
             Assert.assertTrue(newEmployeePage.isPageLoaded(), "New Employee page cannot be displayed");
-
-            quitBrowser();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -60,8 +58,6 @@ public class EmployeeInfoTabTest extends TestBase {
 
             EmployeeDetailsPage employeeDetailsPage = new EmployeesInfoTabPage(driver).clickShowDetailsLink(identification);
             Assert.assertTrue(employeeDetailsPage.isPageLoaded(), "Employee Details page cannot be displayed");
-
-            quitBrowser();
         }
         catch (Exception e){
             e.printStackTrace();

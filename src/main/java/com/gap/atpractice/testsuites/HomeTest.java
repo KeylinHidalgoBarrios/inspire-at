@@ -40,8 +40,6 @@ public class HomeTest extends TestBase {
             AdministrativeUsersTabPage administrativeUsersTabPage = homePage.clickAdminUsersTab();
 
             Assert.assertTrue(administrativeUsersTabPage.isPageLoaded(), "Administrative Users tab can not load");
-
-            quitBrowser();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -68,8 +66,6 @@ public class HomeTest extends TestBase {
             EmployeesInfoTabPage employeesInfoTabPage = homePage.clickEmployeeInfoTab();
 
             Assert.assertTrue(employeesInfoTabPage.isPageLoaded(), "Employees Information tab can not load");
-
-            quitBrowser();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -96,8 +92,6 @@ public class HomeTest extends TestBase {
             MyAccountTabPage myAccountTabPage = homePage.clickMyAccountTab();
 
             Assert.assertTrue(myAccountTabPage.isPageLoaded(), "My Account tab can not load");
-
-            quitBrowser();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -134,8 +128,6 @@ public class HomeTest extends TestBase {
             EmployeesInfoTabPage employeesInfoTabPage = homePage.clickEmployeeInfoTab();
 
             Assert.assertTrue(employeesInfoTabPage.isPageLoaded(), "My Account tab can not load");
-
-            quitBrowser();
         }
         catch (Exception e){
             e.printStackTrace();

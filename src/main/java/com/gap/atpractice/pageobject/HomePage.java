@@ -11,6 +11,7 @@ import org.testng.Assert;
  */
 public class HomePage extends PageBase {
 
+    //Web elements
     @FindBy(xpath = "//a[@href='/users']") private WebElement usersTab;
     @FindBy(xpath = "//a[@href='/employees']") private WebElement employeeInfoTab;
     @FindBy(xpath = "//a[@href='/my_account']") private WebElement myAccountTab;
@@ -78,6 +79,6 @@ public class HomePage extends PageBase {
     @Override
     protected void isLoaded(){
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("users"), "Not on Home page: "+url);
+        Assert.assertTrue(url.contains("users"), "Not on Home page: ".concat(url));
     }
 }

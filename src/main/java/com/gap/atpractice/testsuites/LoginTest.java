@@ -47,8 +47,6 @@ public class LoginTest extends TestBase{
             //Using javascript executor to validate the page is ready
             JavascriptExecutor js = (JavascriptExecutor)driver;
             Assert.assertTrue(js.executeScript("return document.readyState").equals("complete"), "JavascriptExecutor document not loaded");
-
-            quitBrowser();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -67,8 +65,6 @@ public class LoginTest extends TestBase{
 
             System.out.println("Local Data Provider");
             System.out.println(String.format("Username: %s    Password: %s", userName, password));
-
-            quitBrowser();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -87,8 +83,6 @@ public class LoginTest extends TestBase{
 
             System.out.println("JSON Data Provider");
             System.out.println(String.format("Username: %s    Password: %s", userName, password));
-
-            quitBrowser();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -105,8 +99,6 @@ public class LoginTest extends TestBase{
             ForgotPasswordPage forgotPasswordPage = loginPage.goToNewPasswordPage();
 
             Assert.assertTrue(forgotPasswordPage.isPageLoaded(), "Reset Password Page can not be displayed");
-
-            quitBrowser();
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -58,7 +58,6 @@ public class ActionTest {
             act.moveToElement(menu3).build().perform();
             Thread.sleep(1000);
 
-            driver.quit();
         } catch (Exception e) {
           e.printStackTrace();
         }

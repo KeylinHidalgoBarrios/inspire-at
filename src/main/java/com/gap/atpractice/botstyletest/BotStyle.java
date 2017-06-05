@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class BotStyle {
 
     //Web driver
-    WebDriver driver;
+    private WebDriver driver;
 
     /**
      * Constructor method

@@ -11,8 +11,13 @@ import org.testng.Assert;
  */
 public class EmployeeDetailsPage extends PageBase {
 
+    //Web elements
     @FindBy(xpath = "//h1[text() = 'Employee vacations report']") private WebElement vacationsTitle;
 
+    /**
+     * Constructor of the page
+     * @param driver receives driver accross application
+     */
     public EmployeeDetailsPage(WebDriver driver){
         super(driver);
         PageFactory.initElements(driver, this);
@@ -40,6 +45,6 @@ public class EmployeeDetailsPage extends PageBase {
     @Override
     protected void isLoaded(){
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("users"), "Not on Login page: "+url);
+        Assert.assertTrue(url.contains("users"), "Not on Employee Details page: ".concat(url));
     }
 }

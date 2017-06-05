@@ -11,9 +11,16 @@ import org.testng.Assert;
  */
 public class AdministrativeUsersTabPage extends PageBase {
 
-    private String url = "users";
+    //Page url
+    private final String url = "users";
+
+    //Web elements
     @FindBy (xpath = "//h1[text()='Administrative Users']") private WebElement userTabTitle;
 
+    /**
+     * Constructor of the page
+     * @param driver receives driver accross application
+     */
     public AdministrativeUsersTabPage(WebDriver driver){
         super(driver);
         PageFactory.initElements(driver, this);
@@ -33,7 +40,7 @@ public class AdministrativeUsersTabPage extends PageBase {
      */
     @Override
     protected void load() {
-        this.driver.get(String.format("%s%s", super.URL_BASE, this.url));
+        this.driver.get(super.URL_BASE.concat(this.url));
     }
 
     /**
@@ -42,6 +49,6 @@ public class AdministrativeUsersTabPage extends PageBase {
     @Override
     protected void isLoaded() throws Error {
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("new"), "Not on Administrative Users tab: "+url);
+        Assert.assertTrue(url.contains("new"), "Not on Administrative Users tab: ".concat(url));
     }
 }

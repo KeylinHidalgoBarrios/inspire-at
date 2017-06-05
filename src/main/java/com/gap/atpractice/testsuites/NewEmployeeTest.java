@@ -36,8 +36,6 @@ public class NewEmployeeTest extends TestBase{
 
             EmployeeDetailsPage employeeDetailsPage = newEmployeePage.createNewEmployee(firstName, lastName, email, identification, leaderName, year, month, day);
             Assert.assertTrue(employeeDetailsPage.isPageLoaded(), "New Employee page cannot be displayed");
-
-            quitBrowser();
         }
         catch (Exception e){
             e.printStackTrace();

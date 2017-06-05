@@ -17,7 +17,7 @@ public class DataProviderTest {
      */
     @DataProvider(name = "dpTestLocal")
     public static Object [][] dpLoginLocal(Method method){
-        System.out.println(String.format("Data Provider name: %s", method.getName()));
+        System.out.println("Data Provider name: ".concat(method.getName()));
 
         return new Object[][] {
                 {"at_java_training@wearegap.com", "123queso"},
@@ -32,7 +32,7 @@ public class DataProviderTest {
      */
     @DataProvider(name = "dpTestJson")
     public static Object [][] dpLoginJson(Method method){
-        System.out.println(String.format("Data Provider name: %s", method.getName()));
+        System.out.println("Data Provider name: ".concat(method.getName()));
 
         //Using utils method to read from JSON file
         Object[][] result = new JsonUtils().readJsonFile();

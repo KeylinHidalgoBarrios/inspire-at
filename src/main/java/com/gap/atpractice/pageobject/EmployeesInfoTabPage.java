@@ -11,10 +11,17 @@ import org.testng.Assert;
  * Created by Key on 6/1/2017.
  */
 public class EmployeesInfoTabPage extends PageBase {
-    private String url = "employees";
+    //page url
+    private final String url = "employees";
+
+    //Web elements
     @FindBy(xpath = "//h1[text()='Listing employees']") private WebElement userTabTitle;
     @FindBy(xpath = "//a[@href='/employees/new']") private WebElement newEmployeeLink;
 
+    /**
+     * Constructor of the page
+     * @param driver receives driver accross application
+     */
     public EmployeesInfoTabPage(WebDriver driver){
         super(driver);
         PageFactory.initElements(driver, this);
@@ -54,7 +61,7 @@ public class EmployeesInfoTabPage extends PageBase {
      */
     @Override
     protected void load() {
-        this.driver.get(String.format("%s%s", super.URL_BASE, this.url));
+        this.driver.get(super.URL_BASE.concat(this.url));
     }
 
     /**
@@ -63,7 +70,7 @@ public class EmployeesInfoTabPage extends PageBase {
     @Override
     protected void isLoaded() throws Error {
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("new"), "Not on Employees Information tab: "+url);
+        Assert.assertTrue(url.contains("new"), "Not on Employees Information tab: ".concat(url));
     }
 }
 

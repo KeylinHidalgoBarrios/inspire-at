@@ -73,9 +73,6 @@ public class SeleniumBase {
         capabilities.setCapability("applicationCacheEnabled", true);
 
         this.driver = new InternetExplorerDriver(capabilities);
-
-        this.driver = new InternetExplorerDriver();
-
     }
 
     /**
