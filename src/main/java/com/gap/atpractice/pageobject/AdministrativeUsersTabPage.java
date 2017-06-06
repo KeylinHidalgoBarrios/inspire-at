@@ -15,7 +15,7 @@ public class AdministrativeUsersTabPage extends PageBase {
     private final String url = "users";
 
     //Web elements
-    @FindBy (xpath = "//h1[text()='Administrative Users']") private WebElement userTabTitle;
+    @FindBy (xpath = "//h1[text()='Listing All Administrative Users']") private WebElement userTabTitle;
 
     /**
      * Constructor of the page

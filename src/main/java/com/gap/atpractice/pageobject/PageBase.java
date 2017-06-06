@@ -13,7 +13,7 @@ public abstract class PageBase extends LoadableComponent {
     protected String URL_BASE = "https://vacations-management.herokuapp.com/";
 
     //Using same driver across application
-    protected WebDriver driver;
+    protected static WebDriver driver;
     protected BotStyle botStyle;
 
     /**

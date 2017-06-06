@@ -1,6 +1,7 @@
 package com.gap.atpractice.testsuites;
 
 import com.gap.atpractice.pageobject.*;
+import com.gap.atpractice.pageobject.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;

@@ -15,7 +15,7 @@ public class ForgotPasswordPage extends PageBase{
     private final String url = "users/password/new";
 
     //Web elements
-    @FindBy(xpath = "//h2[text(),'Forgot your password?']") private WebElement pageTitle;
+    @FindBy(xpath = "//h2[contains(text(),'Forgot your password?')]") private WebElement pageTitle;
 
     /**
      * Constructor

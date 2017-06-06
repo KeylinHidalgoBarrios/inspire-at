@@ -1,9 +1,10 @@
-package com.gap.atpractice.testsuites;
+package com.gap.atpractice.testsuites.Login;
 
 import com.gap.atpractice.testngdataprovider.DataProviderTest;
 import com.gap.atpractice.pageobject.ForgotPasswordPage;
 import com.gap.atpractice.pageobject.HomePage;
 import com.gap.atpractice.pageobject.LoginPage;
+import com.gap.atpractice.testsuites.TestBase;
 import com.gap.atpractice.utils.TakeScreenshot;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
@@ -13,7 +14,7 @@ import org.testng.annotations.Test;
 /**
  * Created by auto on 06/04/17.
  */
-public class LoginTest extends TestBase{
+public class LoginTest extends TestBase {
     private LoginPage loginPage;
 
     /**

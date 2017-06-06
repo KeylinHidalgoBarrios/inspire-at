@@ -14,7 +14,7 @@ public class MyAccountTabPage extends PageBase {
     private final String url = "my_account";
 
     //Web elements
-    @FindBy(xpath = "//h2[text()='My Account']") private WebElement userTabTitle;
+    @FindBy(xpath = "//h2[contains(text(),'Edit My Account')]") private WebElement userTabTitle;
 
     /**
      * Constructor of the page
