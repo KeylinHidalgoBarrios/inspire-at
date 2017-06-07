@@ -15,30 +15,16 @@ import org.testng.annotations.Test;
  * Created by auto on 06/04/17.
  */
 public class LoginTest extends TestBase {
-    private LoginPage loginPage;
-
-    /**
-     * General method to go to Login Page
-     */
-    public void goToLoginPage(){
-        loginPage = (LoginPage) new LoginPage(driver).get();
-
-        Assert.assertTrue(loginPage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"), "Login page cannot be displayed");
-    }
-
     /**
      * Test login process
-     * @param userName User credentials
+     * @param email User credentials
      * @param password Password credentials
      */
     @Test(groups = {"smoke", "regression"})
-    @Parameters({"userName", "password"})
-    public void loginSuccessfulTest(String userName, String password){
+    @Parameters({"email", "password"})
+    public void loginSuccessfulTest(String email, String password){
         try {
-
-            goToLoginPage();
-
-            HomePage homePage = loginPage.loginValidCredentials(userName, password);
+            HomePage homePage = LoginTestCommons.login(email, password);
 
             Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
@@ -57,15 +43,12 @@ public class LoginTest extends TestBase {
      * Test login process to test successful and failed logins
      */
     @Test(groups = {"testngDataProvider"}, dataProvider = "dpTestLocal", dataProviderClass = DataProviderTest.class)
-    public void loginTestLocal(String userName, String password){
+    public void loginTestLocal(String email, String password){
         try {
-
-            goToLoginPage();
-
-            loginPage.loginValidCredentials(userName, password);
+            LoginTestCommons.login(email, password);
 
             System.out.println("Local Data Provider");
-            System.out.println(String.format("Username: %s    Password: %s", userName, password));
+            System.out.println(String.format("Username: %s    Password: %s", email, password));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -75,15 +58,12 @@ public class LoginTest extends TestBase {
      * Test login process to test successful and failed logins
      */
     @Test(groups = {"testngDataProvider"}, dataProvider = "dpTestJson", dataProviderClass = DataProviderTest.class)
-    public void loginTestJson(String userName, String password){
+    public void loginTestJson(String email, String password){
         try {
-
-            goToLoginPage();
-
-            loginPage.loginValidCredentials(userName, password);
+            LoginTestCommons.login(email, password);
 
             System.out.println("JSON Data Provider");
-            System.out.println(String.format("Username: %s    Password: %s", userName, password));
+            System.out.println(String.format("Username: %s    Password: %s", email, password));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -95,7 +75,8 @@ public class LoginTest extends TestBase {
     @Test(groups = {"resetPassword", "regression"})
     public void goToForgotPasswordPage(){
         try {
-            goToLoginPage();
+            LoginPage loginPage = (LoginPage) new LoginPage(driver).get();
+            Assert.assertTrue(loginPage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"), "Login page cannot be displayed");
 
             ForgotPasswordPage forgotPasswordPage = loginPage.goToNewPasswordPage();
 

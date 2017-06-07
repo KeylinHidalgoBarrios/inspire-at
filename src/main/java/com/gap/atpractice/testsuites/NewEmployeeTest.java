@@ -21,21 +21,22 @@ public class NewEmployeeTest extends TestBase{
         Assert.assertTrue(loginPage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"), "Login page cannot be displayed");
     }
 
-    @Test(groups = "newEmployee")
-    @Parameters({"userName", "password", "firstNameNewEmployee", "lastNameNewEmployee", "emailNewEmployee", "identificationNewEmployee",
-            "leaderNameNewEmployee", "yearNewEmployee", "monthNewEmployee", "dayNewEmployee"})
-    public void createNewEmployee(String userName, String password, String firstName, String lastName, String email, String identification,
-                                  String leaderName, String year, String month, String day){
+    @Test(groups = "employeeTests", priority = 2)
+    @Parameters({"email", "password", "credsNewEmployeeCreation"})
+    public void createNewEmployee(String email, String password, String credentials){
         try {
+            String[] userInfo = credentials.split(",");
+
             goToLoginPage();
 
-            HomePage homePage = loginPage.loginValidCredentials(userName, password);
+            HomePage homePage = loginPage.loginValidCredentials(email, password);
             Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
             NewEmployeePage newEmployeePage = new EmployeesInfoTabPage(driver).clickNewEmployeeLink();
             Assert.assertTrue(newEmployeePage.isPageLoaded(), "New Employee page cannot be displayed");
 
-            EmployeeDetailsPage employeeDetailsPage = newEmployeePage.createNewEmployee(firstName, lastName, email, identification, leaderName, year, month, day);
+            EmployeeDetailsPage employeeDetailsPage = newEmployeePage.createNewEmployee(userInfo[0], userInfo[1], userInfo[2], userInfo[3],
+            userInfo[4], userInfo[5], userInfo[6], userInfo[7]);
             Assert.assertTrue(employeeDetailsPage.isPageLoaded(), "New Employee page cannot be displayed");
         }
         catch (Exception e){

@@ -13,7 +13,7 @@ public class NewEmployeePage extends PageBase {
     //Page url
     private String url = "employees/new";
 
-    //Web element
+    //Web employeeOption
     @FindBy(xpath = "//h1[text()='New employee']") private WebElement newUserTitle;
     @FindBy(xpath = "//input[@id='employee_first_name']") private WebElement firstNameField;
     @FindBy(xpath = "//input[@id='employee_last_name']") private WebElement lastNameField;

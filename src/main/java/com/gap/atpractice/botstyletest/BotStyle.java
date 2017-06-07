@@ -1,6 +1,7 @@
 package com.gap.atpractice.botstyletest;
 
 import com.google.common.base.Function;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -97,5 +98,64 @@ public class BotStyle {
     public void selectListValue(WebElement element, String text){
         waitForElementPresent(60, element);
         new Select(element).selectByVisibleText(text);
+    }
+
+    /**
+     * Select an item from a list
+     * @param element List element
+     * @param text text to be selected
+     */
+    public void selectListValue(By element, String text){
+        selectListValue(driver.findElement(element), text);
+    }
+
+    /**
+     * Click an element
+     * @param element Web element to perform operation
+     */
+    public void clickElement(By element){
+        waitForElementPresent(60, element);
+        driver.findElement(element).click();
+    }
+
+    /**
+     * Click alert options
+     * @param confirm if accepting this is true, if dismissing this is false
+     */
+    public void clickAlertOption(boolean confirm){
+        Alert alert = driver.switchTo().alert();
+
+        if(confirm)
+            alert.accept();
+        else
+            alert.dismiss();
+    }
+
+    /**
+     * Validate if an element is present in the page
+     * @param element element to be validated
+     * @return true if element is present, false if element is not
+     */
+    public boolean isElementPresent(WebElement element){
+        try{
+            element.isDisplayed();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+
+    /**
+     * Validate if an element is present in the page
+     * @param element element to be validated
+     * @return true if element is present, false if element is not
+     */
+    public boolean isElementPresent(By element){
+        try{
+            driver.findElement(element).isDisplayed();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 }

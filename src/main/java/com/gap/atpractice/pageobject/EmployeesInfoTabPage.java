@@ -17,6 +17,8 @@ public class EmployeesInfoTabPage extends PageBase {
     //Web elements
     @FindBy(xpath = "//h1[text()='Listing employees']") private WebElement userTabTitle;
     @FindBy(xpath = "//a[@href='/employees/new']") private WebElement newEmployeeLink;
+    private String employeeOption = "//td[text()='%s']/following-sibling::td/a[text()='%s']";
+    private String employeeElement = "//td[text()='%s']";
 
     /**
      * Constructor of the page
@@ -47,13 +49,38 @@ public class EmployeesInfoTabPage extends PageBase {
     }
 
     /**
+     * Common methot to click an employeeOption
+     * @param identification to identify which employee is needed
+     * @param option which employeeOption from the row needs to be clicked
+     */
+    private void clickOnUserOption(String identification, String option){
+        botStyle.clickElement(By.xpath(String.format(employeeOption, identification, option)));
+    }
+
+    /**
      * Go to Employee details page
+     * @param identification id of the user to be deleted
      * @return NewEmployeePage instance with Webdriver
      */
     public EmployeeDetailsPage clickShowDetailsLink(String identification){
-        driver.findElement(By.xpath(String.format("%s%s%s", "//td[text()='", identification, "']/following-sibling::td/a[text()='Show details']"))).click();
+        clickOnUserOption(identification, "Show details");
 
         return new EmployeeDetailsPage(driver);
+    }
+
+    /**
+     * Delete employee
+     * @param identification id of the user to be deleted
+     * @return
+     */
+    public boolean deleteEmployee(String identification){
+        clickOnUserOption(identification, "Delete");
+
+        botStyle.clickAlertOption(true);
+
+        boolean deleted = botStyle.isElementPresent(By.xpath(String.format(employeeElement, identification)));
+
+        return deleted;
     }
 
     /**

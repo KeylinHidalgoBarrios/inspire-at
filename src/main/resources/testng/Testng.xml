@@ -6,32 +6,25 @@
         <parameter name="browser" value="Chrome"/>
         <parameter name="email" value="at_java_training@wearegap.com"/>
         <parameter name="password" value="123queso"/>
-        <parameter name="firstNameNewEmployee" value="Keylin"/>
-        <parameter name="lastNameNewEmployee" value="Hidalgo Barrios"/>
-        <parameter name="emailNewEmployee" value="khidalgo@wearegap.com"/>
         <parameter name="identificationNewEmployee" value="112250877"/>
-        <parameter name="leaderNameNewEmployee" value="Pancha Carrazco"/>
-        <parameter name="yearNewEmployee" value="2015"/>
-        <parameter name="monthNewEmployee" value="May"/>
-        <parameter name="dayNewEmployee" value="25"/>
+        <parameter name="credsNewEmployeeCreation" value="Keylin,Hidalgo Barrios,khidalgo@wearegap.com,112250877,Pancha Carrazco,2015,May,25"/>
 
         <groups>
             <run>
-                <include name="smoke"/>
+                <!--<include name="smoke"/>
                 <include name="regression"/>
                 <include name="resetPassword"/>
                 <include name="testngDataProvider"/>
                 <include name="individualTabsTest"/>
-                <include name="allTabsTest"/>
-                <include name="newEmployee"/>
-                <include name="employeeDetails"/>
+                <include name="allTabsTest"/>-->
+                <include name="employeeTests"/>
             </run>
         </groups>
         <classes>
            <!-- <class name="com.gap.atpractice.testsuites.Login.LoginTest"/>
             <class name="com.gap.atpractice.testsuites.HomeTest"/>-->
             <class name="com.gap.atpractice.testsuites.EmployeeInfoTabTest"/>
-            <!--<class name="com.gap.atpractice.testsuites.NewEmployeeTest"/>-->
+            <class name="com.gap.atpractice.testsuites.NewEmployeeTest"/>
             <!--<class name="com.gap.atpractice.testngfactory.LoginFactory"/>
             <class name="com.gap.atpractice.testngfactory.HomeFactory"/>-->
         </classes>
