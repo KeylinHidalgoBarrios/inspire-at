@@ -45,7 +45,7 @@ public class EmployeesInfoTabPage extends PageBase {
     public NewEmployeePage clickNewEmployeeLink(){
         this.newEmployeeLink.click();
 
-        return new NewEmployeePage(driver);
+        return PageFactory.initElements(driver, NewEmployeePage.class);
     }
 
     /**
@@ -65,7 +65,7 @@ public class EmployeesInfoTabPage extends PageBase {
     public EmployeeDetailsPage clickShowDetailsLink(String identification){
         clickOnUserOption(identification, "Show details");
 
-        return new EmployeeDetailsPage(driver);
+        return PageFactory.initElements(driver, EmployeeDetailsPage.class);
     }
 
     /**

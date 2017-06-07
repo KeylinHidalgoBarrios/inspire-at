@@ -60,7 +60,7 @@ public class NewEmployeePage extends PageBase {
         //Click button to begin creation process
         createButton.click();
 
-        return new EmployeeDetailsPage(driver);
+        return PageFactory.initElements(driver, EmployeeDetailsPage.class);
     }
 
     /**

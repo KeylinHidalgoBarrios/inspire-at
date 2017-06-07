@@ -138,6 +138,7 @@ public class BotStyle {
      */
     public boolean isElementPresent(WebElement element){
         try{
+            waitForElementPresent(60, element);
             element.isDisplayed();
             return true;
         }catch(Exception e){
@@ -152,6 +153,7 @@ public class BotStyle {
      */
     public boolean isElementPresent(By element){
         try{
+            waitForElementPresent(60, element);
             driver.findElement(element).isDisplayed();
             return true;
         }catch(Exception e){

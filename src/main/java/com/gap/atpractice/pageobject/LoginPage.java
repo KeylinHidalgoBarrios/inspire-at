@@ -71,7 +71,7 @@ public class LoginPage extends PageBase {
 
         this.forgotPasswordLink.click();
 
-        return new ForgotPasswordPage(driver);
+        return PageFactory.initElements(driver, ForgotPasswordPage.class);
     }
 
     /**

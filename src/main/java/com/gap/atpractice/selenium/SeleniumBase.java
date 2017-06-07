@@ -25,7 +25,6 @@ public class SeleniumBase {
      * @param browserName which browser, Chrome, FF, IE
      * @return configured and initialized WebDriver
      */
-
     public WebDriver setup(String browserName){
 
         switch (browserName){
@@ -58,7 +57,6 @@ public class SeleniumBase {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        //capabilities.setCapability("chrome.switches", Arrays.asList("--homepage=".concat("http://qa-test-inspire.civitaslearning.com")));
         capabilities.setCapability("acceptSslCerts", true);
         this.driver = new ChromeDriver(capabilities);
     }
@@ -68,7 +66,6 @@ public class SeleniumBase {
      */
     private void initIE(){
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        //capabilities.setCapability("chrome.switches", Arrays.asList("--homepage=".concat("http://qa-test-inspire.civitaslearning.com")));
         capabilities.setCapability("acceptSslCerts", true);
         capabilities.setCapability("applicationCacheEnabled", true);
 
@@ -80,7 +77,6 @@ public class SeleniumBase {
      */
     private void initFireFox(){
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        //capabilities.setCapability("chrome.switches", Arrays.asList("--homepage=".concat("http://qa-test-inspire.civitaslearning.com")));
         capabilities.setCapability("acceptSslCerts", true);
         capabilities.setCapability("applicationCacheEnabled", true);
 

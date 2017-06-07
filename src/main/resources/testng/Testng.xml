@@ -1,32 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Suite1" verbose="1">
-    <test name="Regression">
+<suite name="Vacations" verbose="1">
+    <test name="Regression" enabled="true">
         <parameter name="browser" value="Chrome"/>
         <parameter name="email" value="at_java_training@wearegap.com"/>
         <parameter name="password" value="123queso"/>
         <parameter name="identificationNewEmployee" value="112250877"/>
         <parameter name="credsNewEmployeeCreation" value="Keylin,Hidalgo Barrios,khidalgo@wearegap.com,112250877,Pancha Carrazco,2015,May,25"/>
-
         <groups>
             <run>
-                <!--<include name="smoke"/>
                 <include name="regression"/>
-                <include name="resetPassword"/>
-                <include name="testngDataProvider"/>
-                <include name="individualTabsTest"/>
-                <include name="allTabsTest"/>-->
-                <include name="employeeTests"/>
             </run>
         </groups>
         <classes>
-           <!-- <class name="com.gap.atpractice.testsuites.Login.LoginTest"/>
-            <class name="com.gap.atpractice.testsuites.HomeTest"/>-->
+            <class name="com.gap.atpractice.testsuites.LoginTest"/>
+            <class name="com.gap.atpractice.testsuites.HomeTest"/>
             <class name="com.gap.atpractice.testsuites.EmployeeInfoTabTest"/>
             <class name="com.gap.atpractice.testsuites.NewEmployeeTest"/>
-            <!--<class name="com.gap.atpractice.testngfactory.LoginFactory"/>
-            <class name="com.gap.atpractice.testngfactory.HomeFactory"/>-->
+            <class name="com.gap.atpractice.testngfactory.LoginFactory"/>
+            <class name="com.gap.atpractice.testngfactory.HomeFactory"/>
+        </classes>
+    </test>
+    <test name="Employee" enabled="false">
+        <parameter name="browser" value="Chrome"/>
+        <parameter name="email" value="at_java_training@wearegap.com"/>
+        <parameter name="password" value="123queso"/>
+        <parameter name="identificationNewEmployee" value="112250877"/>
+        <parameter name="credsNewEmployeeCreation" value="Keylin,Hidalgo Barrios,khidalgo@wearegap.com,112250877,Pancha Carrazco,2015,May,25"/>
+        <groups>
+            <run>
+                <include name="employeeTests"/>
+                <exclude name="employeeTests004"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.gap.atpractice.testsuites.EmployeeInfoTabTest"/>
+            <class name="com.gap.atpractice.testsuites.NewEmployeeTest"/>
+        </classes>
+    </test>
+    <test name="DataProvider" enabled="false">
+        <parameter name="browser" value="Chrome"/>
+        <parameter name="email" value="at_java_training@wearegap.com"/>
+        <parameter name="password" value="123queso"/>
+        <groups>
+            <run>
+                <include name="testngDataProvider"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.gap.atpractice.testsuites.LoginTest"/>
+        </classes>
+    </test>
+    <test name="HomePageTabs" enabled="false">
+        <parameter name="browser" value="Chrome"/>
+        <parameter name="email" value="at_java_training@wearegap.com"/>
+        <parameter name="password" value="123queso"/>
+        <groups>
+            <run>
+                <include name="homePageTabsTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.gap.atpractice.testsuites.HomeTest"/>
+        </classes>
+    </test>
+    <test name="ResetPassword" enabled="false">
+        <parameter name="browser" value="Chrome"/>
+        <parameter name="email" value="at_java_training@wearegap.com"/>
+        <parameter name="password" value="123queso"/>
+        <groups>
+            <run>
+                <include name="resetPassword"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.gap.atpractice.testsuites.LoginTest"/>
         </classes>
     </test>
 </suite>
+

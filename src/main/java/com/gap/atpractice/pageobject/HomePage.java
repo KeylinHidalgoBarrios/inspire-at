@@ -33,7 +33,7 @@ public class HomePage extends PageBase {
     public AdministrativeUsersTabPage clickAdminUsersTab(){
         this.usersTab.click();
 
-        return new AdministrativeUsersTabPage(driver);
+        return PageFactory.initElements(driver, AdministrativeUsersTabPage.class);
     }
 
     /**
@@ -43,7 +43,7 @@ public class HomePage extends PageBase {
     public EmployeesInfoTabPage clickEmployeeInfoTab(){
         this.employeeInfoTab.click();
 
-        return new EmployeesInfoTabPage(driver);
+        return PageFactory.initElements(driver, EmployeesInfoTabPage.class);
     }
 
     /**
@@ -53,7 +53,7 @@ public class HomePage extends PageBase {
     public MyAccountTabPage clickMyAccountTab(){
         this.myAccountTab.click();
 
-        return new MyAccountTabPage(driver);
+        return PageFactory.initElements(driver, MyAccountTabPage.class);
     }
 
     /**

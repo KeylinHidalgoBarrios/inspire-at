@@ -1,7 +1,7 @@
 package com.gap.atpractice.testngfactory;
 
 import com.gap.atpractice.testsuites.HomeTest;
-import com.gap.atpractice.testsuites.Login.LoginTest;
+import com.gap.atpractice.testsuites.LoginTest;
 import org.testng.annotations.Factory;
 
 /**
