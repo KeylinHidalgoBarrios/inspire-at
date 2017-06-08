@@ -61,7 +61,7 @@ public class HomePage extends PageBase {
      * @return true if loaded, false if it's not
      */
     public boolean isPageLoaded(){
-        botStyle.waitForElementPresent(60, welcomeMessage);
+        botStyle.waitForElementPresent(welcomeMessage, 60);
         return welcomeMessage.isDisplayed();
     }
 

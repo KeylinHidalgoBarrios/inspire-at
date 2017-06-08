@@ -80,7 +80,7 @@ public class LoginPage extends PageBase {
      * @return return true if the Login page is loaded
      */
     public boolean isPageLoaded (String title){
-        botStyle.waitForPageTitle(60, title);
+        botStyle.waitForPageTitle(title, 60);
         return driver.getTitle().equals(title);
     }
 

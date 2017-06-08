@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Vacations" verbose="1">
-    <test name="Regression" enabled="true">
+    <test name="Regression" enabled="false">
         <parameter name="browser" value="Chrome"/>
         <parameter name="email" value="at_java_training@wearegap.com"/>
         <parameter name="password" value="123queso"/>
@@ -22,21 +22,22 @@
             <class name="com.gap.atpractice.testngfactory.HomeFactory"/>
         </classes>
     </test>
-    <test name="Employee" enabled="false">
+    <test name="Employee" enabled="true">
         <parameter name="browser" value="Chrome"/>
         <parameter name="email" value="at_java_training@wearegap.com"/>
         <parameter name="password" value="123queso"/>
         <parameter name="identificationNewEmployee" value="112250877"/>
-        <parameter name="credsNewEmployeeCreation" value="Keylin,Hidalgo Barrios,khidalgo@wearegap.com,112250877,Pancha Carrazco,2015,May,25"/>
+        <parameter name="credsNewEmployeeCreation" value="Keylin,Hidalgo Barrios,khidalgo@wearegap.com,112250877,Pancha Carrazco,2015,5,25"/>
+        <parameter name="infoAddVacationDays" value="2,09/25/2019,09/30/2019,01/05/2019,5,Adding vacation days for 2019,112250877"/>
         <groups>
             <run>
                 <include name="employeeTests"/>
-                <exclude name="employeeTests004"/>
             </run>
         </groups>
         <classes>
             <class name="com.gap.atpractice.testsuites.EmployeeInfoTabTest"/>
             <class name="com.gap.atpractice.testsuites.NewEmployeeTest"/>
+            <class name="com.gap.atpractice.testsuites.AddRequestVacationTest"/>
         </classes>
     </test>
     <test name="DataProvider" enabled="false">

@@ -5,10 +5,8 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.*;
 
 /**
  * Created by keyhi on 5/18/2017.
@@ -31,7 +29,7 @@ public class BotStyle {
      * @param timeToWaitSecs time in seconds
      * @param title desired title
      */
-    public void waitForPageTitle(int timeToWaitSecs, final String title){
+    public void waitForPageTitle(final String title, int timeToWaitSecs){
 
         (new WebDriverWait(driver, timeToWaitSecs)).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver d) {
@@ -46,8 +44,8 @@ public class BotStyle {
      * @param timeoutInSeconds timeout in seconds
      * @return return a webelement as a result of the By element
      */
-    public WebElement waitForElementPresent(int timeoutInSeconds, final By byElement){
-        return waitForElementPresent(timeoutInSeconds, driver.findElement(byElement));
+    public WebElement waitForElementPresent(final By byElement, int timeoutInSeconds){
+        return waitForElementPresent(driver.findElement(byElement), timeoutInSeconds);
     }
 
 
@@ -57,7 +55,7 @@ public class BotStyle {
      * @param timeoutInSeconds timeout in seconds
      * @return WebElement
      */
-    public WebElement waitForElementPresent(int timeoutInSeconds, final WebElement element){
+    public WebElement waitForElementPresent(final WebElement element, int timeoutInSeconds){
         Wait<WebDriver> wait = new WebDriverWait(driver, timeoutInSeconds);
 
         WebElement we= wait.until(new Function<WebDriver, WebElement>() {
@@ -69,12 +67,23 @@ public class BotStyle {
     }
 
     /**
+     * Wait until an element is not longer present
+     * @param timeoutInSeconds timeout in seconds
+     * @param element element to validate that´s not present
+     */
+    public void waitForElementNotPresent(final By element, int timeoutInSeconds){
+        Wait<WebDriver> wait = new WebDriverWait(driver, timeoutInSeconds);
+
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(element));
+    }
+
+    /**
      * Type desired value, this method ensures that the element is present and cleans the field before sending the keys
      * @param element Desired web element
      * @param text Desired text
      */
     public void type(WebElement element, String text){
-        waitForElementPresent(60, element);
+        waitForElementPresent(element, 60);
         element.clear();
         element.sendKeys(text);
     }
@@ -85,28 +94,49 @@ public class BotStyle {
      * @param text Desired text
      */
     public void type(By locator, String text){
-        WebElement element = waitForElementPresent(60, locator);
+        WebElement element = waitForElementPresent(locator, 60);
         element.clear();
+        element.sendKeys(text);
+    }
+
+
+    /**
+     * Type desired value, this method ensures that the element is present and send the keys
+     * @param element Desired web element
+     * @param text Desired text
+     */
+    public void typeWithoutClearing(WebElement element, String text){
+        waitForElementPresent(element, 60);
+        element.sendKeys(text);
+    }
+
+    /**
+     * Type desired value, this method ensures that the element is present and send the keys
+     * @param locator Desired locator type by
+     * @param text Desired text
+     */
+    public void typeWithoutClearing(By locator, String text){
+        WebElement element = waitForElementPresent(locator, 60);
         element.sendKeys(text);
     }
 
     /**
      * Select an item from a list
      * @param element List element
-     * @param text text to be selected
+     * @param value value to be selected
      */
-    public void selectListValue(WebElement element, String text){
-        waitForElementPresent(60, element);
-        new Select(element).selectByVisibleText(text);
+    public void selectListElementByValue(WebElement element, String value){
+        waitForElementPresent(element, 60);
+        new Select(element).selectByValue(value);
     }
 
     /**
      * Select an item from a list
      * @param element List element
-     * @param text text to be selected
+     * @param value value to be selected
      */
-    public void selectListValue(By element, String text){
-        selectListValue(driver.findElement(element), text);
+    public void selectListElementByValue(By element, String value){
+        selectListElementByValue(driver.findElement(element), value);
     }
 
     /**
@@ -114,8 +144,25 @@ public class BotStyle {
      * @param element Web element to perform operation
      */
     public void clickElement(By element){
-        waitForElementPresent(60, element);
+        waitForElementPresent(element, 60);
         driver.findElement(element).click();
+    }
+
+    /**
+     * Click an element using Actions class
+     * @param element WebElement to be clicked
+     */
+    public void clickElementActions(WebElement element){
+        Actions act = new Actions(driver);
+        act.click(element).build().perform();
+    }
+
+    /**
+     * Click an element using Actions class
+     * @param element By element to be clicked
+     */
+    public void clickElementActions(By element){
+        clickElementActions(driver.findElement(element));
     }
 
     /**
@@ -138,7 +185,7 @@ public class BotStyle {
      */
     public boolean isElementPresent(WebElement element){
         try{
-            waitForElementPresent(60, element);
+            waitForElementPresent(element, 60);
             element.isDisplayed();
             return true;
         }catch(Exception e){
@@ -153,7 +200,7 @@ public class BotStyle {
      */
     public boolean isElementPresent(By element){
         try{
-            waitForElementPresent(60, element);
+            waitForElementPresent(element, 60);
             driver.findElement(element).isDisplayed();
             return true;
         }catch(Exception e){

@@ -36,26 +36,19 @@ public class NewEmployeePage extends PageBase {
 
     /**
      * Create a new employee
-     * @param firstName Employee´s first name
-     * @param lastName Employee´s last name
-     * @param email Employee´s email
-     * @param identification Employee´s identification
-     * @param leaderName Employee´s leader name
-     * @param year Employee´s start working on year
-     * @param month Employee´s start working on month
-     * @param day Employee´s start working on day
+     * @param userInfo Array with user information from xml
      */
-    public EmployeeDetailsPage createNewEmployee(String firstName, String lastName, String email, String identification,
-                                                 String leaderName, String year, String month, String day){
+    public EmployeeDetailsPage createNewEmployee(String[] userInfo){
+
         //Fill fields with info from the test
-        botStyle.type(firstNameField, firstName);
-        botStyle.type(lastNameField, lastName);
-        botStyle.type(emailField, email);
-        botStyle.type(identificationField, identification);
-        botStyle.type(leaderNameField, leaderName);
-        botStyle.selectListValue(yearField, year);
-        botStyle.selectListValue(monthField, month);
-        botStyle.selectListValue(dayField, day);
+        botStyle.type(firstNameField, userInfo[0]);
+        botStyle.type(lastNameField, userInfo[1]);
+        botStyle.type(emailField, userInfo[2]);
+        botStyle.type(identificationField, userInfo[3]);
+        botStyle.type(leaderNameField, userInfo[4]);
+        botStyle.selectListElementByValue(yearField, userInfo[5]);
+        botStyle.selectListElementByValue(monthField, userInfo[6]);
+        botStyle.selectListElementByValue(dayField, userInfo[7]);
 
         //Click button to begin creation process
         createButton.click();
@@ -68,7 +61,7 @@ public class NewEmployeePage extends PageBase {
      * @return true if loaded, false if it's not
      */
     public boolean isPageLoaded(){
-        botStyle.waitForElementPresent(60, newUserTitle);
+        botStyle.waitForElementPresent(newUserTitle, 60);
         return newUserTitle.isDisplayed();
     }
 

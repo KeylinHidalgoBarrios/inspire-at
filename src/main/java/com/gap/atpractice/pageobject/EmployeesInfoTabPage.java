@@ -34,7 +34,7 @@ public class EmployeesInfoTabPage extends PageBase {
      * @return true if loaded, false if it's not
      */
     public boolean isPageLoaded(){
-        botStyle.waitForElementPresent(60, userTabTitle);
+        botStyle.waitForElementPresent(userTabTitle, 60);
         return userTabTitle.isDisplayed();
     }
 
@@ -78,9 +78,18 @@ public class EmployeesInfoTabPage extends PageBase {
 
         botStyle.clickAlertOption(true);
 
-        boolean deleted = botStyle.isElementPresent(By.xpath(String.format(employeeElement, identification)));
+        return userExists(identification);
+    }
 
-        return deleted;
+    /**
+     * Validate if user exists
+     * @param identification id of the user to validate
+     * @return true if exists, false if doesn´t
+     */
+    public boolean userExists(String identification){
+        boolean exists = botStyle.isElementPresent(By.xpath(String.format(employeeElement, identification)));
+
+        return exists;
     }
 
     /**

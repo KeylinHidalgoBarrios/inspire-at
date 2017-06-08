@@ -31,7 +31,7 @@ public class AdministrativeUsersTabPage extends PageBase {
      * @return true if loaded, false if it's not
      */
     public boolean isPageLoaded(){
-        botStyle.waitForElementPresent(60, userTabTitle);
+        botStyle.waitForElementPresent(userTabTitle, 60);
         return userTabTitle.isDisplayed();
     }
 
