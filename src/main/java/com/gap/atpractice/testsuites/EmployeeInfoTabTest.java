@@ -32,7 +32,7 @@ public class EmployeeInfoTabTest extends TestBase {
      * @param password password to login
      * @param identification id of the employee to be deleted
      */
-    @Test(groups = "employeeTests004", priority = 4)
+    @Test(groups = "employeeTests009", priority = 9)
     @Parameters({"email", "password", "identificationNewEmployee"})
     public void deleteEmployee(String email, String password, String identification){
         HomePage homePage = LoginTestCommon.login(email, password);

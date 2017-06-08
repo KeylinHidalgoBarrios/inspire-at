@@ -1,12 +1,10 @@
 package com.gap.atpractice.pageobject;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Sleeper;
 import org.testng.Assert;
 
 /**
@@ -40,6 +38,28 @@ public class AddRequestVacationPage extends PageBase{
      * @return ListVacationsPage instance which is the page displays after user created the vacation
      */
     public EmployeeDetailsPage addVacationDays(String[] information){
+        botStyle.selectListElementByValue(vacationTypeList, information[0]);
+        botStyle.typeWithoutClearing(vacationSinceField, information[1]);
+        botStyle.typeWithoutClearing(vacationUntilField, information[2]);
+        botStyle.typeWithoutClearing(vacationRequestedOnField, information[3]);
+        botStyle.typeWithoutClearing(vacationDaysField, information[4]);
+        botStyle.typeWithoutClearing(vacationDescriptionField, information[5]);
+
+        //Page title needs to be clicked in order to change focus to avoid submit button overlapping with calendar element
+        pageTitle.click();
+        //Wait until calendar is not displayed so Submit button can be clicked
+        botStyle.waitForElementNotPresent(calendarElement, 3);
+        submitButton.click();
+
+        return PageFactory.initElements(driver, EmployeeDetailsPage.class);
+    }
+
+    /**
+     * Deduct vacation days from an employee
+     * @param information Vacation deduction information
+     * @return ListVacationsPage instance which is the page displays after user created the vacation
+     */
+    public EmployeeDetailsPage deductVacationDays(String[] information){
         botStyle.selectListElementByValue(vacationTypeList, information[0]);
         botStyle.typeWithoutClearing(vacationSinceField, information[1]);
         botStyle.typeWithoutClearing(vacationUntilField, information[2]);

@@ -1,8 +1,5 @@
 package com.gap.atpractice.pageobject;
 
-import com.gap.atpractice.pageobject.ForgotPasswordPage;
-import com.gap.atpractice.pageobject.HomePage;
-import com.gap.atpractice.pageobject.PageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

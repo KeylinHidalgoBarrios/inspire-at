@@ -29,9 +29,11 @@
         <parameter name="identificationNewEmployee" value="112250877"/>
         <parameter name="credsNewEmployeeCreation" value="Keylin,Hidalgo Barrios,khidalgo@wearegap.com,112250877,Pancha Carrazco,2015,5,25"/>
         <parameter name="infoAddVacationDays" value="2,09/25/2019,09/30/2019,01/05/2019,5,Adding vacation days for 2019,112250877"/>
+        <parameter name="infoDeductVacationDays" value="1,01/25/2019,01/30/2019,11/05/2018,5,Deducting vacation days for 2019,112250877"/>
         <groups>
             <run>
                 <include name="employeeTests"/>
+                <exclude name="employeeTests009"/>
             </run>
         </groups>
         <classes>
