@@ -2,6 +2,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Vacations" verbose="1">
+    <listeners>
+        <listener class-name="com.gap.atpractice.framework.CustomListener"/>
+    </listeners>
     <test name="Regression" enabled="false">
         <parameter name="browser" value="Chrome"/>
         <parameter name="email" value="at_java_training@wearegap.com"/>
@@ -33,7 +36,6 @@
         <groups>
             <run>
                 <include name="employeeTests"/>
-                <exclude name="employeeTests009"/>
             </run>
         </groups>
         <classes>

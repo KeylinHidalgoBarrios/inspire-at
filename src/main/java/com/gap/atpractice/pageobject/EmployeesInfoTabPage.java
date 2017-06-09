@@ -71,14 +71,14 @@ public class EmployeesInfoTabPage extends PageBase {
     /**
      * Delete employee
      * @param identification id of the user to be deleted
-     * @return
+     * @return true if user deleted, false if not
      */
     public boolean deleteEmployee(String identification){
         clickOnUserOption(identification, "Delete");
 
         botStyle.clickAlertOption(true);
 
-        return userExists(identification);
+        return !userExists(identification);
     }
 
     /**

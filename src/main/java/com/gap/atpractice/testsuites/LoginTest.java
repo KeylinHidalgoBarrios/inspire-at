@@ -28,7 +28,7 @@ public class LoginTest extends TestBase {
         Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
         //Taking the screenshot after Welcome page loads
-        TakeScreenshot.takeScreenshot(driver, "./src/main/resources/screenshots/screenshot2.png", "png");
+        new TakeScreenshot().takeScreenshot(driver,"./src/main/resources/screenshots/screenshot2.png", "png");
 
         //Using javascript executor to validate the page is ready
         JavascriptExecutor js = (JavascriptExecutor)driver;

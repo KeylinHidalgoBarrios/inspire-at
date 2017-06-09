@@ -1,5 +1,6 @@
 package com.gap.atpractice.testsuites;
 
+import com.gap.atpractice.common.LoginTestCommon;
 import com.gap.atpractice.selenium.SeleniumBase;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
@@ -11,6 +12,7 @@ import org.testng.annotations.Parameters;
  */
 public class TestBase extends SeleniumBase {
     protected static WebDriver driver;
+    protected LoginTestCommon loginTestCommon;
 
     /**
      * Initializing Webdriver instance so every other class extending from this one has the instance
@@ -19,7 +21,8 @@ public class TestBase extends SeleniumBase {
     @BeforeMethod(alwaysRun = true)
     @Parameters({"browser"})
     protected void initSetup(String browser){
-        driver = setup(browser);
+        setup(browser);
+        driver = getDriver();
     }
 
     /**

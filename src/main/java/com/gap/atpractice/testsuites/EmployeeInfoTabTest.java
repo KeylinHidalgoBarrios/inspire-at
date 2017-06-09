@@ -39,6 +39,6 @@ public class EmployeeInfoTabTest extends TestBase {
         Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
         boolean deleted = new EmployeesInfoTabPage(driver).deleteEmployee(identification);
-        Assert.assertFalse(deleted, "User was not deleted");
+        Assert.assertTrue(deleted, "User was not deleted");
     }
 }

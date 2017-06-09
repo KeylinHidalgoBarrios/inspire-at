@@ -17,7 +17,7 @@ public class ActionTest {
 
     private static void initSetup(){
         SeleniumBase seleniumBase = new SeleniumBase();
-        driver = seleniumBase.setup("Chrome");
+        //driver = seleniumBase.setup("Chrome");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://jsfiddle.net/L6qggtub/2/show/");
         WebElement iframe = driver.findElement(By.cssSelector("iframe"));

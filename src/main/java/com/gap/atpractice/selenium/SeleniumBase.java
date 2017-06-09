@@ -1,6 +1,7 @@
 package com.gap.atpractice.selenium;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -25,7 +26,7 @@ public class SeleniumBase {
      * @param browserName which browser, Chrome, FF, IE
      * @return configured and initialized WebDriver
      */
-    public WebDriver setup(String browserName){
+    public void setup(String browserName){
 
         switch (browserName){
             case "Chrome":
@@ -42,8 +43,6 @@ public class SeleniumBase {
         }
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-        return driver;
     }
 
     /**
@@ -82,4 +81,9 @@ public class SeleniumBase {
 
         this.driver = new FirefoxDriver(capabilities);
     }
+
+    public WebDriver getDriver(){
+        return driver;
+    }
 }
+

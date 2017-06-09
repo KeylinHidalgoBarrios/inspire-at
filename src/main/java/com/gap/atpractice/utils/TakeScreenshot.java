@@ -1,5 +1,6 @@
 package com.gap.atpractice.utils;
 
+import com.gap.atpractice.selenium.SeleniumBase;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -11,28 +12,15 @@ import java.io.IOException;
 /**
  * Created by keyhi on 4/24/2017.
  */
-public class TakeScreenshot {
+public class TakeScreenshot extends SeleniumBase{
 
     /**
      * Static method to take a screenshot from the UI in any important point
-     * @param webDriver driver initialized
      * @param path path where the screenshot will be saved
      */
-    public static void takeScreenshot(WebDriver webDriver, String path, String fileType){
-
-        /*
-             //Taking the screenshot
-            File fileToSave = new File("");
-
-            if(fileType.equals("file")){
-                fileToSave = ((TakesScreenshot)webDriver).getScreenshotAs(OutputType.FILE);
-            }
-            else if(fileType.equals("base64")){
-                fileToSave = ((TakesScreenshot)webDriver).getScreenshotAs(OutputType.BYTES);
-            }
-         */
+    public void takeScreenshot(WebDriver driver, String path, String fileType){
         //Taking the screenshot
-        File fileToSave = ((TakesScreenshot)webDriver).getScreenshotAs(OutputType.FILE);
+        File fileToSave = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 
         try {
             //Saving the screenshot in the path
