@@ -1,6 +1,6 @@
 package com.gap.atpractice.utils;
 
-import com.gap.atpractice.selenium.SeleniumBase;
+import com.gap.atpractice.framework.SeleniumBase;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;

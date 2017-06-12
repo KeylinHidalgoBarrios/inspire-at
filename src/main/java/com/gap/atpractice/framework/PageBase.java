@@ -1,6 +1,6 @@
-package com.gap.atpractice.pageobject;
+package com.gap.atpractice.framework;
 
-import com.gap.atpractice.botstyletest.BotStyle;
+import com.gap.atpractice.framework.BotStyle;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.LoadableComponent;
 

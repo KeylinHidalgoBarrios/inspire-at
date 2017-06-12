@@ -1,8 +1,7 @@
-package com.gap.atpractice.framework;
+package com.gap.atpractice.utils;
 
-import com.gap.atpractice.testsuites.TestBase;
+import com.gap.atpractice.framework.TestBase;
 import com.gap.atpractice.utils.TakeScreenshot;
-import org.apache.bcel.generic.RETURN;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -10,7 +9,7 @@ import org.testng.ITestResult;
 /**
  * Created by keyhi on 6/8/2017.
  */
-public class CustomListener implements ITestListener {
+public class CustomListener implements ITestListener{
     @Override
     public void onTestStart(ITestResult result) {
     }
@@ -21,7 +20,6 @@ public class CustomListener implements ITestListener {
      */
     @Override
     public void onTestSuccess(ITestResult result) {
-        System.out.println("Current method: ".concat(result.getName()));
         printStatus(result);
     }
 
@@ -31,9 +29,9 @@ public class CustomListener implements ITestListener {
      */
     @Override
     public void onTestFailure(ITestResult result) {
-        System.out.println("Current method: ".concat(result.getName()));
         printStatus(result);
         new TakeScreenshot().takeScreenshot(((TestBase)result.getInstance()).getDriver(), "./src/main/resources/screenshots/".concat(result.getName()).concat("FAILED.png"), "png");
+        System.out.println(result.toString());
     }
 
     /**
@@ -42,8 +40,8 @@ public class CustomListener implements ITestListener {
      */
     @Override
     public void onTestSkipped(ITestResult result) {
-        System.out.println("Current method: ".concat(result.getName()));
         printStatus(result);
+        System.out.println(result.toString());
     }
 
     @Override
@@ -66,17 +64,19 @@ public class CustomListener implements ITestListener {
      * @param result ITestResult after test execution
      */
     private void printStatus(ITestResult result){
-        System.out.println("*****************************************************");
-        System.out.println("SUMMARY");
-        System.out.println("*****************************************************");
-        System.out.println("|-- Test Class: ".concat(result.getInstanceName()));
-        System.out.println("|-- Method: ".concat(result.getName()));
         Long runningDuration = result.getEndMillis()-result.getStartMillis();
-        System.out.println("|-- Execution Time: ".concat(runningDuration.toString()));
-        System.out.println("|-- Status: ".concat(getStatus(result.getStatus())));
-        System.out.println("*****************************************************");
-        System.out.println("");
-        System.out.println("");
+
+        StringBuilder message = new StringBuilder();
+        message.append("*****************************************************\n");
+        message.append("SUMMARY\n");
+        message.append("*****************************************************\n");
+        message.append("|-- Test Class: ".concat(result.getInstanceName().concat("\n")));
+        message.append("|-- Method: ".concat(result.getName()).concat("\n"));
+        message.append("|-- Execution Time: ".concat(runningDuration.toString()).concat(" ms\n"));
+        message.append("|-- Status: ".concat(getStatus(result.getStatus())).concat("\n"));
+        message.append("*****************************************************\n\n\n");
+
+        System.out.println(message);
     }
 
     /**

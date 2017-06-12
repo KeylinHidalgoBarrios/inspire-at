@@ -1,5 +1,6 @@
 package com.gap.atpractice.pageobject;
 
+import com.gap.atpractice.framework.PageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -51,7 +52,7 @@ public class NewEmployeePage extends PageBase {
         botStyle.selectListElementByValue(dayField, userInfo[7]);
 
         //Click button to begin creation process
-        createButton.click();
+        botStyle.click(createButton);
 
         return PageFactory.initElements(driver, EmployeeDetailsPage.class);
     }

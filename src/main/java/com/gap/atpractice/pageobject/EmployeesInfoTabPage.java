@@ -1,5 +1,6 @@
 package com.gap.atpractice.pageobject;
 
+import com.gap.atpractice.framework.PageBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -43,7 +44,7 @@ public class EmployeesInfoTabPage extends PageBase {
      * @return NewEmployeePage instance with Webdriver
      */
     public NewEmployeePage clickNewEmployeeLink(){
-        this.newEmployeeLink.click();
+        botStyle.click(newEmployeeLink);
 
         return PageFactory.initElements(driver, NewEmployeePage.class);
     }
@@ -54,7 +55,7 @@ public class EmployeesInfoTabPage extends PageBase {
      * @param option which employeeOption from the row needs to be clicked
      */
     private void clickOnUserOption(String identification, String option){
-        botStyle.clickElement(By.xpath(String.format(employeeOption, identification, option)));
+        botStyle.click(By.xpath(String.format(employeeOption, identification, option)));
     }
 
     /**

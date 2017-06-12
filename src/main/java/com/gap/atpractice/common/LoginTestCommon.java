@@ -2,9 +2,8 @@ package com.gap.atpractice.common;
 
 import com.gap.atpractice.pageobject.HomePage;
 import com.gap.atpractice.pageobject.LoginPage;
-import com.gap.atpractice.testsuites.TestBase;
+import com.gap.atpractice.framework.TestBase;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 
 /**
  * Created by keyhi on 6/5/2017.

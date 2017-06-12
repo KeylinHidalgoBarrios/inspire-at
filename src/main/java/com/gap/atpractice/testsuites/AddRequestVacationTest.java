@@ -1,6 +1,7 @@
 package com.gap.atpractice.testsuites;
 
 import com.gap.atpractice.common.LoginTestCommon;
+import com.gap.atpractice.framework.TestBase;
 import com.gap.atpractice.pageobject.*;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -13,8 +14,8 @@ import org.testng.annotations.Test;
 public class AddRequestVacationTest extends TestBase {
 
     @Test(groups = "employeeTests003", priority = 3)
-    @Parameters({"email", "password", "infoAddVacationDays"})
-    public void addVacationDays(String email, String password, String vacationInformation){
+    @Parameters({"email", "password", "infoAddVacationDays", "vacationsCreatedMessage"})
+    public void addVacationDays(String email, String password, String vacationInformation, String vacationsCreatedMessage){
         String[] vacationInfo = vacationInformation.split(",");
 
         //Login
@@ -30,11 +31,13 @@ public class AddRequestVacationTest extends TestBase {
 
         employeeDetailsPage = addRequestVacationPage.addVacationDays(vacationInfo);
         Assert.assertTrue(employeeDetailsPage.isPageLoaded(), "Employee details page not displayed");
+
+        Assert.assertTrue(employeeDetailsPage.isMessageDisplayed(vacationsCreatedMessage));
     }
 
     @Test(groups = "employeeTests004", priority = 4)
-    @Parameters({"email", "password", "infoDeductVacationDays"})
-    public void deductVacationDays(String email, String password, String vacationInformation){
+    @Parameters({"email", "password", "infoDeductVacationDays", "vacationsCreatedMessage"})
+    public void deductVacationDays(String email, String password, String vacationInformation, String vacationsCreatedMessage){
         String[] vacationInfo = vacationInformation.split(",");
 
         //Login
@@ -50,5 +53,7 @@ public class AddRequestVacationTest extends TestBase {
 
         employeeDetailsPage = addRequestVacationPage.addVacationDays(vacationInfo);
         Assert.assertTrue(employeeDetailsPage.isPageLoaded(), "Employee details page not displayed");
+
+        Assert.assertTrue(employeeDetailsPage.isMessageDisplayed(vacationsCreatedMessage));
     }
 }

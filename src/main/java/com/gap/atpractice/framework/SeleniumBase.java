@@ -1,4 +1,4 @@
-package com.gap.atpractice.selenium;
+package com.gap.atpractice.framework;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

@@ -1,7 +1,7 @@
-package com.gap.atpractice.testsuites;
+package com.gap.atpractice.framework;
 
 import com.gap.atpractice.common.LoginTestCommon;
-import com.gap.atpractice.selenium.SeleniumBase;
+import com.gap.atpractice.framework.SeleniumBase;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;

@@ -1,5 +1,6 @@
 package com.gap.atpractice.testsuites;
 
+import com.gap.atpractice.framework.TestBase;
 import com.gap.atpractice.pageobject.*;
 import com.gap.atpractice.common.LoginTestCommon;
 import org.testng.Assert;
@@ -10,7 +11,7 @@ import org.testng.annotations.Test;
  * Created by Key on 6/2/2017.
  */
 @Test(groups = {"regression", "employeeTests"})
-public class NewEmployeeTest extends TestBase{
+public class NewEmployeeTest extends TestBase {
     @Test(groups = "employeeTests001", priority = 1)
     @Parameters({"email", "password", "credsNewEmployeeCreation"})
     public void createNewEmployee(String email, String password, String credentials){

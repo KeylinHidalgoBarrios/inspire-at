@@ -1,5 +1,6 @@
 package com.gap.atpractice.pageobject;
 
+import com.gap.atpractice.framework.PageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +10,7 @@ import org.testng.Assert;
 /**
  * Created by keyhi on 5/24/2017.
  */
-public class ForgotPasswordPage extends PageBase{
+public class ForgotPasswordPage extends PageBase {
 
     //Page url
     private final String url = "users/password/new";

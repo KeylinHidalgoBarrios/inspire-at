@@ -1,5 +1,6 @@
 package com.gap.atpractice.pageobject;
 
+import com.gap.atpractice.framework.PageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,6 +16,7 @@ public class EmployeeDetailsPage extends PageBase {
     @FindBy(xpath = "//h1[text() = 'Employee vacations report']") private WebElement vacationsTitle;
     @FindBy(xpath = "//a[text()='Back']") private  WebElement backLink;
     @FindBy(xpath = "//a[text()='Add/Request Vacations']") private WebElement addRequestVacationLink;
+    @FindBy(id = "notice") private WebElement noticeMessageElement;
 
     /**
      * Constructor of the page
@@ -39,7 +41,7 @@ public class EmployeeDetailsPage extends PageBase {
      * @return instance of EmployeesInfoTabPage
      */
     public EmployeesInfoTabPage clickBackLink(){
-        backLink.click();
+        botStyle.click(backLink);
 
         return PageFactory.initElements(driver, EmployeesInfoTabPage.class);
     }
@@ -49,9 +51,18 @@ public class EmployeeDetailsPage extends PageBase {
      * @return instance of AddRequestVacationPage which is the page displayed after clicking the link
      */
     public AddRequestVacationPage clickAddRequestVacationLink(){
-        addRequestVacationLink.click();
+        botStyle.click(addRequestVacationLink);
 
         return PageFactory.initElements(driver, AddRequestVacationPage.class);
+    }
+
+    /**
+     * Verify if message is displayed in the page
+     * @param message Message to compare with web element's text
+     * @return True if it's displayed, false if it's other message what's being displayed
+     */
+    public boolean isMessageDisplayed(String message){
+        return noticeMessageElement.getText().equals(message);
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.gap.atpractice.botstyletest;
+package com.gap.atpractice.framework;
 
 import com.google.common.base.Function;
 import org.openqa.selenium.Alert;
@@ -22,59 +22,6 @@ public class BotStyle {
      */
     public BotStyle(WebDriver driver){
         this.driver = driver;
-    }
-
-    /**
-     * Wait for the title to display so before calling the title it is sure that it already loaded
-     * @param timeToWaitSecs time in seconds
-     * @param title desired title
-     */
-    public void waitForPageTitle(final String title, int timeToWaitSecs){
-
-        (new WebDriverWait(driver, timeToWaitSecs)).until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver d) {
-                return d.getTitle().toLowerCase().startsWith(title.toLowerCase());
-            }
-        });
-    }
-
-    /**
-     * Waiting for the element to be present before using it
-     * @param byElement Locator type By
-     * @param timeoutInSeconds timeout in seconds
-     * @return return a webelement as a result of the By element
-     */
-    public WebElement waitForElementPresent(final By byElement, int timeoutInSeconds){
-        return waitForElementPresent(driver.findElement(byElement), timeoutInSeconds);
-    }
-
-
-    /**
-     * Waiting for the element to be present before using it
-     * @param element Webelement
-     * @param timeoutInSeconds timeout in seconds
-     * @return WebElement
-     */
-    public WebElement waitForElementPresent(final WebElement element, int timeoutInSeconds){
-        Wait<WebDriver> wait = new WebDriverWait(driver, timeoutInSeconds);
-
-        WebElement we= wait.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver) {
-                return element;
-            }
-        });
-        return we;
-    }
-
-    /**
-     * Wait until an element is not longer present
-     * @param timeoutInSeconds timeout in seconds
-     * @param element element to validate that´s not present
-     */
-    public void waitForElementNotPresent(final By element, int timeoutInSeconds){
-        Wait<WebDriver> wait = new WebDriverWait(driver, timeoutInSeconds);
-
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(element));
     }
 
     /**
@@ -143,16 +90,23 @@ public class BotStyle {
      * Click an element
      * @param element Web element to perform operation
      */
-    public void clickElement(By element){
+    public void click(WebElement element){
         waitForElementPresent(element, 60);
-        driver.findElement(element).click();
+        element.click();
+    }
+    /**
+     * Click an element
+     * @param element Web element to perform operation
+     */
+    public void click(By element){
+        click(driver.findElement(element));
     }
 
     /**
      * Click an element using Actions class
      * @param element WebElement to be clicked
      */
-    public void clickElementActions(WebElement element){
+    public void actionsClick(WebElement element){
         Actions act = new Actions(driver);
         act.click(element).build().perform();
     }
@@ -161,8 +115,8 @@ public class BotStyle {
      * Click an element using Actions class
      * @param element By element to be clicked
      */
-    public void clickElementActions(By element){
-        clickElementActions(driver.findElement(element));
+    public void actionsClick(By element){
+        actionsClick(driver.findElement(element));
     }
 
     /**
@@ -176,6 +130,26 @@ public class BotStyle {
             alert.accept();
         else
             alert.dismiss();
+    }
+
+    /**
+     * Get an element's text
+     * @param element Web element
+     * @return Element's text
+     */
+    public String getText(WebElement element){
+        waitForElementPresent(element, 60);
+        return element.getText();
+    }
+
+    /**
+     * Get an element's text
+     * @param element Web element
+     * @return Element's text
+     */
+    public String getText(By element){
+        WebElement webElement = waitForElementPresent(driver.findElement(element), 60);
+        return webElement.getText();
     }
 
     /**
@@ -206,5 +180,57 @@ public class BotStyle {
         }catch(Exception e){
             return false;
         }
+    }
+
+    /**
+     * Wait for the title to display so before calling the title it is sure that it already loaded
+     * @param timeToWaitSecs time in seconds
+     * @param title desired title
+     */
+    public void waitForPageTitle(final String title, int timeToWaitSecs){
+
+        (new WebDriverWait(driver, timeToWaitSecs)).until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver d) {
+                return d.getTitle().toLowerCase().startsWith(title.toLowerCase());
+            }
+        });
+    }
+
+    /**
+     * Waiting for the element to be present before using it
+     * @param byElement Locator type By
+     * @param timeoutInSeconds timeout in seconds
+     * @return return a webelement as a result of the By element
+     */
+    public WebElement waitForElementPresent(final By byElement, int timeoutInSeconds){
+        return waitForElementPresent(driver.findElement(byElement), timeoutInSeconds);
+    }
+
+    /**
+     * Waiting for the element to be present before using it
+     * @param element Webelement
+     * @param timeoutInSeconds timeout in seconds
+     * @return WebElement
+     */
+    public WebElement waitForElementPresent(final WebElement element, int timeoutInSeconds){
+        Wait<WebDriver> wait = new WebDriverWait(driver, timeoutInSeconds);
+
+        WebElement we= wait.until(new Function<WebDriver, WebElement>() {
+            public WebElement apply(WebDriver driver) {
+                return element;
+            }
+        });
+        return we;
+    }
+
+    /**
+     * Wait until an element is not longer present
+     * @param timeoutInSeconds timeout in seconds
+     * @param element element to validate that´s not present
+     */
+    public void waitForElementNotPresent(final By element, int timeoutInSeconds){
+        Wait<WebDriver> wait = new WebDriverWait(driver, timeoutInSeconds);
+
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(element));
     }
 }

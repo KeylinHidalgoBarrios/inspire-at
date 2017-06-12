@@ -1,5 +1,6 @@
 package com.gap.atpractice.pageobject;
 
+import com.gap.atpractice.framework.PageBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +11,7 @@ import org.testng.Assert;
 /**
  * Created by Key on 6/7/2017.
  */
-public class AddRequestVacationPage extends PageBase{
+public class AddRequestVacationPage extends PageBase {
 
     @FindBy(xpath = "//h1[contains(text(),'Add/Request Vacations for:')]") private  WebElement pageTitle;
     @FindBy(id = "vacation_type") private WebElement vacationTypeList;
@@ -46,10 +47,10 @@ public class AddRequestVacationPage extends PageBase{
         botStyle.typeWithoutClearing(vacationDescriptionField, information[5]);
 
         //Page title needs to be clicked in order to change focus to avoid submit button overlapping with calendar element
-        pageTitle.click();
+        botStyle.click(pageTitle);
         //Wait until calendar is not displayed so Submit button can be clicked
         botStyle.waitForElementNotPresent(calendarElement, 3);
-        submitButton.click();
+        botStyle.click(submitButton);
 
         return PageFactory.initElements(driver, EmployeeDetailsPage.class);
     }
@@ -68,10 +69,10 @@ public class AddRequestVacationPage extends PageBase{
         botStyle.typeWithoutClearing(vacationDescriptionField, information[5]);
 
         //Page title needs to be clicked in order to change focus to avoid submit button overlapping with calendar element
-        pageTitle.click();
+        botStyle.click(pageTitle);
         //Wait until calendar is not displayed so Submit button can be clicked
         botStyle.waitForElementNotPresent(calendarElement, 3);
-        submitButton.click();
+        botStyle.click(submitButton);
 
         return PageFactory.initElements(driver, EmployeeDetailsPage.class);
     }

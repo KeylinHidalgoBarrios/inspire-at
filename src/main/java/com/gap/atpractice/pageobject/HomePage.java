@@ -1,5 +1,6 @@
 package com.gap.atpractice.pageobject;
 
+import com.gap.atpractice.framework.PageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -31,7 +32,7 @@ public class HomePage extends PageBase {
      * @return AdministrativeUsersTabPage instance
      */
     public AdministrativeUsersTabPage clickAdminUsersTab(){
-        this.usersTab.click();
+        botStyle.click(usersTab);
 
         return PageFactory.initElements(driver, AdministrativeUsersTabPage.class);
     }
@@ -41,7 +42,7 @@ public class HomePage extends PageBase {
      * @return EmployeesInfoTabPage instance
      */
     public EmployeesInfoTabPage clickEmployeeInfoTab(){
-        this.employeeInfoTab.click();
+        botStyle.click(employeeInfoTab);
 
         return PageFactory.initElements(driver, EmployeesInfoTabPage.class);
     }
@@ -51,7 +52,7 @@ public class HomePage extends PageBase {
      * @return MyAccountTabPage instance
      */
     public MyAccountTabPage clickMyAccountTab(){
-        this.myAccountTab.click();
+        botStyle.click(myAccountTab);
 
         return PageFactory.initElements(driver, MyAccountTabPage.class);
     }

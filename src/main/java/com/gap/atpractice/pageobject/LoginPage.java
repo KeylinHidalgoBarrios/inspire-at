@@ -1,5 +1,6 @@
 package com.gap.atpractice.pageobject;
 
+import com.gap.atpractice.framework.PageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -57,7 +58,7 @@ public class LoginPage extends PageBase {
      * Submit login information
      */
     private void submitInformation(){
-        this.loginButton.click();
+        botStyle.click(loginButton);
     }
 
     /**
@@ -66,7 +67,7 @@ public class LoginPage extends PageBase {
      */
     public ForgotPasswordPage goToNewPasswordPage(){
 
-        this.forgotPasswordLink.click();
+        botStyle.click(forgotPasswordLink);
 
         return PageFactory.initElements(driver, ForgotPasswordPage.class);
     }

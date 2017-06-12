@@ -1,6 +1,7 @@
 package com.gap.atpractice.testsuites;
 
 import com.gap.atpractice.common.LoginTestCommon;
+import com.gap.atpractice.framework.TestBase;
 import com.gap.atpractice.testngdataprovider.DataProviderTest;
 import com.gap.atpractice.pageobject.ForgotPasswordPage;
 import com.gap.atpractice.pageobject.HomePage;

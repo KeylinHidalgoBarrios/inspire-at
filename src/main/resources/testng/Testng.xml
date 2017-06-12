@@ -3,7 +3,7 @@
 
 <suite name="Vacations" verbose="1">
     <listeners>
-        <listener class-name="com.gap.atpractice.framework.CustomListener"/>
+        <listener class-name="com.gap.atpractice.utils.CustomListener"/>
     </listeners>
     <test name="Regression" enabled="false">
         <parameter name="browser" value="Chrome"/>
@@ -33,6 +33,8 @@
         <parameter name="credsNewEmployeeCreation" value="Keylin,Hidalgo Barrios,khidalgo@wearegap.com,112250877,Pancha Carrazco,2015,5,25"/>
         <parameter name="infoAddVacationDays" value="2,09/25/2019,09/30/2019,01/05/2019,5,Adding vacation days for 2019,112250877"/>
         <parameter name="infoDeductVacationDays" value="1,01/25/2019,01/30/2019,11/05/2018,5,Deducting vacation days for 2019,112250877"/>
+        <parameter name="vacationsAddedMessage" value="Vacation was successfully created."/>
+        <parameter name="vacationsCreatedMessage" value="Vacation was successfully created."/>
         <groups>
             <run>
                 <include name="employeeTests"/>

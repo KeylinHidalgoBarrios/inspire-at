@@ -1,5 +1,6 @@
 package com.gap.atpractice.testsuites;
 
+import com.gap.atpractice.framework.TestBase;
 import com.gap.atpractice.pageobject.*;
 import com.gap.atpractice.common.LoginTestCommon;
 import org.testng.Assert;

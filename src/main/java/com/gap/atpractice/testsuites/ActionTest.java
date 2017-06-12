@@ -1,6 +1,6 @@
 package com.gap.atpractice.testsuites;
 
-import com.gap.atpractice.selenium.SeleniumBase;
+import com.gap.atpractice.framework.SeleniumBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
