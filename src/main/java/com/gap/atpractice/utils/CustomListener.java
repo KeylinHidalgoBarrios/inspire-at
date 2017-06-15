@@ -30,7 +30,7 @@ public class CustomListener implements ITestListener{
     @Override
     public void onTestFailure(ITestResult result) {
         printStatus(result);
-        new TakeScreenshot().takeScreenshot(((TestBase)result.getInstance()).getDriver(), "./src/main/resources/screenshots/".concat(result.getName()).concat("FAILED.png"), "png");
+        //new TakeScreenshot().takeScreenshot(((TestBase)result.getInstance()).getDriver(), "./src/main/resources/screenshots/".concat(result.getName()).concat("FAILED.png"), "png");
         System.out.println(result.toString());
     }
 
