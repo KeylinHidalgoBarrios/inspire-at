@@ -2,7 +2,7 @@ package com.gap.atpractice.testsuites;
 
 import br.eti.kinoshita.testlinkjavaapi.model.TestPlan;
 import com.gap.atpractice.framework.TestBase;
-import com.gap.atpractice.framework.TestLinkAccess;
+import com.gap.atpractice.framework.TestLinkManagement;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -14,23 +14,23 @@ import java.net.MalformedURLException;
 @Test(groups = "testLink")
 public class TestLinkAccessTest extends TestBase{
 
+    /**
+     * Create a test plan and a build
+     * @param testPlanParameters
+     * @param buildParameters
+     */
     @Test(groups = "testLink")
-    @Parameters({"testPlanParameters", "buildParameters", "testCasesId", "testCasesVersion", "testCasePlatformId", "testCaseUrgency"})
-    public void testLinkManagement(String testPlanParameters, String buildParameters, String testCasesId, String testCaseVersion,
-                                   String testCasePlatformId, String testCaseUrgency){
+    @Parameters({"testPlanParameters", "buildParameters"})
+    public void testLinkManagement(String testPlanParameters, String buildParameters){
         try {
-            TestLinkAccess testLinkAccess = new TestLinkAccess(testLinkUrl, testLinkKey);
+            TestLinkManagement testLinkManagement = new TestLinkManagement(this.getTestLinkUrl(), this.getTestLinkKey());
 
             String[] testPlanArray = testPlanParameters.split(",");
-            TestPlan testPlan = testLinkAccess.createTestPlan(testPlanArray[0], testPlanArray[1], testPlanArray[2],
-                    Boolean.parseBoolean(testPlanArray[3]), Boolean.parseBoolean(testPlanArray[4]));
-/*
-            String[] testCasesIdArray = testCasesId.split(",");
-            testLinkAccess.addTestCasesToTestLinkPlan(testCasesIdArray, testLinkAccess.getTestProjectByName(testPlanArray[1]).getId(), testPlan.getId(), Integer.parseInt(testCaseVersion),
-                    Integer.parseInt(testCasePlatformId), Integer.parseInt(testCaseUrgency));*/
+            TestPlan testPlan = testLinkManagement.createTestPlan(this.getTestLinkPlanName(), this.getTestLinkProjectName(), testPlanArray[0],
+                    Boolean.parseBoolean(testPlanArray[1]), Boolean.parseBoolean(testPlanArray[2]));
 
             String[] buildArray = buildParameters.split(",");
-            testLinkAccess.createTestLinkBuild(testPlan.getId(), buildArray[0], buildArray[1]);
+            testLinkManagement.createTestLinkBuild(testPlan.getId(), buildArray[0], buildArray[1]);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

@@ -12,6 +12,12 @@ import org.testng.annotations.Test;
  */
 @Test(groups = {"regression", "homePageTabsTest"})
 public class HomeTest extends TestBase {
+    LoginTestCommon loginTestCommon;
+
+    public HomeTest(){
+        loginTestCommon = new LoginTestCommon();
+    }
+
     /**
      * Go to Administrative Users tab in home page
      * @param email User name for login
@@ -21,7 +27,7 @@ public class HomeTest extends TestBase {
     @Parameters({"email", "password"})
     public void clickAdministrativeUsersTab(String email, String password){
         //Home page loaded
-        HomePage homePage = LoginTestCommon.login(email, password);
+        HomePage homePage = loginTestCommon.login(getDriver(), email, password);
 
         Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
@@ -40,7 +46,7 @@ public class HomeTest extends TestBase {
     @Parameters({"email", "password"})
     public void clickEmployeeInfoTab(String email, String password){
         //Home page loaded
-        HomePage homePage = LoginTestCommon.login(email, password);
+        HomePage homePage = loginTestCommon.login(getDriver(), email, password);
 
         Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
@@ -59,7 +65,7 @@ public class HomeTest extends TestBase {
     @Parameters({"email", "password"})
     public void clickMyAccountTab(String email, String password){
         //Home page loaded
-        HomePage homePage = LoginTestCommon.login(email, password);
+        HomePage homePage = loginTestCommon.login(getDriver(), email, password);
 
         Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
@@ -78,7 +84,7 @@ public class HomeTest extends TestBase {
     @Parameters({"email", "password"})
     public void goThroughAllTabs(String email, String password){
         //Home page loaded
-        HomePage homePage = LoginTestCommon.login(email, password);
+        HomePage homePage = loginTestCommon.login(getDriver(), email, password);
         Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
         //Go to My Account tab

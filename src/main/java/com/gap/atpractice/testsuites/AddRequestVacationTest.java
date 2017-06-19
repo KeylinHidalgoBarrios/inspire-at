@@ -12,18 +12,23 @@ import org.testng.annotations.Test;
  */
 @Test(groups = {"employeeTests", "regression"})
 public class AddRequestVacationTest extends TestBase {
+    LoginTestCommon loginTestCommon;
+
+    public AddRequestVacationTest(){
+        loginTestCommon = new LoginTestCommon();
+    }
 
     @Test(groups = "employeeTests003", priority = 3)
-    @Parameters({"email", "password", "infoAddVacationDays", "vacationsCreatedMessage"})
-    public void addVacationDays(String email, String password, String vacationInformation, String vacationsCreatedMessage){
+    @Parameters({"email", "password", "infoAddVacationDays", "vacationsCreatedMessage", "externalIdAddVacationDays", "idAddVacationDays"})
+    public void addVacationDays(String email, String password, String vacationInformation, String vacationsCreatedMessage, String externalId, String id){
         String[] vacationInfo = vacationInformation.split(",");
 
         //Login
-        HomePage homePage = LoginTestCommon.login(email, password);
+        HomePage homePage = loginTestCommon.login(getDriver(), email, password);
         Assert.assertTrue(homePage.isPageLoaded(), "Home page not displayed");
 
         //Go to Employee creation page
-        EmployeeDetailsPage employeeDetailsPage = new EmployeesInfoTabPage(driver).clickShowDetailsLink(vacationInfo[6]);
+        EmployeeDetailsPage employeeDetailsPage = new EmployeesInfoTabPage(getDriver()).clickShowDetailsLink(vacationInfo[6]);
         Assert.assertTrue(employeeDetailsPage.isPageLoaded(), "Employee details page not displayed");
 
         AddRequestVacationPage addRequestVacationPage = employeeDetailsPage.clickAddRequestVacationLink();
@@ -36,16 +41,16 @@ public class AddRequestVacationTest extends TestBase {
     }
 
     @Test(groups = "employeeTests004", priority = 4)
-    @Parameters({"email", "password", "infoDeductVacationDays", "vacationsCreatedMessage"})
-    public void deductVacationDays(String email, String password, String vacationInformation, String vacationsCreatedMessage){
+    @Parameters({"email", "password", "infoDeductVacationDays", "vacationsCreatedMessage", "externalIdDeductVacationDays", "idDeductVacationDays"})
+    public void deductVacationDays(String email, String password, String vacationInformation, String vacationsCreatedMessage, String externalId, String id){
         String[] vacationInfo = vacationInformation.split(",");
 
         //Login
-        HomePage homePage = LoginTestCommon.login(email, password);
+        HomePage homePage = loginTestCommon.login(getDriver(), email, password);
         Assert.assertTrue(homePage.isPageLoaded(), "Home page not displayed");
 
         //Go to Employee creation page
-        EmployeeDetailsPage employeeDetailsPage = new EmployeesInfoTabPage(driver).clickShowDetailsLink(vacationInfo[6]);
+        EmployeeDetailsPage employeeDetailsPage = new EmployeesInfoTabPage(getDriver()).clickShowDetailsLink(vacationInfo[6]);
         Assert.assertTrue(employeeDetailsPage.isPageLoaded(), "Employee details page not displayed");
 
         AddRequestVacationPage addRequestVacationPage = employeeDetailsPage.clickAddRequestVacationLink();

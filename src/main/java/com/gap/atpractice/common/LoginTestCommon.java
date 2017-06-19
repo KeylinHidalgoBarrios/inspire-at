@@ -3,13 +3,14 @@ package com.gap.atpractice.common;
 import com.gap.atpractice.pageobject.HomePage;
 import com.gap.atpractice.pageobject.LoginPage;
 import com.gap.atpractice.framework.TestBase;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 /**
  * Created by keyhi on 6/5/2017.
  */
-public class LoginTestCommon extends TestBase {
-    private static LoginPage loginPage;
+public class LoginTestCommon {
+    private LoginPage loginPage;
 
     /**
      * Common method to login into the application
@@ -17,7 +18,7 @@ public class LoginTestCommon extends TestBase {
      * @param password password of the user
      * @return HomePage instance
      */
-    public static HomePage login(String email, String password){
+    public HomePage login(WebDriver driver, String email, String password){
         loginPage = (LoginPage) new LoginPage(driver).get();
         Assert.assertTrue(loginPage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"), "Login page cannot be displayed");
 

@@ -8,6 +8,7 @@ import com.gap.atpractice.pageobject.HomePage;
 import com.gap.atpractice.pageobject.LoginPage;
 import com.gap.atpractice.utils.TakeScreenshot;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -17,6 +18,11 @@ import org.testng.annotations.Test;
  */
 @Test(groups = "regression")
 public class LoginTest extends TestBase {
+    LoginTestCommon loginTestCommon;
+
+    public LoginTest(){
+        loginTestCommon = new LoginTestCommon();
+    }
     /**
      * Test login process
      * @param email User credentials
@@ -24,15 +30,15 @@ public class LoginTest extends TestBase {
      */
     @Parameters({"email", "password"})
     public void loginSuccessfulTest(String email, String password){
-        HomePage homePage = LoginTestCommon.login(email, password);
+        HomePage homePage = loginTestCommon.login(getDriver(), email, password);
 
         Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
 
         //Taking the screenshot after Welcome page loads
-        new TakeScreenshot().takeScreenshot(driver,"./src/main/resources/screenshots/screenshot2.png", "png");
+        new TakeScreenshot().takeScreenshot(getDriver(),"./src/main/resources/screenshots/screenshot2.png", "png");
 
         //Using javascript executor to validate the page is ready
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+        JavascriptExecutor js = (JavascriptExecutor)getDriver();
         Assert.assertTrue(js.executeScript("return document.readyState").equals("complete"), "JavascriptExecutor document not loaded");
     }
 
@@ -41,7 +47,7 @@ public class LoginTest extends TestBase {
      */
     @Test(groups = {"testngDataProvider"}, dataProvider = "dpTestLocal", dataProviderClass = DataProviderTest.class)
     public void loginTestLocal(String email, String password){
-        LoginTestCommon.login(email, password);
+        HomePage homePage = loginTestCommon.login(getDriver(), email, password);
 
         System.out.println("Local Data Provider");
         System.out.println(String.format("Username: %s    Password: %s", email, password));
@@ -52,7 +58,7 @@ public class LoginTest extends TestBase {
      */
     @Test(groups = {"testngDataProvider"}, dataProvider = "dpTestJson", dataProviderClass = DataProviderTest.class)
     public void loginTestJson(String email, String password){
-        LoginTestCommon.login(email, password);
+        loginTestCommon.login(getDriver(), email, password);
 
         System.out.println("JSON Data Provider");
         System.out.println(String.format("Username: %s    Password: %s", email, password));
@@ -63,7 +69,8 @@ public class LoginTest extends TestBase {
      */
     @Test(groups = "resetPassword")
     public void goToForgotPasswordPage(){
-        LoginPage loginPage = (LoginPage) new LoginPage(driver).get();
+        LoginPage loginPage = (LoginPage) new LoginPage(getDriver()).get();
+
         Assert.assertTrue(loginPage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"), "Login page cannot be displayed");
 
         ForgotPasswordPage forgotPasswordPage = loginPage.goToNewPasswordPage();

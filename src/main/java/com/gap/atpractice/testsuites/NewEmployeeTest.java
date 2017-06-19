@@ -12,15 +12,21 @@ import org.testng.annotations.Test;
  */
 @Test(groups = {"regression", "employeeTests"})
 public class NewEmployeeTest extends TestBase {
+    LoginTestCommon loginTestCommon;
+
+    public NewEmployeeTest(){
+        loginTestCommon = new LoginTestCommon();
+    }
+
     @Test(groups = "employeeTests001", priority = 1)
-    @Parameters({"email", "password", "credsNewEmployeeCreation"})
-    public void createNewEmployee(String email, String password, String credentials){
+    @Parameters({"email", "password", "credsNewEmployeeCreation", "externalIdCreateNewEmployee", "idCreateNewEmployee"})
+    public void createNewEmployee(String email, String password, String credentials, String externalId, String id){
         //Login
-        HomePage homePage = LoginTestCommon.login(email, password);
+        HomePage homePage = loginTestCommon.login(getDriver(), email, password);
         Assert.assertTrue(homePage.isPageLoaded(), "Home page not displayed");
 
         //Go to Employee creation page
-        NewEmployeePage newEmployeePage = new EmployeesInfoTabPage(driver).clickNewEmployeeLink();
+        NewEmployeePage newEmployeePage = new EmployeesInfoTabPage(getDriver()).clickNewEmployeeLink();
         Assert.assertTrue(newEmployeePage.isPageLoaded(), "New Employee page not displayed");
 
         //Create the user

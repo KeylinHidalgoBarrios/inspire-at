@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by keyhi on 6/14/2017.
  */
-public class TestLinkAccess extends TestLinkAPI{
+public class TestLinkManagement extends TestLinkAPI{
 
     /**
      * Access TestLink
@@ -23,7 +23,7 @@ public class TestLinkAccess extends TestLinkAPI{
      * @throws TestLinkAPIException
      * @throws MalformedURLException
      */
-    public TestLinkAccess(String URL, String devKey) throws TestLinkAPIException, MalformedURLException {
+    public TestLinkManagement(String URL, String devKey) throws TestLinkAPIException, MalformedURLException {
         super(new URL(URL), devKey);
     }
 
@@ -73,18 +73,16 @@ public class TestLinkAccess extends TestLinkAPI{
 
     /**
      *From API add test cases to test plan
-     * @param testCasesId Array with test cases id to add to Plan
+     * @param testCaseId Test case id to add to Plan
      * @param testProjectId number of test project id
      * @param testPlanId number of test plan id
      * @param version version number
      * @param platformId platform id number
      * @param urgency urgency number
-     * @return test case id number
+     * @return 2264 code if test case successfully added to plan
      */
-    public void addTestCasesToTestLinkPlan(String[] testCasesId, Integer testProjectId, Integer testPlanId, Integer version, Integer platformId, Integer urgency){
-        for (int index = 0; index < testCasesId.length; index++) {
-            this.addTestCaseToTestPlan(testProjectId, testPlanId, Integer.parseInt(testCasesId[index]), version, platformId, index, urgency);
-        }
+    public int addTestCasesToTestLinkPlan(Integer testCaseId, Integer testProjectId, Integer testPlanId, Integer version, Integer platformId, Integer urgency){
+        return this.addTestCaseToTestPlan(testProjectId, testPlanId, testCaseId, version, platformId, 0, urgency);
     }
 
     /**

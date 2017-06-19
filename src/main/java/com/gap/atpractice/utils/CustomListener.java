@@ -1,15 +1,18 @@
 package com.gap.atpractice.utils;
 
+import br.eti.kinoshita.testlinkjavaapi.constants.ExecutionStatus;
 import com.gap.atpractice.framework.TestBase;
-import com.gap.atpractice.utils.TakeScreenshot;
+import com.gap.atpractice.framework.TestLinkManagement;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import java.net.MalformedURLException;
+
 /**
  * Created by keyhi on 6/8/2017.
  */
-public class CustomListener implements ITestListener{
+public class CustomListener extends TestBase implements ITestListener{
     @Override
     public void onTestStart(ITestResult result) {
     }
@@ -21,6 +24,9 @@ public class CustomListener implements ITestListener{
     @Override
     public void onTestSuccess(ITestResult result) {
         printStatus(result);
+
+        testCaseManagement(result);
+
     }
 
     /**
@@ -30,8 +36,10 @@ public class CustomListener implements ITestListener{
     @Override
     public void onTestFailure(ITestResult result) {
         printStatus(result);
-        //new TakeScreenshot().takeScreenshot(((TestBase)result.getInstance()).getDriver(), "./src/main/resources/screenshots/".concat(result.getName()).concat("FAILED.png"), "png");
+        new TakeScreenshot().takeScreenshot(((TestBase)result.getInstance()).getDriver(), "./src/main/resources/screenshots/".concat(result.getName()).concat("FAILED.png"), "png");
         System.out.println(result.toString());
+        testCaseManagement(result);
+
     }
 
     /**
@@ -42,6 +50,8 @@ public class CustomListener implements ITestListener{
     public void onTestSkipped(ITestResult result) {
         printStatus(result);
         System.out.println(result.toString());
+        testCaseManagement(result);
+
     }
 
     @Override
@@ -96,5 +106,43 @@ public class CustomListener implements ITestListener{
             default:
                 return "RESULT CODE NOT RECOGNIZED";
         }
+    }
+
+    /**
+     * Manage test case in TestLink.
+     * @param result result from test case execution
+     */
+    private void testCaseManagement(ITestResult result){
+        try {
+            Object [] methodParameters = result.getParameters();
+            Integer tCExternalId = Integer.parseInt(methodParameters[methodParameters.length-2].toString());
+            Integer tCId = Integer.parseInt(methodParameters[methodParameters.length-1].toString());
+
+            TestBase testBase = (TestBase)(result.getInstance());
+
+            TestLinkManagement testLinkManagement = new TestLinkManagement(testBase.getTestLinkUrl(), testBase.getTestLinkKey());
+
+            Boolean testCaseAdded  = addTestCaseToTestLink(tCExternalId, testBase, testLinkManagement);
+
+            if(testCaseAdded){
+                updateTestRunStatus(tCId, tCExternalId, testBase, testLinkManagement, ExecutionStatus.PASSED);
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Boolean addTestCaseToTestLink(Integer testCaseId, TestBase testBase, TestLinkManagement testLinkManagement){
+        int status = testLinkManagement.addTestCasesToTestLinkPlan(testCaseId, testLinkManagement.getTestProjectByName(testBase.getTestLinkProjectName()).getId(),
+                testLinkManagement.getTestPlanByName(testBase.getTestLinkPlanName(), testBase.getTestLinkProjectName()).getId(), testBase.getTestLinkTestCaseVersion(),
+                testBase.getTestLinkTestCasePlatformId(), testBase.getTestLinkTestCaseUrgency());
+
+        return status == 2264 ? true:false;
+    }
+
+    private void updateTestRunStatus(Integer testCaseId, Integer testCaseExternalId, TestBase testBase, TestLinkManagement testLinkManagement,
+                                     ExecutionStatus status){
+        /*testLinkManagement.updateTestRunsStatus(testCaseId, testCaseExternalId, testLinkManagement.getTestPlanByName(testBase.getTestLinkPlanName(), testBase.getTestLinkProjectName()).getId(),
+                status, );*/
     }
 }

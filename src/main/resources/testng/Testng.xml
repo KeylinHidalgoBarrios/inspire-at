@@ -2,9 +2,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Vacations" verbose="1">
-    <!--TestLik Access parameters-->
+    <!--TestLink Access parameters-->
     <parameter name="testLinkKey" value="80535d62d292f57003486de62441abe8"/>
     <parameter name="testLinkUrl" value="https://testlink.wearegap.com/lib/api/xmlrpc/v1/xmlrpc.php"/>
+    <!--TestLink Test Cases parameters-->
+    <parameter name="testLinkTestCasesVersion" value="1"/>
+    <parameter name="testLinkTestCasePlatformId" value="1"/>
+    <parameter name="testLinkTestCaseUrgency" value="1"/>
+    <parameter name="testLinkProjectName" value="Automation Practice - Training"/>
+    <parameter name="testLinkPlanName" value="Plan Keylin"/>
 
     <listeners>
         <listener class-name="com.gap.atpractice.utils.CustomListener"/>
@@ -30,7 +36,7 @@
             <class name="com.gap.atpractice.testngfactory.HomeFactory"/>
         </classes>
     </test>
-    <test name="Employee" enabled="false">
+    <test name="Employee" enabled="true">
         <parameter name="browser" value="Chrome"/>
         <parameter name="email" value="at_java_training@wearegap.com"/>
         <parameter name="password" value="123queso"/>
@@ -40,6 +46,18 @@
         <parameter name="infoDeductVacationDays" value="1,01/25/2019,01/30/2019,11/05/2018,5,Deducting vacation days for 2019,112250877"/>
         <parameter name="vacationsAddedMessage" value="Vacation was successfully created."/>
         <parameter name="vacationsCreatedMessage" value="Vacation was successfully created."/>
+
+        <!--TCs id and external id-->
+        <parameter name="idCreateNewEmployee" value="AT-10"/>
+        <parameter name="externalIdCreateNewEmployee" value="22302"/>
+        <parameter name="idClickEmployeeDetails" value="AT-11"/>
+        <parameter name="externalIdClickEmployeeDetails" value="22316"/>
+        <parameter name="idDeleteEmployee" value="AT-19"/>
+        <parameter name="externalIdDeleteEmployee" value="22372"/>
+        <parameter name="idAddVacationDays" value="AT-12"/>
+        <parameter name="externalIdAddVacationDays" value="22318"/>
+        <parameter name="idDeductVacationDays" value="AT-14"/>
+        <parameter name="externalIdDeductVacationDays" value="22344"/>
         <groups>
             <run>
                 <include name="employeeTests"/>
@@ -92,16 +110,14 @@
     </test>
     <test name="TestLink" enabled="false">
         <!--Test Plan parameters-->
-        <parameter name="testPlanParameters" value="Plan Keylin,Automation Practice - Training,notes,true,true"/>
+        <parameter name="testPlanParameters" value="notes,true,true"/>
 
         <!--Build parameters-->
         <parameter name="buildParameters" value="Build Keylin,notes"/>
 
         <!--Test cases id array-->
         <parameter name="testCasesId" value="22295,22302,22316,22318,22344,22356,22360,22364,22368,22372"/>
-        <parameter name="testCasesVersion" value="1"/>
-        <parameter name="testCasePlatformId" value="1"/>
-        <parameter name="testCaseUrgency" value="1"/>
+
 
         <groups>
             <run>
