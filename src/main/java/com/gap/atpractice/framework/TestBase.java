@@ -1,6 +1,5 @@
 package com.gap.atpractice.framework;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
 /**
@@ -16,6 +15,7 @@ public class TestBase extends SeleniumBase {
     private Integer testLinkTestCaseUrgency;
     private String testLinkProjectName;
     private String testLinkPlanName;
+    private Integer testLinkTestBuildId;
 
     /**
      * Setting TestLink values to access them from tests classes
@@ -27,9 +27,10 @@ public class TestBase extends SeleniumBase {
      */
     @BeforeClass(alwaysRun = true)
     @Parameters({"testLinkKey", "testLinkUrl", "testLinkTestCasesVersion", "testLinkTestCasePlatformId", "testLinkTestCaseUrgency",
-            "testLinkProjectName", "testLinkPlanName"})
+            "testLinkProjectName", "testLinkPlanName", "testLinkTestBuildId", "testLinkTestBuildName"})
     public void setTestLinkAccessValues(String key, String url, String testCaseVersion,
-                                        String testCasePlatformId, String testCaseUrgency, String testLinkProjectName, String testLinkPlanName){
+                                        String testCasePlatformId, String testCaseUrgency, String testLinkProjectName, String testLinkPlanName,
+                                        String testLinkTestBuildId, String testLinkTestBuildName){
         this.testLinkKey = key;
         this.testLinkUrl = url;
         this.testLinkTestCaseVersion = Integer.parseInt(testCaseVersion);
@@ -37,8 +38,8 @@ public class TestBase extends SeleniumBase {
         this.testLinkTestCaseUrgency = Integer.parseInt(testCaseUrgency);
         this.testLinkProjectName = testLinkProjectName;
         this.testLinkPlanName = testLinkPlanName;
+        this.testLinkTestBuildId = Integer.parseInt(testLinkTestBuildId);
     }
-
 
     /**
      * Initializing Webdriver instance so every other class extending from this one has the instance
@@ -59,6 +60,7 @@ public class TestBase extends SeleniumBase {
         this.getDriver().quit();
     }
 
+    /*Getter methods to access class private variables*/
     public String getTestLinkKey() {
         return testLinkKey;
     }
@@ -85,5 +87,9 @@ public class TestBase extends SeleniumBase {
 
     public String getTestLinkPlanName() {
         return testLinkPlanName;
+    }
+
+    public Integer getTestLinkTestBuildId() {
+        return testLinkTestBuildId;
     }
 }

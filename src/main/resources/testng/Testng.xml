@@ -11,6 +11,8 @@
     <parameter name="testLinkTestCaseUrgency" value="1"/>
     <parameter name="testLinkProjectName" value="Automation Practice - Training"/>
     <parameter name="testLinkPlanName" value="Plan Keylin"/>
+    <parameter name="testLinkTestBuildId" value="59"/>
+    <parameter name="testLinkTestBuildName" value="Build Keylin"/>
 
     <listeners>
         <listener class-name="com.gap.atpractice.utils.CustomListener"/>
@@ -48,16 +50,11 @@
         <parameter name="vacationsCreatedMessage" value="Vacation was successfully created."/>
 
         <!--TCs id and external id-->
-        <parameter name="idCreateNewEmployee" value="AT-10"/>
-        <parameter name="externalIdCreateNewEmployee" value="22302"/>
-        <parameter name="idClickEmployeeDetails" value="AT-11"/>
-        <parameter name="externalIdClickEmployeeDetails" value="22316"/>
-        <parameter name="idDeleteEmployee" value="AT-19"/>
-        <parameter name="externalIdDeleteEmployee" value="22372"/>
-        <parameter name="idAddVacationDays" value="AT-12"/>
-        <parameter name="externalIdAddVacationDays" value="22318"/>
-        <parameter name="idDeductVacationDays" value="AT-14"/>
-        <parameter name="externalIdDeductVacationDays" value="22344"/>
+        <parameter name="idCreateNewEmployee" value="22302"/>
+        <parameter name="idClickEmployeeDetails" value="22316"/>
+        <parameter name="idDeleteEmployee" value="22372"/>
+        <parameter name="idAddVacationDays" value="22318"/>
+        <parameter name="idDeductVacationDays" value="22344"/>
         <groups>
             <run>
                 <include name="employeeTests"/>
@@ -118,14 +115,13 @@
         <!--Test cases id array-->
         <parameter name="testCasesId" value="22295,22302,22316,22318,22344,22356,22360,22364,22368,22372"/>
 
-
         <groups>
             <run>
                 <include name="testLink"/>
             </run>
         </groups>
         <classes>
-            <class name="com.gap.atpractice.testsuites.TestLinkAccessTest"/>
+            <class name="com.gap.atpractice.testsuites.TestLinkManagerTest"/>
         </classes>
     </test>
 </suite>

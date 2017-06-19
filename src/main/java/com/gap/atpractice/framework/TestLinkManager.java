@@ -3,9 +3,11 @@ package com.gap.atpractice.framework;
 import br.eti.kinoshita.testlinkjavaapi.TestLinkAPI;
 import br.eti.kinoshita.testlinkjavaapi.constants.ExecutionStatus;
 import br.eti.kinoshita.testlinkjavaapi.model.Build;
+import br.eti.kinoshita.testlinkjavaapi.model.TestCase;
 import br.eti.kinoshita.testlinkjavaapi.model.TestPlan;
 import br.eti.kinoshita.testlinkjavaapi.model.TestProject;
 import br.eti.kinoshita.testlinkjavaapi.util.TestLinkAPIException;
+import org.apache.xpath.operations.Bool;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,7 +16,7 @@ import java.util.Map;
 /**
  * Created by keyhi on 6/14/2017.
  */
-public class TestLinkManagement extends TestLinkAPI{
+public class TestLinkManager extends TestLinkAPI{
 
     /**
      * Access TestLink
@@ -23,7 +25,7 @@ public class TestLinkManagement extends TestLinkAPI{
      * @throws TestLinkAPIException
      * @throws MalformedURLException
      */
-    public TestLinkManagement(String URL, String devKey) throws TestLinkAPIException, MalformedURLException {
+    public TestLinkManager(String URL, String devKey) throws TestLinkAPIException, MalformedURLException {
         super(new URL(URL), devKey);
     }
 
@@ -67,7 +69,7 @@ public class TestLinkManagement extends TestLinkAPI{
      * @param buildNotes String guild notes
      * @return new Build instance
      */
-    public Build createTestLinkBuild (Integer testplanId, String buildName, String buildNotes){
+    public Build createTestBuild(Integer testplanId, String buildName, String buildNotes){
         return this.createBuild(testplanId, buildName, buildNotes);
     }
 
@@ -81,7 +83,7 @@ public class TestLinkManagement extends TestLinkAPI{
      * @param urgency urgency number
      * @return 2264 code if test case successfully added to plan
      */
-    public int addTestCasesToTestLinkPlan(Integer testCaseId, Integer testProjectId, Integer testPlanId, Integer version, Integer platformId, Integer urgency){
+    public int addTestCasesToTestPlan(Integer testCaseId, Integer testProjectId, Integer testPlanId, Integer version, Integer platformId, Integer urgency){
         return this.addTestCaseToTestPlan(testProjectId, testPlanId, testCaseId, version, platformId, 0, urgency);
     }
 
@@ -104,5 +106,25 @@ public class TestLinkManagement extends TestLinkAPI{
     public void updateTestRunsStatus(Integer testCaseId, Integer testCaseExternalId, Integer testPlanId, ExecutionStatus status, Integer buildId, String buildName,
                                      String notes, Boolean guess, String bugId, Integer platformId, String platformName, Map<String, String> customFields, Boolean overwrite){
         this.setTestCaseExecutionResult(testCaseId, testCaseExternalId, testPlanId, status, buildId, buildName, notes, guess, bugId, platformId, platformName, customFields, overwrite);
+    }
+
+    /**
+     * Validate if a test case is already added to the test plan
+     * @param testPlanId Test plan to check
+     * @param buildId Build id to check
+     * @param testCaseId test case id to check
+     * @return true if exists, false if doesn't
+     */
+    public Boolean isTestCaseAddedToTestPlan(Integer testPlanId, Integer buildId, Integer testCaseId){
+        TestCase[] testCasesForTestPlan = this.getTestCasesForTestPlan(testPlanId, null, buildId, null, null, null,
+                null, null, null, null, null);
+
+        Boolean exists = false;
+
+        for (TestCase testCase : testCasesForTestPlan){
+            exists = testCase.getId().equals(testCaseId)? true:false;
+        }
+
+        return exists;
     }
 }

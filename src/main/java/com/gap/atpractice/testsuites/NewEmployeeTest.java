@@ -19,8 +19,8 @@ public class NewEmployeeTest extends TestBase {
     }
 
     @Test(groups = "employeeTests001", priority = 1)
-    @Parameters({"email", "password", "credsNewEmployeeCreation", "externalIdCreateNewEmployee", "idCreateNewEmployee"})
-    public void createNewEmployee(String email, String password, String credentials, String externalId, String id){
+    @Parameters({"email", "password", "credsNewEmployeeCreation", "idCreateNewEmployee"})
+    public void createNewEmployee(String email, String password, String credentials, String id){
         //Login
         HomePage homePage = loginTestCommon.login(getDriver(), email, password);
         Assert.assertTrue(homePage.isPageLoaded(), "Home page not displayed");

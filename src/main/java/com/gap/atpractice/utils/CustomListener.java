@@ -2,7 +2,7 @@ package com.gap.atpractice.utils;
 
 import br.eti.kinoshita.testlinkjavaapi.constants.ExecutionStatus;
 import com.gap.atpractice.framework.TestBase;
-import com.gap.atpractice.framework.TestLinkManagement;
+import com.gap.atpractice.framework.TestLinkManager;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -12,7 +12,7 @@ import java.net.MalformedURLException;
 /**
  * Created by keyhi on 6/8/2017.
  */
-public class CustomListener extends TestBase implements ITestListener{
+public class CustomListener implements ITestListener{
     @Override
     public void onTestStart(ITestResult result) {
     }
@@ -25,8 +25,7 @@ public class CustomListener extends TestBase implements ITestListener{
     public void onTestSuccess(ITestResult result) {
         printStatus(result);
 
-        testCaseManagement(result);
-
+        testCaseManagementTestLink(result);
     }
 
     /**
@@ -35,10 +34,11 @@ public class CustomListener extends TestBase implements ITestListener{
      */
     @Override
     public void onTestFailure(ITestResult result) {
-        printStatus(result);
         new TakeScreenshot().takeScreenshot(((TestBase)result.getInstance()).getDriver(), "./src/main/resources/screenshots/".concat(result.getName()).concat("FAILED.png"), "png");
+        printStatus(result);
         System.out.println(result.toString());
-        testCaseManagement(result);
+
+        testCaseManagementTestLink(result);
 
     }
 
@@ -50,8 +50,8 @@ public class CustomListener extends TestBase implements ITestListener{
     public void onTestSkipped(ITestResult result) {
         printStatus(result);
         System.out.println(result.toString());
-        testCaseManagement(result);
 
+        testCaseManagementTestLink(result);
     }
 
     @Override
@@ -109,40 +109,72 @@ public class CustomListener extends TestBase implements ITestListener{
     }
 
     /**
-     * Manage test case in TestLink.
+     * Manage test case in TestLink, this method adds the test case to the test plan and also update the execution result.
      * @param result result from test case execution
      */
-    private void testCaseManagement(ITestResult result){
+    private void testCaseManagementTestLink(ITestResult result){
         try {
+            //Get test case id from Testlink, this is obtained from the test parameters
             Object [] methodParameters = result.getParameters();
-            Integer tCExternalId = Integer.parseInt(methodParameters[methodParameters.length-2].toString());
-            Integer tCId = Integer.parseInt(methodParameters[methodParameters.length-1].toString());
+            Integer testCaseId = Integer.parseInt(methodParameters[methodParameters.length-1].toString());
 
+            //Get TestBase class instance from test result, to obtain all needed variables and values
             TestBase testBase = (TestBase)(result.getInstance());
 
-            TestLinkManagement testLinkManagement = new TestLinkManagement(testBase.getTestLinkUrl(), testBase.getTestLinkKey());
+            //TestLinkManager class to call all the test link methods
+            TestLinkManager testLinkManager = new TestLinkManager(testBase.getTestLinkUrl(), testBase.getTestLinkKey());
 
-            Boolean testCaseAdded  = addTestCaseToTestLink(tCExternalId, testBase, testLinkManagement);
+            Integer testProjectId = testLinkManager.getTestProjectByName(testBase.getTestLinkProjectName()).getId();
+            Integer testPlanId = testLinkManager.getTestPlanByName(testBase.getTestLinkPlanName(), testBase.getTestLinkProjectName()).getId();
 
-            if(testCaseAdded){
-                updateTestRunStatus(tCId, tCExternalId, testBase, testLinkManagement, ExecutionStatus.PASSED);
+            //Adding all test cases to test link Plan
+            if(!testLinkManager.isTestCaseAddedToTestPlan(testPlanId, testBase.getTestLinkTestBuildId(), testCaseId))
+                addTestCaseToTestLinkPlan(testCaseId, testBase, testLinkManager, testProjectId, testPlanId);
+
+            //Depending on the ITestResult variable status, set the ExecutionStatus result
+            ExecutionStatus executionStatus = ExecutionStatus.PASSED;
+
+            switch (getStatus(result.getStatus())){
+                case "FAILED":
+                    executionStatus = ExecutionStatus.FAILED;
+                case "SKIPPED":
+                    executionStatus = ExecutionStatus.NOT_RUN;
             }
+
+            //Update the test run with the needed status
+            updateTestRunStatus(testCaseId, testBase, testLinkManager, executionStatus, testPlanId);
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
 
-    private Boolean addTestCaseToTestLink(Integer testCaseId, TestBase testBase, TestLinkManagement testLinkManagement){
-        int status = testLinkManagement.addTestCasesToTestLinkPlan(testCaseId, testLinkManagement.getTestProjectByName(testBase.getTestLinkProjectName()).getId(),
-                testLinkManagement.getTestPlanByName(testBase.getTestLinkPlanName(), testBase.getTestLinkProjectName()).getId(), testBase.getTestLinkTestCaseVersion(),
+    /**
+     * Add test cases to a TestLink Plan
+     * @param testCaseId Test case id
+     * @param testBase TestBase class instance obtaind from ITestResult
+     * @param testLinkManager TestLinkManager class instance
+     * @param testProjectId Project id
+     * @param testPlanId Plan id
+     */
+    private void addTestCaseToTestLinkPlan(Integer testCaseId, TestBase testBase, TestLinkManager testLinkManager,
+                                           Integer testProjectId, Integer testPlanId){
+        testLinkManager.addTestCasesToTestPlan(testCaseId, testProjectId, testPlanId, testBase.getTestLinkTestCaseVersion(),
                 testBase.getTestLinkTestCasePlatformId(), testBase.getTestLinkTestCaseUrgency());
-
-        return status == 2264 ? true:false;
     }
 
-    private void updateTestRunStatus(Integer testCaseId, Integer testCaseExternalId, TestBase testBase, TestLinkManagement testLinkManagement,
-                                     ExecutionStatus status){
-        /*testLinkManagement.updateTestRunsStatus(testCaseId, testCaseExternalId, testLinkManagement.getTestPlanByName(testBase.getTestLinkPlanName(), testBase.getTestLinkProjectName()).getId(),
-                status, );*/
+    /**
+     * Update test runs from a plan to set execution as Passed, Failed, Not Run
+     * @param testCaseId Test case id
+     * @param testBase TestBase class instance obtaind from ITestResult
+     * @param testLinkManager TestLinkManager class instance
+     * @param status Execution Status predefined code depending on the execution status
+     * @param testPlanId test plan id
+     */
+    private void updateTestRunStatus(Integer testCaseId, TestBase testBase, TestLinkManager testLinkManager,
+                                     ExecutionStatus status, Integer testPlanId){
+        testLinkManager.updateTestRunsStatus(testCaseId, null, testPlanId,
+                status, testBase.getTestLinkTestBuildId(), null, "Key test run notes", true, null, null, null,
+                null, true);
     }
 }

@@ -19,8 +19,8 @@ public class AddRequestVacationTest extends TestBase {
     }
 
     @Test(groups = "employeeTests003", priority = 3)
-    @Parameters({"email", "password", "infoAddVacationDays", "vacationsCreatedMessage", "externalIdAddVacationDays", "idAddVacationDays"})
-    public void addVacationDays(String email, String password, String vacationInformation, String vacationsCreatedMessage, String externalId, String id){
+    @Parameters({"email", "password", "infoAddVacationDays", "vacationsCreatedMessage", "idAddVacationDays"})
+    public void addVacationDays(String email, String password, String vacationInformation, String vacationsCreatedMessage, String id){
         String[] vacationInfo = vacationInformation.split(",");
 
         //Login
@@ -41,8 +41,8 @@ public class AddRequestVacationTest extends TestBase {
     }
 
     @Test(groups = "employeeTests004", priority = 4)
-    @Parameters({"email", "password", "infoDeductVacationDays", "vacationsCreatedMessage", "externalIdDeductVacationDays", "idDeductVacationDays"})
-    public void deductVacationDays(String email, String password, String vacationInformation, String vacationsCreatedMessage, String externalId, String id){
+    @Parameters({"email", "password", "infoDeductVacationDays", "vacationsCreatedMessage", "idDeductVacationDays"})
+    public void deductVacationDays(String email, String password, String vacationInformation, String vacationsCreatedMessage, String id){
         String[] vacationInfo = vacationInformation.split(",");
 
         //Login
