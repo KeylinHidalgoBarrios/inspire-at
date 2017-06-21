@@ -1,13 +1,12 @@
-package com.gap.atpractice.testSuites;
+package com.gap.atpractice.testsuites;
 
-import com.gap.atpractice.selenium.SeleniumBase;
+import com.gap.atpractice.framework.SeleniumBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -18,7 +17,7 @@ public class ActionTest {
 
     private static void initSetup(){
         SeleniumBase seleniumBase = new SeleniumBase();
-        driver = seleniumBase.setup("Chrome");
+        //driver = seleniumBase.setup("Chrome");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://jsfiddle.net/L6qggtub/2/show/");
         WebElement iframe = driver.findElement(By.cssSelector("iframe"));
@@ -59,7 +58,6 @@ public class ActionTest {
             act.moveToElement(menu3).build().perform();
             Thread.sleep(1000);
 
-            driver.quit();
         } catch (Exception e) {
           e.printStackTrace();
         }

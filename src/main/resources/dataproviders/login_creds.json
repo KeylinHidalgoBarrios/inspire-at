@@ -1,0 +1,14 @@
+[
+  {
+    "email":"at_java_training@wearegap.com",
+    "password":"123queso"
+  },
+  {
+    "email":"emailwrong@jjj.com",
+    "password":"Berlin"
+  },
+  {
+    "email":"anotheremail",
+    "password":"8874"
+  }
+]

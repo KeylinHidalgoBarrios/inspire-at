@@ -1,5 +1,6 @@
-package com.gap.atpractice.pageObject;
+package com.gap.atpractice.pageobject;
 
+import com.gap.atpractice.framework.PageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,7 +12,10 @@ import org.testng.Assert;
  */
 public class HomePage extends PageBase {
 
+    //Web elements
     @FindBy(xpath = "//a[@href='/users']") private WebElement usersTab;
+    @FindBy(xpath = "//a[@href='/employees']") private WebElement employeeInfoTab;
+    @FindBy(xpath = "//a[@href='/my_account']") private WebElement myAccountTab;
     @FindBy(xpath = "//span[contains(text(),'Welcome')]") private WebElement welcomeMessage;
 
     /**
@@ -25,12 +29,32 @@ public class HomePage extends PageBase {
 
     /**
      * Switch to "Administrative Users" tab
-     * @return AdministrativeUsersPage instance
+     * @return AdministrativeUsersTabPage instance
      */
-    public AdministrativeUsersPage clickAdminUsersTab(){
-        this.usersTab.click();
+    public AdministrativeUsersTabPage clickAdminUsersTab(){
+        botStyle.click(usersTab);
 
-        return new AdministrativeUsersPage(driver);
+        return PageFactory.initElements(driver, AdministrativeUsersTabPage.class);
+    }
+
+    /**
+     * Switch to "Employee Information" tab
+     * @return EmployeesInfoTabPage instance
+     */
+    public EmployeesInfoTabPage clickEmployeeInfoTab(){
+        botStyle.click(employeeInfoTab);
+
+        return PageFactory.initElements(driver, EmployeesInfoTabPage.class);
+    }
+
+    /**
+     * Switch to "My Account" tab
+     * @return MyAccountTabPage instance
+     */
+    public MyAccountTabPage clickMyAccountTab(){
+        botStyle.click(myAccountTab);
+
+        return PageFactory.initElements(driver, MyAccountTabPage.class);
     }
 
     /**
@@ -38,7 +62,7 @@ public class HomePage extends PageBase {
      * @return true if loaded, false if it's not
      */
     public boolean isPageLoaded(){
-        botStyle.waitForElementPresent(60, welcomeMessage);
+        botStyle.waitForElementPresent(welcomeMessage, 60);
         return welcomeMessage.isDisplayed();
     }
 
@@ -56,6 +80,6 @@ public class HomePage extends PageBase {
     @Override
     protected void isLoaded(){
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("users"), "Not on the issue entry page: "+url);
+        Assert.assertTrue(url.contains("users"), "Not on Home page: ".concat(url));
     }
 }

@@ -1,5 +1,6 @@
-package com.gap.atpractice.pageObject;
+package com.gap.atpractice.pageobject;
 
+import com.gap.atpractice.framework.PageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,14 +8,20 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 /**
- * Created by keyhi on 5/26/2017.
+ * Created by Key on 6/1/2017.
  */
-public class AdministrativeUsersPage extends PageBase {
+public class MyAccountTabPage extends PageBase {
+    //Page url
+    private final String url = "my_account";
 
-    private String url = "users";
-    @FindBy (xpath = "//h1[contains(text(),'Administrative Users')]") private WebElement userTabTitle;
+    //Web elements
+    @FindBy(xpath = "//h2[contains(text(),'Edit My Account')]") private WebElement userTabTitle;
 
-    public AdministrativeUsersPage(WebDriver driver){
+    /**
+     * Constructor of the page
+     * @param driver receives driver accross application
+     */
+    public MyAccountTabPage(WebDriver driver){
         super(driver);
         PageFactory.initElements(driver, this);
     }
@@ -24,7 +31,7 @@ public class AdministrativeUsersPage extends PageBase {
      * @return true if loaded, false if it's not
      */
     public boolean isPageLoaded(){
-        botStyle.waitForElementPresent(60, userTabTitle);
+        botStyle.waitForElementPresent(userTabTitle, 60);
         return userTabTitle.isDisplayed();
     }
 
@@ -33,7 +40,7 @@ public class AdministrativeUsersPage extends PageBase {
      */
     @Override
     protected void load() {
-        this.driver.get(String.format("%s%s", super.URL_BASE, this.url));
+        this.driver.get(super.URL_BASE.concat(this.url));
     }
 
     /**
@@ -42,6 +49,7 @@ public class AdministrativeUsersPage extends PageBase {
     @Override
     protected void isLoaded() throws Error {
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("new"), "Not on the Administrative Users page: "+url);
+        Assert.assertTrue(url.contains("new"), "Not on My Account tab: ".concat(url));
     }
 }
+

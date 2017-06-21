@@ -1,5 +1,6 @@
-package com.gap.atpractice.pageObject;
+package com.gap.atpractice.pageobject;
 
+import com.gap.atpractice.framework.PageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,10 +10,13 @@ import org.testng.Assert;
 /**
  * Created by keyhi on 5/24/2017.
  */
-public class ForgotPasswordPage extends PageBase{
+public class ForgotPasswordPage extends PageBase {
 
-    private String url = "users/password/new";
-    @FindBy(xpath = "//h2[contains(text(),'password?')]") private WebElement pageTitle;
+    //Page url
+    private final String url = "users/password/new";
+
+    //Web elements
+    @FindBy(xpath = "//h2[contains(text(),'Forgot your password?')]") private WebElement pageTitle;
 
     /**
      * Constructor
@@ -28,7 +32,7 @@ public class ForgotPasswordPage extends PageBase{
      * @return true if loaded, false if it's not
      */
     public boolean isPageLoaded(){
-        botStyle.waitForElementPresent(60, pageTitle);
+        botStyle.waitForElementPresent(pageTitle, 60);
         return pageTitle.isDisplayed();
     }
 
@@ -37,7 +41,7 @@ public class ForgotPasswordPage extends PageBase{
      */
     @Override
     protected void load(){
-        this.driver.get(String.format("%s%s", super.URL_BASE, this.url));
+        this.driver.get(super.URL_BASE.concat(this.url));
     }
 
     /**
@@ -46,6 +50,6 @@ public class ForgotPasswordPage extends PageBase{
     @Override
     protected void isLoaded(){
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("new"), "Not on the Forgot Password page: "+url);
+        Assert.assertTrue(url.contains("new"), "Not on the Forgot Password page: ".concat(url));
     }
 }

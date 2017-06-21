@@ -1,6 +1,7 @@
-package com.gap.atpractice.selenium;
+package com.gap.atpractice.framework;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -25,8 +26,7 @@ public class SeleniumBase {
      * @param browserName which browser, Chrome, FF, IE
      * @return configured and initialized WebDriver
      */
-
-    public WebDriver setup(String browserName){
+    public void setup(String browserName){
 
         switch (browserName){
             case "Chrome":
@@ -43,8 +43,6 @@ public class SeleniumBase {
         }
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-        return driver;
     }
 
     /**
@@ -58,7 +56,6 @@ public class SeleniumBase {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        //capabilities.setCapability("chrome.switches", Arrays.asList("--homepage=".concat("http://qa-test-inspire.civitaslearning.com")));
         capabilities.setCapability("acceptSslCerts", true);
         this.driver = new ChromeDriver(capabilities);
     }
@@ -68,14 +65,10 @@ public class SeleniumBase {
      */
     private void initIE(){
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        //capabilities.setCapability("chrome.switches", Arrays.asList("--homepage=".concat("http://qa-test-inspire.civitaslearning.com")));
         capabilities.setCapability("acceptSslCerts", true);
         capabilities.setCapability("applicationCacheEnabled", true);
 
         this.driver = new InternetExplorerDriver(capabilities);
-
-        this.driver = new InternetExplorerDriver();
-
     }
 
     /**
@@ -83,10 +76,18 @@ public class SeleniumBase {
      */
     private void initFireFox(){
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        //capabilities.setCapability("chrome.switches", Arrays.asList("--homepage=".concat("http://qa-test-inspire.civitaslearning.com")));
         capabilities.setCapability("acceptSslCerts", true);
         capabilities.setCapability("applicationCacheEnabled", true);
 
         this.driver = new FirefoxDriver(capabilities);
     }
+
+    public WebDriver getDriver(){
+        return driver;
+    }
+
+    public void setDriver(WebDriver driver) {
+        this.driver = driver;
+    }
 }
+

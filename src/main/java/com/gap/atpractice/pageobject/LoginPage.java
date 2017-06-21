@@ -1,5 +1,6 @@
-package com.gap.atpractice.pageObject;
+package com.gap.atpractice.pageobject;
 
+import com.gap.atpractice.framework.PageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,18 +12,18 @@ import org.testng.Assert;
  */
 public class LoginPage extends PageBase {
 
-    //Url to Login page
-    private String url = "users/sign_in";
+    //Page url
+    private final String url = "users/sign_in";
 
-    //Elements locators using Page Factory
+    //Web elements
     @FindBy(id = "user_email") private WebElement userName;
     @FindBy(id = "user_password") private WebElement password;
     @FindBy(xpath = "//input[@class='submit']") private WebElement loginButton;
-    @FindBy(xpath = "//a[contains(text(), 'password?')]") private WebElement forgotPasswordLink;
+    @FindBy(xpath = "//a[text()='Forgot your password?']") private WebElement forgotPasswordLink;
 
     /**
-     * Constructor
-     * @param driver Web driver across application
+     * Constructor of the page
+     * @param driver receives driver accross application
      */
     public LoginPage(WebDriver driver){
         super(driver);
@@ -31,17 +32,33 @@ public class LoginPage extends PageBase {
 
     /**
      * Method to login with valid credentials
-     * @param userName user name to login
+     * @param email user email to login
      * @param password password to login
      * @return return HomePage which is the page where user is redirected after successful login
      */
-    public HomePage loginValidCredentials (String userName, String password){
+    public HomePage loginValidCredentials (String email, String password){
 
-        botStyle.type(this.userName, userName);
-        botStyle.type(this.password, password);
-        this.loginButton.click();
+        insertCredentials(email, password);
+        submitInformation();
 
         return new HomePage(driver);
+    }
+
+    /**
+     * Fill email and password fields with values
+     * @param email user email to login
+     * @param password user password to login
+     */
+    private void insertCredentials(String email, String password){
+        botStyle.type(this.userName, email);
+        botStyle.type(this.password, password);
+    }
+
+    /**
+     * Submit login information
+     */
+    private void submitInformation(){
+        botStyle.click(loginButton);
     }
 
     /**
@@ -50,9 +67,9 @@ public class LoginPage extends PageBase {
      */
     public ForgotPasswordPage goToNewPasswordPage(){
 
-        this.forgotPasswordLink.click();
+        botStyle.click(forgotPasswordLink);
 
-        return new ForgotPasswordPage(driver);
+        return PageFactory.initElements(driver, ForgotPasswordPage.class);
     }
 
     /**
@@ -61,7 +78,7 @@ public class LoginPage extends PageBase {
      * @return return true if the Login page is loaded
      */
     public boolean isPageLoaded (String title){
-        botStyle.waitForPageTitle(60, title);
+        botStyle.waitForPageTitle(title, 60);
         return driver.getTitle().equals(title);
     }
 
@@ -70,7 +87,7 @@ public class LoginPage extends PageBase {
      */
     @Override
     protected void load(){
-        this.driver.get(String.format("%s%s", super.URL_BASE, this.url));
+        this.driver.get(super.URL_BASE.concat(this.url));
     }
 
     /**
@@ -79,6 +96,6 @@ public class LoginPage extends PageBase {
     @Override
     protected void isLoaded(){
         String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("users"), "Not on the issue entry page: "+url);
+        Assert.assertTrue(url.contains("users"), "Not on Login page: ".concat(url));
     }
 }

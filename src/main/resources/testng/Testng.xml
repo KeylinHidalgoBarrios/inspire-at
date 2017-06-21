@@ -1,23 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Suite1" verbose="1" >
-    <test name="LoginTest">
-        <parameter name="browser" value="Chrome"/>
-        <parameter name="userName" value="at_java_training@wearegap.com"/>
-        <parameter name="password" value="123queso"/>
+<suite name="Vacations" verbose="1">
+    <!--TestLink Access parameters-->
+    <parameter name="testLinkKey" value="80535d62d292f57003486de62441abe8"/>
+    <parameter name="testLinkUrl" value="https://testlink.wearegap.com/lib/api/xmlrpc/v1/xmlrpc.php"/>
+    <!--TestLink Test Cases parameters-->
+    <parameter name="testLinkTestCasesVersion" value="1"/>
+    <parameter name="testLinkTestCasePlatformId" value="1"/>
+    <parameter name="testLinkTestCaseUrgency" value="1"/>
+    <parameter name="testLinkProjectName" value="Automation Practice - Training"/>
+    <parameter name="testLinkPlanName" value="Plan Keylin"/>
+    <parameter name="testLinkTestBuildId" value="59"/>
+    <parameter name="testLinkTestBuildName" value="Build Keylin"/>
 
+    <listeners>
+        <listener class-name="com.gap.atpractice.utils.CustomListener"/>
+    </listeners>
+
+    <test name="Regression" enabled="false">
+        <parameter name="browser" value="Chrome"/>
+        <parameter name="email" value="at_java_training@wearegap.com"/>
+        <parameter name="password" value="123queso"/>
+        <parameter name="identificationNewEmployee" value="112250877"/>
+        <parameter name="credsNewEmployeeCreation" value="Keylin,Hidalgo Barrios,khidalgo@wearegap.com,112250877,Pancha Carrazco,2015,May,25"/>
         <groups>
             <run>
-                <!--include name="smoke"/-->
                 <include name="regression"/>
-                <!--include name="resetPassword"/-->
-                <!--include name="tabsTest"/-->
             </run>
         </groups>
         <classes>
-            <class name="com.gap.atpractice.testSuites.LoginTest"/>
-            <class name="com.gap.atpractice.testSuites.HomeTest"/>
+            <class name="com.gap.atpractice.testsuites.LoginTest"/>
+            <class name="com.gap.atpractice.testsuites.HomeTest"/>
+            <class name="com.gap.atpractice.testsuites.EmployeeInfoTabTest"/>
+            <class name="com.gap.atpractice.testsuites.NewEmployeeTest"/>
+            <class name="com.gap.atpractice.testngfactory.LoginFactory"/>
+            <class name="com.gap.atpractice.testngfactory.HomeFactory"/>
+        </classes>
+    </test>
+    <test name="Employee" enabled="true">
+        <parameter name="browser" value="Chrome"/>
+        <parameter name="email" value="at_java_training@wearegap.com"/>
+        <parameter name="password" value="123queso"/>
+        <parameter name="identificationNewEmployee" value="112250877"/>
+        <parameter name="credsNewEmployeeCreation" value="Keylin,Hidalgo Barrios,khidalgo@wearegap.com,112250877,Pancha Carrazco,2015,5,25"/>
+        <parameter name="infoAddVacationDays" value="2,09/25/2019,09/30/2019,01/05/2019,5,Adding vacation days for 2019,112250877"/>
+        <parameter name="infoDeductVacationDays" value="1,01/25/2019,01/30/2019,11/05/2018,5,Deducting vacation days for 2019,112250877"/>
+        <parameter name="vacationsAddedMessage" value="Vacation was successfully created."/>
+        <parameter name="vacationsCreatedMessage" value="Vacation was successfully created."/>
+
+        <!--TCs id and external id-->
+        <parameter name="idCreateNewEmployee" value="22302"/>
+        <parameter name="idClickEmployeeDetails" value="22316"/>
+        <parameter name="idDeleteEmployee" value="22372"/>
+        <parameter name="idAddVacationDays" value="22318"/>
+        <parameter name="idDeductVacationDays" value="22344"/>
+        <groups>
+            <run>
+                <include name="employeeTests"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.gap.atpractice.testsuites.EmployeeInfoTabTest"/>
+            <class name="com.gap.atpractice.testsuites.NewEmployeeTest"/>
+            <class name="com.gap.atpractice.testsuites.AddRequestVacationTest"/>
+        </classes>
+    </test>
+    <test name="DataProvider" enabled="false">
+        <parameter name="browser" value="Chrome"/>
+        <parameter name="email" value="at_java_training@wearegap.com"/>
+        <parameter name="password" value="123queso"/>
+        <groups>
+            <run>
+                <include name="testngDataProvider"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.gap.atpractice.testsuites.LoginTest"/>
+        </classes>
+    </test>
+    <test name="HomePageTabs" enabled="false">
+        <parameter name="browser" value="Chrome"/>
+        <parameter name="email" value="at_java_training@wearegap.com"/>
+        <parameter name="password" value="123queso"/>
+        <groups>
+            <run>
+                <include name="homePageTabsTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.gap.atpractice.testsuites.HomeTest"/>
+        </classes>
+    </test>
+    <test name="ResetPassword" enabled="false">
+        <parameter name="browser" value="Chrome"/>
+        <parameter name="email" value="at_java_training@wearegap.com"/>
+        <parameter name="password" value="123queso"/>
+        <groups>
+            <run>
+                <include name="resetPassword"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.gap.atpractice.testsuites.LoginTest"/>
+        </classes>
+    </test>
+    <test name="TestLink" enabled="false">
+        <!--Test Plan parameters-->
+        <parameter name="testPlanParameters" value="notes,true,true"/>
+
+        <!--Build parameters-->
+        <parameter name="buildParameters" value="Build Keylin,notes"/>
+
+        <!--Test cases id array-->
+        <parameter name="testCasesId" value="22295,22302,22316,22318,22344,22356,22360,22364,22368,22372"/>
+
+        <groups>
+            <run>
+                <include name="testLink"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.gap.atpractice.testsuites.TestLinkManagerTest"/>
         </classes>
     </test>
 </suite>
+
