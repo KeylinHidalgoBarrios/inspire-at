@@ -13,6 +13,11 @@ import java.net.MalformedURLException;
  * Created by keyhi on 6/8/2017.
  */
 public class CustomListener implements ITestListener{
+    private final String RESULT_PASSED = "PASSED";
+    private final String RESULT_FAILED = "FAILED";
+    private final String RESULT_SKIPPED = "SKIPPED";
+    private final String RESULT_NOT_RECOGNIZED = "RESULT CODE NOT RECOGNIZED";
+
     @Override
     public void onTestStart(ITestResult result) {
     }
@@ -95,16 +100,15 @@ public class CustomListener implements ITestListener{
      * @return status name
      */
     private String getStatus(int status){
-        String result;
         switch (status){
             case ITestResult.SUCCESS:
-                return "PASSED";
+                return RESULT_PASSED;
             case ITestResult.FAILURE:
-                return "FAILED";
+                return RESULT_FAILED;
             case ITestResult.SKIP:
-                return "SKIPPED";
+                return RESULT_SKIPPED;
             default:
-                return "RESULT CODE NOT RECOGNIZED";
+                return RESULT_NOT_RECOGNIZED;
         }
     }
 
@@ -135,10 +139,15 @@ public class CustomListener implements ITestListener{
             ExecutionStatus executionStatus = ExecutionStatus.PASSED;
 
             switch (getStatus(result.getStatus())){
-                case "FAILED":
+                case RESULT_FAILED:
                     executionStatus = ExecutionStatus.FAILED;
-                case "SKIPPED":
+                    break;
+                case RESULT_SKIPPED:
                     executionStatus = ExecutionStatus.NOT_RUN;
+                    break;
+                case RESULT_NOT_RECOGNIZED:
+                    executionStatus = ExecutionStatus.BLOCKED;
+                    break;
             }
 
             //Update the test run with the needed status
