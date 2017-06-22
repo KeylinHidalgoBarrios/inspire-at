@@ -57,7 +57,7 @@
         <parameter name="idDeductVacationDays" value="22344"/>
         <groups>
             <run>
-                <include name="employeeTests"/>
+                <include name="employeeTests001"/>
             </run>
         </groups>
         <classes>

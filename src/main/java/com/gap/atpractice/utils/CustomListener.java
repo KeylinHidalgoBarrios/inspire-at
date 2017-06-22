@@ -13,6 +13,10 @@ import java.net.MalformedURLException;
  * Created by keyhi on 6/8/2017.
  */
 public class CustomListener implements ITestListener{
+    private final String RESULT_PASSED = "PASSED";
+    private final String RESULT_FAILED = "FAILED";
+    private final String RESULT_SKIPPED = "SKIPPED";
+
     @Override
     public void onTestStart(ITestResult result) {
     }
@@ -23,9 +27,9 @@ public class CustomListener implements ITestListener{
      */
     @Override
     public void onTestSuccess(ITestResult result) {
-        printStatus(result);
-
         testCaseManagementTestLink(result);
+
+        printStatus(result);
     }
 
     /**
@@ -34,12 +38,11 @@ public class CustomListener implements ITestListener{
      */
     @Override
     public void onTestFailure(ITestResult result) {
+        testCaseManagementTestLink(result);
+
         new TakeScreenshot().takeScreenshot(((TestBase)result.getInstance()).getDriver(), "./src/main/resources/screenshots/".concat(result.getName()).concat("FAILED.png"), "png");
         printStatus(result);
         System.out.println(result.toString());
-
-        testCaseManagementTestLink(result);
-
     }
 
     /**
@@ -48,10 +51,10 @@ public class CustomListener implements ITestListener{
      */
     @Override
     public void onTestSkipped(ITestResult result) {
+        testCaseManagementTestLink(result);
+
         printStatus(result);
         System.out.println(result.toString());
-
-        testCaseManagementTestLink(result);
     }
 
     @Override
@@ -98,11 +101,11 @@ public class CustomListener implements ITestListener{
         String result;
         switch (status){
             case ITestResult.SUCCESS:
-                return "PASSED";
+                return RESULT_PASSED;
             case ITestResult.FAILURE:
-                return "FAILED";
+                return RESULT_FAILED;
             case ITestResult.SKIP:
-                return "SKIPPED";
+                return RESULT_SKIPPED;
             default:
                 return "RESULT CODE NOT RECOGNIZED";
         }
@@ -135,10 +138,12 @@ public class CustomListener implements ITestListener{
             ExecutionStatus executionStatus = ExecutionStatus.PASSED;
 
             switch (getStatus(result.getStatus())){
-                case "FAILED":
+                case RESULT_FAILED:
                     executionStatus = ExecutionStatus.FAILED;
-                case "SKIPPED":
+                    break;
+                case RESULT_SKIPPED:
                     executionStatus = ExecutionStatus.NOT_RUN;
+                    break;
             }
 
             //Update the test run with the needed status
