@@ -1,6 +1,9 @@
 package com.gap.atpractice.framework;
 
+import br.eti.kinoshita.testlinkjavaapi.model.TestPlan;
 import org.testng.annotations.*;
+
+import java.net.MalformedURLException;
 
 /**
  * Created by keyhi on 5/25/2017.
@@ -25,7 +28,7 @@ public class TestBase extends SeleniumBase {
      * @param testCasePlatformId test case platform
      * @param testCaseUrgency test case urgency
      */
-    @BeforeClass(alwaysRun = true)
+    @BeforeSuite(alwaysRun = true)
     @Parameters({"testLinkKey", "testLinkUrl", "testLinkTestCasesVersion", "testLinkTestCasePlatformId", "testLinkTestCaseUrgency",
             "testLinkProjectName", "testLinkPlanName", "testLinkTestBuildId", "testLinkTestBuildName"})
     public void setTestLinkAccessValues(String key, String url, String testCaseVersion,
@@ -39,6 +42,28 @@ public class TestBase extends SeleniumBase {
         this.testLinkProjectName = testLinkProjectName;
         this.testLinkPlanName = testLinkPlanName;
         this.testLinkTestBuildId = Integer.parseInt(testLinkTestBuildId);
+    }
+
+/*
+    @BeforeSuite(alwaysRun = true)
+    @Parameters({"testPlanParameters", "buildParameters", "createPlanBuild"})
+*/
+    public void testLinkManagement(String testPlanParameters, String buildParameters, String createPlanBuild){
+        if(Boolean.getBoolean(createPlanBuild)){
+            try {
+                TestLinkManager testLinkManager = new TestLinkManager(this.getTestLinkUrl(), this.getTestLinkKey());
+
+                String[] testPlanArray = testPlanParameters.split(",");
+                TestPlan testPlan = testLinkManager.createTestPlan(this.getTestLinkPlanName(), this.getTestLinkProjectName(), testPlanArray[0],
+                        Boolean.parseBoolean(testPlanArray[1]), Boolean.parseBoolean(testPlanArray[2]));
+
+                String[] buildArray = buildParameters.split(",");
+                testLinkManager.createTestBuild(testPlan.getId(), buildArray[0], buildArray[1]);
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

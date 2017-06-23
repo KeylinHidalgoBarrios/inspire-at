@@ -13,6 +13,7 @@
     <parameter name="testLinkPlanName" value="Plan Keylin"/>
     <parameter name="testLinkTestBuildId" value="59"/>
     <parameter name="testLinkTestBuildName" value="Build Keylin"/>
+    <parameter name="createPlanBuild" value="false"/>
 
     <!--Login credentials-->
     <parameter name="browser" value="Chrome"/>
