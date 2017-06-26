@@ -39,7 +39,8 @@ public class CustomListener implements ITestListener{
      */
     @Override
     public void onTestFailure(ITestResult result) {
-        testCaseManagementTestLink(result);
+        String testCaseExternalId = testCaseManagementTestLink(result);
+        new TakeScreenshot().takeScreenshot(((TestBase)result.getInstance()).getDriver(), "./src/main/resources/screenshots/".concat(testCaseExternalId).concat("_FAILED.png"), "png");
 
         printStatus(result);
     }
@@ -112,8 +113,11 @@ public class CustomListener implements ITestListener{
     /**
      * Manage test case in TestLink, this method adds the test case to the test plan and also update the execution result.
      * @param result result from test case execution
+     * @return Returns test case external id to attach to screenshot name
      */
-    private void testCaseManagementTestLink(ITestResult result){
+    private String testCaseManagementTestLink(ITestResult result){
+        String externalId = "";
+
         try {
             //Get test case id from Testlink, this is obtained from the test parameters
             Object [] methodParameters = result.getParameters();
@@ -135,22 +139,23 @@ public class CustomListener implements ITestListener{
                 addTestCaseToTestLinkPlan(testCaseId, testBase, testLinkManager, testProjectId, testPlanId);
 
             //Depending on the ITestResult variable status, set the ExecutionStatus result
-            ExecutionStatus executionStatus = ExecutionStatus.PASSED;
+            ExecutionStatus executionStatus;
 
             switch (getStatus(result.getStatus())) {
                 case RESULT_FAILED:
                     executionStatus = ExecutionStatus.FAILED;
 
                     //Take screenshot in case execution status is Failed.
-                    String testCaseExternalId = testLinkManager.getTestCaseExternalId(testCaseId);
-                    new TakeScreenshot().takeScreenshot(testBase.getDriver(), "./src/main/resources/screenshots/".concat(testCaseExternalId).concat("_FAILED.png"), "png");
-
+                    externalId = testLinkManager.getTestCaseExternalId(testCaseId);
                     break;
                 case RESULT_SKIPPED:
                     executionStatus = ExecutionStatus.NOT_RUN;
                     break;
                 case RESULT_NOT_RECOGNIZED:
                     executionStatus = ExecutionStatus.BLOCKED;
+                    break;
+                default:
+                    executionStatus = ExecutionStatus.PASSED;
                     break;
             }
 
@@ -160,6 +165,8 @@ public class CustomListener implements ITestListener{
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+
+        return externalId;
     }
 
     /**

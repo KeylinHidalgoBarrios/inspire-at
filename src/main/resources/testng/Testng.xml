@@ -2,9 +2,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Vacations" verbose="1">
+    <!--Custom Listener class-->
+    <listeners>
+        <listener class-name="com.gap.atpractice.utils.CustomListener"/>
+    </listeners>
+
     <!--TestLink Access parameters-->
     <parameter name="testLinkKey" value="80535d62d292f57003486de62441abe8"/>
     <parameter name="testLinkUrl" value="https://testlink.wearegap.com/lib/api/xmlrpc/v1/xmlrpc.php"/>
+
     <!--TestLink Test Cases parameters-->
     <parameter name="testLinkTestCasesVersion" value="1"/>
     <parameter name="testLinkTestCasePlatformId" value="1"/>
@@ -14,10 +20,12 @@
     <parameter name="testLinkTestBuildName" value="Build Keylin"/>
     <parameter name="createPlanFlag" value="true"/>
     <parameter name="createBuildFlag" value="true"/>
+
     <!--Test Plan parameters-->
     <parameter name="testPlanNotes" value="This is Keylin´s plan"/>
     <parameter name="testPlanActive" value="true"/>
     <parameter name="testPlanPublic" value="true"/>
+
     <!--Build parameters-->
     <parameter name="testLinkBuildName" value="Build Keylin"/>
     <parameter name="testLinkBuildNotes" value="Keylin´s Build"/>
@@ -26,9 +34,6 @@
     <parameter name="browser" value="Chrome"/>
     <parameter name="email" value="at_java_training@wearegap.com"/>
     <parameter name="password" value="123queso"/>
-    <listeners>
-        <listener class-name="com.gap.atpractice.utils.CustomListener"/>
-    </listeners>
 
     <test name="Employee" enabled="true">
         <!--New employee form values-->
