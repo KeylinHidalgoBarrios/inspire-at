@@ -19,44 +19,49 @@ public class AddRequestVacationTest extends TestBase {
     }
 
     @Test(groups = "employeeTests003", priority = 3)
-    @Parameters({"email", "password", "infoAddVacationDays", "vacationsCreatedMessage", "idAddVacationDays"})
-    public void addVacationDays(String email, String password, String vacationInformation, String vacationsCreatedMessage, String id){
-        String[] vacationInfo = vacationInformation.split(",");
-
+    @Parameters({"email", "password",
+            "addVacationType", "addVacationSince", "addVacationUntil", "addVacationRequestedOn", "addVacationTotalDays", "addVacationDescription",
+            "vacationsCreatedMessage", "newEmployeeId", "idAddVacationDays"})
+    public void addVacationDays(String email, String password,
+                                String type, String since, String until, String requestedOn, String totalDays, String description,
+                                String vacationsCreatedMessage, String employeeId, String testCaseId){
         //Login
         HomePage homePage = loginTestCommon.login(getDriver(), email, password);
         Assert.assertTrue(homePage.isPageLoaded(), "Home page not displayed");
 
         //Go to Employee creation page
-        EmployeeDetailsPage employeeDetailsPage = new EmployeesInfoTabPage(getDriver()).clickShowDetailsLink(vacationInfo[6]);
+        EmployeeDetailsPage employeeDetailsPage = new EmployeesInfoTabPage(getDriver()).clickShowDetailsLink(employeeId);
         Assert.assertTrue(employeeDetailsPage.isPageLoaded(), "Employee details page not displayed");
 
         AddRequestVacationPage addRequestVacationPage = employeeDetailsPage.clickAddRequestVacationLink();
         Assert.assertTrue(addRequestVacationPage.isPageLoaded(), "Add/Request Vacations page not displayed");
 
-        employeeDetailsPage = addRequestVacationPage.addVacationDays(vacationInfo);
+        employeeDetailsPage = addRequestVacationPage.addVacationDays(type, since, until, requestedOn, totalDays, description);
         Assert.assertTrue(employeeDetailsPage.isPageLoaded(), "Employee details page not displayed");
 
         Assert.assertTrue(employeeDetailsPage.isMessageDisplayed(vacationsCreatedMessage));
     }
 
     @Test(groups = "employeeTests004", priority = 4)
-    @Parameters({"email", "password", "infoDeductVacationDays", "vacationsCreatedMessage", "idDeductVacationDays"})
-    public void deductVacationDays(String email, String password, String vacationInformation, String vacationsCreatedMessage, String id){
-        String[] vacationInfo = vacationInformation.split(",");
+    @Parameters({"email", "password",
+            "deductVacationType", "deductVacationSince", "deductVacationUntil", "deductVacationRequestedOn", "deductVacationTotalDays", "deductVacationDescription",
+            "vacationsCreatedMessage", "newEmployeeId", "idDeductVacationDays"})
+    public void deductVacationDays(String email, String password,
+                                   String type, String since, String until, String requestedOn, String totalDays, String description,
+                                   String vacationsCreatedMessage, String employeeId, String testCaseId){
 
         //Login
         HomePage homePage = loginTestCommon.login(getDriver(), email, password);
         Assert.assertTrue(homePage.isPageLoaded(), "Home page not displayed");
 
         //Go to Employee creation page
-        EmployeeDetailsPage employeeDetailsPage = new EmployeesInfoTabPage(getDriver()).clickShowDetailsLink(vacationInfo[6]);
+        EmployeeDetailsPage employeeDetailsPage = new EmployeesInfoTabPage(getDriver()).clickShowDetailsLink(employeeId);
         Assert.assertTrue(employeeDetailsPage.isPageLoaded(), "Employee details page not displayed");
 
         AddRequestVacationPage addRequestVacationPage = employeeDetailsPage.clickAddRequestVacationLink();
         Assert.assertTrue(addRequestVacationPage.isPageLoaded(), "Add/Request Vacations page not displayed");
 
-        employeeDetailsPage = addRequestVacationPage.addVacationDays(vacationInfo);
+        employeeDetailsPage = addRequestVacationPage.addVacationDays(type, since, until, requestedOn, totalDays, description);
         Assert.assertTrue(employeeDetailsPage.isPageLoaded(), "Employee details page not displayed");
 
         Assert.assertTrue(employeeDetailsPage.isMessageDisplayed(vacationsCreatedMessage));

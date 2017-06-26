@@ -63,17 +63,6 @@ public class TestLinkManager extends TestLinkAPI{
     }
 
     /**
-     *From API create a new TestLink Build
-     * @param testplanId number of test plan id where Build to associate build
-     * @param buildName String build name
-     * @param buildNotes String guild notes
-     * @return new Build instance
-     */
-    public Build createTestBuild(Integer testplanId, String buildName, String buildNotes){
-        return this.createBuild(testplanId, buildName, buildNotes);
-    }
-
-    /**
      *From API add test cases to test plan
      * @param testCaseId Test case id to add to Plan
      * @param testProjectId number of test project id
@@ -109,6 +98,77 @@ public class TestLinkManager extends TestLinkAPI{
     }
 
     /**
+     * Check if test plan already exists
+     * @param projectId Project id
+     * @param planName Test Plan name
+     * @return true if test plan exists, false if it does not
+     */
+    public Boolean isTestPlanAlreadyCreated(Integer projectId, String planName){
+        Boolean created = false;
+
+        TestPlan[] testPlans = this.getProjectTestPlans(projectId);
+
+        for(TestPlan testPlan : testPlans){
+           if(testPlan.getName().equals(planName)){
+               created = true;
+           }
+        }
+
+        return created;
+    }
+
+    /**
+     * Get test plan id
+     * @param projectId Project id
+     * @param planName Test Plan name
+     * @return -1 if no existing test plan´s name equals to planName, otherwise returns test plan´s id
+     */
+    public Integer getTestPlanIdByPlanName(Integer projectId, String planName){
+        Integer id = -1;
+
+        TestPlan[] testPlans = this.getProjectTestPlans(projectId);
+
+        for(TestPlan testPlan : testPlans){
+            if(testPlan.getName().equals(planName)){
+                id = testPlan.getId();
+            }
+        }
+
+        return id;
+    }
+
+    /**
+     *From API create a new TestLink Build
+     * @param testplanId number of test plan id where Build to associate build
+     * @param buildName String build name
+     * @param buildNotes String guild notes
+     * @return new Build instance
+     */
+    public Build createTestBuild(Integer testplanId, String buildName, String buildNotes){
+        return this.createBuild(testplanId, buildName, buildNotes);
+    }
+
+    /**
+     * Get build id
+     * @param planId Test Plan id
+     * @param buildName Build name
+     * @return -1 if no existing build´s name equals to buildName, otherwise returns build´s id
+     */
+    public Integer getTestBuildIdByBuildName(Integer planId, String buildName){
+        Integer id = -1;
+
+        Build[] builds = this.getBuildsForTestPlan(planId);
+
+        for(Build build : builds){
+            if(build.getName().equals(buildName)){
+                id = build.getId();
+            }
+        }
+
+        return id;
+    }
+
+    /**
      * Validate if a test case is already added to the test plan
      * @param testPlanId Test plan to check
      * @param buildId Build id to check
@@ -122,9 +182,17 @@ public class TestLinkManager extends TestLinkAPI{
         Boolean exists = false;
 
         for (TestCase testCase : testCasesForTestPlan){
-            exists = testCase.getId().equals(testCaseId)? true:false;
+            if(testCase.getId().equals(testCaseId)){
+                exists = true;
+                break;
+            }
         }
 
         return exists;
+    }
+
+    public String getTestCaseExternalId(Integer testCaseId){
+        TestCase testCase = this.getTestCase(testCaseId, null, null);
+        return testCase.getFullExternalId();
     }
 }

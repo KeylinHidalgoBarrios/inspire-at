@@ -37,24 +37,62 @@ public class NewEmployeePage extends PageBase {
 
     /**
      * Create a new employee
-     * @param userInfo Array with user information from xml
+     * @param firstName employee first name
+     * @param lastName employee last name
+     * @param email employee email
+     * @param id employee id
+     * @param leadName employee lead name
+     * @param startWorkingYear when employee started working - year
+     * @param startWorkingMonth when employee started working - month
+     * @param startWorkingDay when employee started working - day
+     * @return EmployeeDetailsPage instance
      */
-    public EmployeeDetailsPage createNewEmployee(String[] userInfo){
+    public EmployeeDetailsPage createNewEmployee(String firstName, String lastName, String email, String id, String leadName,
+                                                 String startWorkingYear, String startWorkingMonth, String startWorkingDay){
 
         //Fill fields with info from the test
-        botStyle.type(firstNameField, userInfo[0]);
-        botStyle.type(lastNameField, userInfo[1]);
-        botStyle.type(emailField, userInfo[2]);
-        botStyle.type(identificationField, userInfo[3]);
-        botStyle.type(leaderNameField, userInfo[4]);
-        botStyle.selectListElementByValue(yearField, userInfo[5]);
-        botStyle.selectListElementByValue(monthField, userInfo[6]);
-        botStyle.selectListElementByValue(dayField, userInfo[7]);
+        typeFormFields(firstName, lastName, email, id, leadName);
+        selectListElementsByValue(startWorkingYear, startWorkingMonth, startWorkingDay);
 
-        //Click button to begin creation process
+        return clickSubmitButton();
+    }
+
+    /**
+     * Type valus in form's fields
+     * @param firstName employee first name
+     * @param lastName employee last name
+     * @param email employee email
+     * @param id employee id
+     * @param leadName employee lead name
+     */
+    private void typeFormFields(String firstName, String lastName, String email, String id, String leadName){
+        botStyle.type(firstNameField, firstName);
+        botStyle.type(lastNameField, lastName);
+        botStyle.type(emailField, email);
+        botStyle.type(identificationField, id);
+        botStyle.type(leaderNameField, leadName);
+    }
+
+    /**
+     * Select list element by value
+     * @param startWorkingYear when employee started working - year
+     * @param startWorkingMonth when employee started working - month
+     * @param startWorkingDay when employee started working - day
+     */
+    private void selectListElementsByValue(String startWorkingYear, String startWorkingMonth, String startWorkingDay){
+        botStyle.selectListElementByValue(yearField, startWorkingYear);
+        botStyle.selectListElementByValue(monthField, startWorkingMonth);
+        botStyle.selectListElementByValue(dayField, startWorkingDay);
+    }
+
+    /**
+     * Click submit button
+     * @return EmployeeDetailsPage instance
+     */
+    private EmployeeDetailsPage clickSubmitButton(){
         botStyle.click(createButton);
 
-        return PageFactory.initElements(driver, EmployeeDetailsPage.class);
+        return new EmployeeDetailsPage(driver);
     }
 
     /**

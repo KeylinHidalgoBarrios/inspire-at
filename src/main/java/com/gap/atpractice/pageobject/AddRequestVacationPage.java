@@ -35,46 +35,64 @@ public class AddRequestVacationPage extends PageBase {
 
     /**
      * Add vacation days to an employee
-     * @param information Vacation information
-     * @return ListVacationsPage instance which is the page displays after user created the vacation
+     * @param type type of vacations, in this case Gratification
+     * @param since since value
+     * @param until until values
+     * @param requestedOn requested on value
+     * @param totalDays total days value
+     * @param description vacations description
+     * @return EmployeeDetailsPage instance which is the page displays after user created the vacation
      */
-    public EmployeeDetailsPage addVacationDays(String[] information){
-        botStyle.selectListElementByValue(vacationTypeList, information[0]);
-        botStyle.typeWithoutClearing(vacationSinceField, information[1]);
-        botStyle.typeWithoutClearing(vacationUntilField, information[2]);
-        botStyle.typeWithoutClearing(vacationRequestedOnField, information[3]);
-        botStyle.typeWithoutClearing(vacationDaysField, information[4]);
-        botStyle.typeWithoutClearing(vacationDescriptionField, information[5]);
-
-        //Page title needs to be clicked in order to change focus to avoid submit button overlapping with calendar element
-        botStyle.click(pageTitle);
-        //Wait until calendar is not displayed so Submit button can be clicked
-        botStyle.waitForElementNotPresent(calendarElement, 3);
-        botStyle.click(submitButton);
-
-        return PageFactory.initElements(driver, EmployeeDetailsPage.class);
+    public EmployeeDetailsPage addVacationDays(String type, String since, String until, String requestedOn, String totalDays, String description){
+        typeFormFields(type, since, until, requestedOn, totalDays, description);
+        return clickSubmitButton();
     }
 
     /**
      * Deduct vacation days from an employee
-     * @param information Vacation deduction information
-     * @return ListVacationsPage instance which is the page displays after user created the vacation
+     * @param type type of vacations, in this case Deduction
+     * @param since since value
+     * @param until until values
+     * @param requestedOn requested on value
+     * @param totalDays total days value
+     * @param description vacations description
+     * @return EmployeeDetailsPage instance which is the page displays after user created the vacation
      */
-    public EmployeeDetailsPage deductVacationDays(String[] information){
-        botStyle.selectListElementByValue(vacationTypeList, information[0]);
-        botStyle.typeWithoutClearing(vacationSinceField, information[1]);
-        botStyle.typeWithoutClearing(vacationUntilField, information[2]);
-        botStyle.typeWithoutClearing(vacationRequestedOnField, information[3]);
-        botStyle.typeWithoutClearing(vacationDaysField, information[4]);
-        botStyle.typeWithoutClearing(vacationDescriptionField, information[5]);
+    public EmployeeDetailsPage deductVacationDays(String type, String since, String until, String requestedOn, String totalDays, String description){
+        typeFormFields(type, since, until, requestedOn, totalDays, description);
+        return clickSubmitButton();
+    }
 
+    /**
+     * Common method to type values in fields
+     * @param type type of vacations, in this case Deduction
+     * @param since since value
+     * @param until until values
+     * @param requestedOn requested on value
+     * @param totalDays total days value
+     * @param description vacations description
+     */
+    private void typeFormFields(String type, String since, String until, String requestedOn, String totalDays, String description){
+        botStyle.selectListElementByValue(vacationTypeList, type);
+        botStyle.typeWithoutClearing(vacationSinceField, since);
+        botStyle.typeWithoutClearing(vacationUntilField, until);
+        botStyle.typeWithoutClearing(vacationRequestedOnField, requestedOn);
+        botStyle.typeWithoutClearing(vacationDaysField, totalDays);
+        botStyle.typeWithoutClearing(vacationDescriptionField, description);
+    }
+
+    /**
+     * Remove page focus from calendar and then click submit button
+     * @return EmployeeDetailsPage instance
+     */
+    private EmployeeDetailsPage clickSubmitButton(){
         //Page title needs to be clicked in order to change focus to avoid submit button overlapping with calendar element
         botStyle.click(pageTitle);
         //Wait until calendar is not displayed so Submit button can be clicked
         botStyle.waitForElementNotPresent(calendarElement, 3);
         botStyle.click(submitButton);
 
-        return PageFactory.initElements(driver, EmployeeDetailsPage.class);
+        return new EmployeeDetailsPage(driver);
     }
 
     /**

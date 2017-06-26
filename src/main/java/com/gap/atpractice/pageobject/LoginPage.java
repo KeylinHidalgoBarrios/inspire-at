@@ -31,25 +31,11 @@ public class LoginPage extends PageBase {
     }
 
     /**
-     * Method to login with valid credentials
-     * @param email user email to login
-     * @param password password to login
-     * @return return HomePage which is the page where user is redirected after successful login
-     */
-    public HomePage loginValidCredentials (String email, String password){
-
-        insertCredentials(email, password);
-        submitInformation();
-
-        return new HomePage(driver);
-    }
-
-    /**
      * Fill email and password fields with values
      * @param email user email to login
      * @param password user password to login
      */
-    private void insertCredentials(String email, String password){
+    public void insertCredentials(String email, String password){
         botStyle.type(this.userName, email);
         botStyle.type(this.password, password);
     }
@@ -57,8 +43,10 @@ public class LoginPage extends PageBase {
     /**
      * Submit login information
      */
-    private void submitInformation(){
+    public HomePage submitInformation(){
         botStyle.click(loginButton);
+
+        return new HomePage(driver);
     }
 
     /**

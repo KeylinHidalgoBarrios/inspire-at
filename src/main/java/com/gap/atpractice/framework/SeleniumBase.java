@@ -78,6 +78,7 @@ public class SeleniumBase {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("acceptSslCerts", true);
         capabilities.setCapability("applicationCacheEnabled", true);
+        capabilities.setCapability("marionette", false);
 
         this.driver = new FirefoxDriver(capabilities);
     }

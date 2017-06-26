@@ -19,8 +19,12 @@ public class NewEmployeeTest extends TestBase {
     }
 
     @Test(groups = "employeeTests001", priority = 1)
-    @Parameters({"email", "password", "credsNewEmployeeCreation", "idCreateNewEmployee"})
-    public void createNewEmployee(String email, String password, String credentials, String id){
+    @Parameters({"email", "password",
+            "newEmployeeFirstName", "newEmployeeLastName", "newEmployeeEmail", "newEmployeeId", "newEmployeeLeadName",
+            "newEmployeeStartWorkingYear", "newEmployeeStartWorkingMonth", "newEmployeeStartWorkingDay", "idCreateNewEmployee"})
+    public void createNewEmployee(String email, String password, String newEmployeeFirstName, String newEmployeeLastName, String newEmployeeEmail,
+                                  String newEmployeeId, String newEmployeeLeadName, String startWorkingYear, String startWorkingMonth, String startWorkingDay,
+                                  String testCaseId){
         //Login
         HomePage homePage = loginTestCommon.login(getDriver(), email, password);
         Assert.assertTrue(homePage.isPageLoaded(), "Home page not displayed");
@@ -30,8 +34,8 @@ public class NewEmployeeTest extends TestBase {
         Assert.assertTrue(newEmployeePage.isPageLoaded(), "New Employee page not displayed");
 
         //Create the user
-        String[] userInfo = credentials.split(",");
-        EmployeeDetailsPage employeeDetailsPage = newEmployeePage.createNewEmployee(userInfo);
+        EmployeeDetailsPage employeeDetailsPage = newEmployeePage.createNewEmployee(newEmployeeFirstName, newEmployeeLastName, newEmployeeEmail,
+                newEmployeeId, newEmployeeLeadName, startWorkingYear, startWorkingMonth, startWorkingDay);
         Assert.assertTrue(employeeDetailsPage.isPageLoaded(), "Employee details page not displayed");
 
         //Go to users list
@@ -39,7 +43,7 @@ public class NewEmployeeTest extends TestBase {
         Assert.assertTrue(employeesInfoTabPage.isPageLoaded(), "Employee Information tab not displayed");
 
         //Validate if new created user displays
-        boolean userExists = employeesInfoTabPage.userExists(userInfo[3]);
+        boolean userExists = employeesInfoTabPage.userExists(newEmployeeId);
         Assert.assertTrue(userExists, "User not created");
     }
 }

@@ -24,7 +24,7 @@ public class EmployeeInfoTabTest extends TestBase {
      * @param password password to login
      */
     @Test(groups = "employeeTests002", priority = 2)
-    @Parameters({"email", "password", "identificationNewEmployee", "idClickEmployeeDetails"})
+    @Parameters({"email", "password", "newEmployeeId", "idClickEmployeeDetails"})
     public void clickEmployeeDetails(String email, String password, String identification, String id){
         HomePage homePage = loginTestCommon.login(getDriver(), email, password);
         Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");
@@ -40,7 +40,7 @@ public class EmployeeInfoTabTest extends TestBase {
      * @param identification id of the employee to be deleted
      */
     @Test(groups = "employeeTests009", priority = 9)
-    @Parameters({"email", "password", "identificationNewEmployee", "idDeleteEmployee"})
+    @Parameters({"email", "password", "newEmployeeId", "idDeleteEmployee"})
     public void deleteEmployee(String email, String password, String identification, String id){
         HomePage homePage = loginTestCommon.login(getDriver(), email, password);
         Assert.assertTrue(homePage.isPageLoaded(), "Home page cannot be displayed");

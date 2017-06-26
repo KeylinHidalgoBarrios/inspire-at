@@ -16,6 +16,7 @@ public class CustomListener implements ITestListener{
     private final String RESULT_PASSED = "PASSED";
     private final String RESULT_FAILED = "FAILED";
     private final String RESULT_SKIPPED = "SKIPPED";
+    private final String RESULT_NOT_RECOGNIZED = "RESULT CODE NOT RECOGNIZED";
 
     @Override
     public void onTestStart(ITestResult result) {
@@ -40,9 +41,7 @@ public class CustomListener implements ITestListener{
     public void onTestFailure(ITestResult result) {
         testCaseManagementTestLink(result);
 
-        new TakeScreenshot().takeScreenshot(((TestBase)result.getInstance()).getDriver(), "./src/main/resources/screenshots/".concat(result.getName()).concat("FAILED.png"), "png");
         printStatus(result);
-        System.out.println(result.toString());
     }
 
     /**
@@ -98,7 +97,6 @@ public class CustomListener implements ITestListener{
      * @return status name
      */
     private String getStatus(int status){
-        String result;
         switch (status){
             case ITestResult.SUCCESS:
                 return RESULT_PASSED;
@@ -107,7 +105,7 @@ public class CustomListener implements ITestListener{
             case ITestResult.SKIP:
                 return RESULT_SKIPPED;
             default:
-                return "RESULT CODE NOT RECOGNIZED";
+                return RESULT_NOT_RECOGNIZED;
         }
     }
 
@@ -127,27 +125,37 @@ public class CustomListener implements ITestListener{
             //TestLinkManager class to call all the test link methods
             TestLinkManager testLinkManager = new TestLinkManager(testBase.getTestLinkUrl(), testBase.getTestLinkKey());
 
+            //Get ids
             Integer testProjectId = testLinkManager.getTestProjectByName(testBase.getTestLinkProjectName()).getId();
             Integer testPlanId = testLinkManager.getTestPlanByName(testBase.getTestLinkPlanName(), testBase.getTestLinkProjectName()).getId();
+            Integer buildId = testLinkManager.getTestBuildIdByBuildName(testPlanId, testBase.getTestLinkBuildName());
 
             //Adding all test cases to test link Plan
-            if(!testLinkManager.isTestCaseAddedToTestPlan(testPlanId, testBase.getTestLinkTestBuildId(), testCaseId))
+            if (!testLinkManager.isTestCaseAddedToTestPlan(testPlanId, buildId, testCaseId))
                 addTestCaseToTestLinkPlan(testCaseId, testBase, testLinkManager, testProjectId, testPlanId);
 
             //Depending on the ITestResult variable status, set the ExecutionStatus result
             ExecutionStatus executionStatus = ExecutionStatus.PASSED;
 
-            switch (getStatus(result.getStatus())){
+            switch (getStatus(result.getStatus())) {
                 case RESULT_FAILED:
                     executionStatus = ExecutionStatus.FAILED;
+
+                    //Take screenshot in case execution status is Failed.
+                    String testCaseExternalId = testLinkManager.getTestCaseExternalId(testCaseId);
+                    new TakeScreenshot().takeScreenshot(testBase.getDriver(), "./src/main/resources/screenshots/".concat(testCaseExternalId).concat("_FAILED.png"), "png");
+
                     break;
                 case RESULT_SKIPPED:
                     executionStatus = ExecutionStatus.NOT_RUN;
                     break;
+                case RESULT_NOT_RECOGNIZED:
+                    executionStatus = ExecutionStatus.BLOCKED;
+                    break;
             }
 
             //Update the test run with the needed status
-            updateTestRunStatus(testCaseId, testBase, testLinkManager, executionStatus, testPlanId);
+            updateTestRunStatus(testCaseId, testLinkManager, executionStatus, testPlanId, buildId);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -171,15 +179,15 @@ public class CustomListener implements ITestListener{
     /**
      * Update test runs from a plan to set execution as Passed, Failed, Not Run
      * @param testCaseId Test case id
-     * @param testBase TestBase class instance obtaind from ITestResult
      * @param testLinkManager TestLinkManager class instance
      * @param status Execution Status predefined code depending on the execution status
      * @param testPlanId test plan id
+     * @param buildId build id
      */
-    private void updateTestRunStatus(Integer testCaseId, TestBase testBase, TestLinkManager testLinkManager,
-                                     ExecutionStatus status, Integer testPlanId){
+    private void updateTestRunStatus(Integer testCaseId, TestLinkManager testLinkManager,
+                                     ExecutionStatus status, Integer testPlanId, Integer buildId){
         testLinkManager.updateTestRunsStatus(testCaseId, null, testPlanId,
-                status, testBase.getTestLinkTestBuildId(), null, "Key test run notes", true, null, null, null,
+                status, buildId, null, "Key test run notes", true, null, null, null,
                 null, true);
     }
 }

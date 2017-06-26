@@ -20,8 +20,11 @@ public class LoginTestCommon {
      */
     public HomePage login(WebDriver driver, String email, String password){
         loginPage = (LoginPage) new LoginPage(driver).get();
+
         Assert.assertTrue(loginPage.isPageLoaded("Vacations Management Site - Growth Acceleration Partners"), "Login page cannot be displayed");
 
-        return loginPage.loginValidCredentials(email, password);
+        loginPage.insertCredentials(email, password);
+
+        return loginPage.submitInformation();
     }
 }
